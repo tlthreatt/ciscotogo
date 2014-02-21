@@ -36,18 +36,18 @@ public class HomeController{
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
 		
-		String request_xml = readTextFile(XML_FILE_LOCATION);
+		//String request_xml = readTextFile(XML_FILE_LOCATION);
 		
 		//System.out.println(request_xml);
 		
-		list.add(new BasicNameValuePair("xml", ""));
+		//list.add(new BasicNameValuePair("xml", ""));
 		//System.out.println(list.get(0).getValue());
 		
-		System.out.println("The order request : \n" + httpPostResponse("http://txpfdbappdev002:7001/WebexPFProxyWS/CatalogTransactionService", list));
+		//System.out.println("The order request : \n" + httpPostResponse("http://txpfdbappdev002:7001/WebexPFProxyWS/CatalogTransactionService", list));
 		return "orderToGo";
 	}
 	
-	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET)
+	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
 	public @ResponseBody ArrayList<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
 		ArrayList<Location> locations = new ArrayList<Location>();
 		ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
@@ -92,7 +92,7 @@ public class HomeController{
 		return locations;
 	}
 	
-	@RequestMapping(value="/processOrder", method = RequestMethod.GET)
+	@RequestMapping(value="/processOrder", method = RequestMethod.GET, produces = "application/json")
 	public String processOrder(HttpServletRequest request, HttpServletResponse response){
 		return "processOrder";
 	}
