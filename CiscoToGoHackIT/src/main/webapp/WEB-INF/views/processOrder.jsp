@@ -33,7 +33,7 @@
 <div class="psdg-top-cell">Customer Name</div>
 <div class="psdg-top-cell">CEC</div>
 <div class="psdg-top-cell">Building Name</div>
-<div class="psdg-top-cell">Menu Ordered</div>
+<div class="psdg-top-cell">Menu Item</div>
 <div class="psdg-top-cell">Price</div>
 <div class="psdg-top-cell">Status</div>
 <div class="psdg-top-cell" style="border:none;">Text Box</div>
@@ -44,13 +44,13 @@
 
 
 
-<div class="psdg-left">1</div>
-<div class="psdg-right">Eric Yaklin</div>
-<div class="psdg-right">eyaklin</div>
-<div class="psdg-right">Building J</div>
-<div class="psdg-right">Chicken Sandwich</div>
-<div class="psdg-right">$5.95</div>
-<div class="psdg-right"><button type='button' class='readyButton'>Pending</button></div>
+<div id="orderId" class="psdg-left"></div>
+<div id="fullName" class="psdg-right"></div>
+<div id="cec" class="psdg-right"></div>
+<div id="buildingID"class="psdg-right"></div>
+<div id="menuItem" class="psdg-right"></div>
+<div id="price" class="psdg-right"></div>
+<div class="psdg-right"><button id='status' type='button' class='readyButton'></button></div>
 <div class="psdg-right"><input class='completeBox tb5' type='text' size='10'/></div>
 
 

@@ -42,8 +42,8 @@ public class HomeController{
 		
 		//list.add(new BasicNameValuePair("xml", ""));
 		//System.out.println(list.get(0).getValue());
-		
-		System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"/1"));
+		System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"/1/tthreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
+		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"/1"));
 		return "orderToGo";
 	}
 	
@@ -51,7 +51,7 @@ public class HomeController{
 	public @ResponseBody OrderList getOrderDetails(HttpServletRequest request, HttpServletResponse response){
 		OrderList allOrders = new OrderList();
 		ArrayList<Order> orders = new ArrayList<Order>();
-		MenuItem item = new MenuItem("Chicken Sandwich", "$4.95", "A chicken sandwich");
+		MenuItem item = new MenuItem("ChickenSandwich", "$4.95", "A chicken sandwich");
 		MenuItem item2 = new MenuItem("Sprite", "$1.50", "Sprite");
 		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
 		menuItems.add(item); menuItems.add(item2);
@@ -118,6 +118,11 @@ public class HomeController{
 	@RequestMapping(value="/processOrder", method = RequestMethod.GET, produces = "application/json")
 	public String processOrder(HttpServletRequest request, HttpServletResponse response){
 		return "processOrder";
+	}
+	
+	@RequestMapping(value="/getOrderTable", method = RequestMethod.POST)
+	public @ResponseBody String getOrderTable(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		return httpGetResponse(CLAYTONS_REST_THINGY_URL+"/1");
 	}
 		
 	private String httpPostResponse(String url, List<NameValuePair> list) throws Exception{

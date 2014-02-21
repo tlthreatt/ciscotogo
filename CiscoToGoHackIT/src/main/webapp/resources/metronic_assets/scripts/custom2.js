@@ -1,6 +1,24 @@
 //Bind keypress event to textbox
 
 $(document).ready(function(){
+	
+	
+	$.ajax({
+		type: "POST",
+		url: "getOrderTable/",
+		success: function(response){
+			var obj = $.parseJSON(response);
+			console.log(obj);
+			$('#orderId').html(obj.orderId);
+			$('#fullName').html(obj.userCEC);
+			$('#cec').html(obj.userCEC);
+			$('#buildingID').html(obj.buildingID);
+			$('#menuItem').html(obj.itemID);
+			$('#price').html(obj.ammount);
+			$('#status').html(obj.status);
+		}
+		
+	});
 	//$('.completeBox').prop('disabled',true);
 	$('.completeBox').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -17,8 +35,6 @@ $(document).ready(function(){
 		$(this).prop('disabled',true);
 		$(this).html('Ready');
 		
-		//console.log(completeBox.attr('disabled'));
-		console.log($(this).closest('.completeBox'));
-		$(this).closest('.completeBox').prop('disabled',false);
+		
 	});
 });
