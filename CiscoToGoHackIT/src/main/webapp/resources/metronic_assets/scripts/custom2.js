@@ -1,13 +1,13 @@
 //Bind keypress event to textbox
 
 $(document).ready(function(){
-	
+	var obj;
 	
 	$.ajax({
 		type: "POST",
 		url: "getOrderTable/",
 		success: function(response){
-			var obj = $.parseJSON(response);
+			obj = $.parseJSON(response);
 			console.log(obj);
 			$('#orderId').html(obj.orderId);
 			$('#fullName').html(obj.userCEC);
@@ -35,6 +35,17 @@ $(document).ready(function(){
 		$(this).prop('disabled',true);
 		$(this).html('Ready');
 		
-		
+		var dat =  "req="+obj.orderId+"/"+obj.userCEC+"/"+obj.itemID+"/"+obj.buildingID+"/"+obj.ammount+"/Ready";
+		dat=dat.replace(/\s/g,"%20");
+		console.log(dat);
+		$.ajax({
+			type: "POST",
+			url: "orderReady/",
+			data:dat,
+			success: function(){
+				
+			}
+			
+		})
 	});
 });

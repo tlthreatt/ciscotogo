@@ -34,7 +34,7 @@ import com.cisco.ciscotogo.model.User;
 @Controller
 public class HomeController{
 	
-	private final String CLAYTONS_REST_THINGY_URL = "http://10.155.252.176:10080/HackItOrderMgmtRestProejct/rest/order";
+	private final String CLAYTONS_REST_THINGY_URL = "http://10.155.252.176:10080/HackItOrderMgmtRestProejct/rest/order/";
 
 	@RequestMapping(value = "/orderToGo", method = RequestMethod.GET)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -42,8 +42,8 @@ public class HomeController{
 		
 		//list.add(new BasicNameValuePair("xml", ""));
 		//System.out.println(list.get(0).getValue());
-		System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"/1/tthreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
-		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"/1"));
+		System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"1/tthreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
+		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"1"));
 		return "orderToGo";
 	}
 	
@@ -122,7 +122,15 @@ public class HomeController{
 	
 	@RequestMapping(value="/getOrderTable", method = RequestMethod.POST)
 	public @ResponseBody String getOrderTable(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return httpGetResponse(CLAYTONS_REST_THINGY_URL+"/1");
+		return httpGetResponse(CLAYTONS_REST_THINGY_URL+"1");
+	}
+	
+	@RequestMapping(value="/orderReady", method = RequestMethod.POST)
+	public @ResponseBody String orderReady(String req) throws Exception{
+		System.out.println(req);
+		req=req.replaceAll(" ", "%20");
+		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
+		return "success";
 	}
 		
 	private String httpPostResponse(String url, List<NameValuePair> list) throws Exception{
