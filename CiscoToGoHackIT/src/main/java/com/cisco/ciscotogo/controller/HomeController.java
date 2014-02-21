@@ -29,6 +29,7 @@ import com.cisco.ciscotogo.model.MenuCategory;
 import com.cisco.ciscotogo.model.MenuItem;
 import com.cisco.ciscotogo.model.Order;
 import com.cisco.ciscotogo.model.OrderList;
+import com.cisco.ciscotogo.model.SendMailTLS;
 import com.cisco.ciscotogo.model.User;
 
 @Controller
@@ -42,7 +43,7 @@ public class HomeController{
 		
 		//list.add(new BasicNameValuePair("xml", ""));
 		//System.out.println(list.get(0).getValue());
-		System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"1/tthreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
+		//System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"1/tathreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
 		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"1"));
 		return "orderToGo";
 	}
@@ -130,9 +131,29 @@ public class HomeController{
 		System.out.println(req);
 		req=req.replaceAll(" ", "%20");
 		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
+		SendMailTLS mailer = new SendMailTLS();
+		mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
+		return "success";
+	}
+	
+	@RequestMapping(value="/orderComplete", method = RequestMethod.POST)
+	public @ResponseBody String orderComplete(String req) throws Exception{
+		System.out.println(req);
+		req=req.replaceAll(" ", "%20");
+		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
 		return "success";
 	}
 		
+	@RequestMapping(value="/createOrder", method = RequestMethod.POST)
+	public @ResponseBody String createOrder(String req) throws Exception{
+		System.out.println(req);
+		req=req.replaceAll(" ", "%20");
+		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
+		SendMailTLS mailer = new SendMailTLS();
+		mailer.sendEmail("Taylor", "tathreat@cisco.com", 2);
+		return "success";
+	}
+	
 	private String httpPostResponse(String url, List<NameValuePair> list) throws Exception{
 		HttpClient client = new DefaultHttpClient();
 		HttpPost request = new HttpPost(url);

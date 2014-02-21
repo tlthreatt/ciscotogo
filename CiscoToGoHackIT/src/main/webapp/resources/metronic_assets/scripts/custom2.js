@@ -23,6 +23,19 @@ $(document).ready(function(){
 	$('.completeBox').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if(keycode == '13'){
+			var dat =  "req="+obj.orderId+"/"+obj.userCEC+"/"+obj.itemID+"/"+obj.buildingID+"/"+obj.ammount+"/Complete";
+			dat=dat.replace(/\s/g,"%20");
+			console.log(dat);
+			$.ajax({
+				type: "POST",
+				url: "orderComplete/",
+				data:dat,
+				success: function(){
+					
+				}
+				
+			});
+			
 			alert('The order is complete');	
 		}
 		//Stop the event from propogation to other handlers
@@ -46,6 +59,6 @@ $(document).ready(function(){
 				
 			}
 			
-		})
+		});
 	});
 });

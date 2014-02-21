@@ -44,6 +44,20 @@ var Custom = function () {
 				'<h5 style="padding-bottom:20px;"> Order #' + order.orderID + ': ' + order.status + '</h5>'
 			);
 		});
+		var obj;
+		$.ajax({
+			type: "POST",
+			url: "getOrderTable/",
+			success: function(response){
+				obj = $.parseJSON(response);
+				$('#orderTileContents').append(
+					'<h5 style="padding-bottom:20px;" id="dbOrder"> Order #' + obj.orderId + ': ' + obj.status + '</h5>'
+				);
+			}
+		});
+		
+		
+		
 	}
 	
 	function fillBuildingTiles(locationList){
@@ -196,7 +210,18 @@ var Custom = function () {
 	            		$('input:radio:checked').each(function(){
 	            			isChecked = true;
 	            			console.log($(this).val());
-	            			alert('Chose ' + $(this).val());
+	            			dat = "req=1/tathreat/"+ $(this).val()+"/"+foodResults[0].locations[index].buildingName+"/6/Pending";
+	            			$.ajax({
+	            				type: "POST",
+	            				url: "createOrder/",
+	            				data: dat,
+	            				success:function(){
+	            					alert('Order Created');
+	            					$('#dbOrder').html('Order #1: Pending');
+	            					$('#foodInfoTileContents').empty();
+	            				}
+	            			});
+	            			
 	            		})
 	            		if(!isChecked){
 	            			alert('Did not choose a meal!');

@@ -45,7 +45,7 @@ public class SendMailTLS {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(email));
 			message.setSubject("Cisco TOGO!");
-			message.setText("Dear" + name +","
+			message.setText("Dear " + name +","
 				+ messageText);
  
 			Transport.send(message);
