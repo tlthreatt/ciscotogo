@@ -43,8 +43,13 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET)
-	public @ResponseBody String getUnbilledEvents(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody String getFoodDetails(HttpServletRequest request, HttpServletResponse response){
 		return "success";
+	}
+	
+	@RequestMapping(value="/processOrder", method = RequestMethod.GET)
+	public String processOrder(HttpServletRequest request, HttpServletResponse response){
+		return "processOrder";
 	}
 	
 	private String httpPostResponse(String url, List<NameValuePair> list) throws Exception{
