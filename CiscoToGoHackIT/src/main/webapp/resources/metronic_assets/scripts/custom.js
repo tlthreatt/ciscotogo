@@ -6,20 +6,20 @@ var Custom = function () {
 	//gets the contact info for the contact info file
 	
 	function createOrderForm(name, categories){
-		$('#foodInfoTileContents').append('<div style="float:left; width:150px;"><h5>Choose a Meal</h5><h5>From '+ name + '</div>');
+		$('#foodInfoTileContents').append('<div style="float:left; width:300px;"><h1 style="line-height:60px">Choose a Meal</h1><h1 style="line-height:60px">From '+ name + '</h1></div>');
 		$('#foodInfoTileContents').append('<div id="mealRadioButtons" style="float:left; width:200px;"></div>');
 		
 		categories.forEach(function(c){
-			$('#mealRadioButtons').append('<h5>' + c.name + '</h5>');
+			$('#mealRadioButtons').append('<h3 style="line-height:50px">' + c.name + '</h3>');
 			console.log(c.menuItems);
 			c.menuItems.forEach(function(m){
-				$('#mealRadioButtons').append('<input type="radio" name="item" value = "'+m.itemID + '">' +m.itemID + '<br>');
+				$('#mealRadioButtons').append('<input type="radio" name="item" value = "'+m.itemID + '"><label style="font-size:20px">' +m.itemID + '</label><br>');
 			});
 		});
 		$('#foodInfoTileContents').append(
 				'<div style="float:left;">'+
-					'<button id="confirmButton" type="button" style="color:#000">Confirm</button>'+
-					'<button id="cancelButton" type="button" style="color:#000">Cancel</button>'+
+					'<button id="confirmButton" type="button" style="color:#000; width:100px">Confirm</button>'+
+					'<button id="cancelButton" type="button" style="color:#000; width:100px">Cancel</button>'+
 				'</div>');
 		
 	}

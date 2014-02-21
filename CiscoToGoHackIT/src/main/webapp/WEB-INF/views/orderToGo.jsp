@@ -299,7 +299,7 @@
 				<div id="framework-content-titles">
 					<!--googleon: index-->
 					<!--googleon: snippet-->
-					<h1 class="title-section">Account Overview</h1>
+					<h1 class="title-section">Cisco TOGO</h1>
 					<!--googleoff: index-->
 					<!--googleoff: snippet-->
 				</div>
@@ -368,6 +368,16 @@
 												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='pageLoadImage' alt='Loading...'>										
 												<div id="foodInfoTile" class="tile double bg-blue">
 													<div id="foodInfoTileContents" class="tile-body" bg-blue>
+														<h1>HEALTH NEWS!</h1>
+														<br>
+														<br>
+														<h3>This just in! Studies show that BROCOLI IS BAD FOR YOU.</h3>
+														<br>
+														<h3>Eat Healthy! Grab a Snickers.</h3>
+														<br>
+														<h3>Studies show that spinach makes you DUMB.</h3>
+														<br>
+														<h3>HEALTH NEWS! is brought to you by HOSTESS (trademark copyright blah blah blah)</h3>
 													</div>
 												</div>
 											</div>
