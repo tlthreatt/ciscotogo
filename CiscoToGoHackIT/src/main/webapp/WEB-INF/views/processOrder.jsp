@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+< 		<script type="text/javascript" src="/ciscotogo/resources/metronic_assets/scripts/custom2.js"></script>
 	</head>
 	<body>
 		<h1>Current Orders</h1>
-		<table>
+		<table id="ordersTable">
 			<tr>
 				<th>Order ID</th>
 				<th>CEC</th>
@@ -13,40 +14,19 @@
 				<th>Building ID</th>
 				<th>Amount</th>
 				<th>Status</th>
+				<th>Scan Item Here</th>
 			</tr>
 			<tr>
-				<td>1</td>
+				<td class="orderID">1</td>
 				<td>eyaklin</td>
 				<td>1</td>
 				<td>1</td>
 				<td>6.95</td>
-				<td></td>
+				<td><button type="button">Ready?</button></td>
+				<td><input id="someTextBox" type="text" size="40" /></td>
 			</tr>
 		</table>
-		
-		
-		<label>TextBox Area: </label>
-		<input id="someTextBox" type="text" size="40" />
-		<script type="text/javascript">
-			//Bind keypress event to textbox
-			$('#someTextBox').keypress(function(event){
-				var keycode = (event.keyCode ? event.keyCode : event.which);
-				if(keycode == '13'){
-					alert('You pressed a "enter" key in textbox');	
-				}
-				//Stop the event from propogation to other handlers
-				//If this line will be removed, then keypress event handler attached 
-				//at document level will also be triggered
-				event.stopPropagation();
-			});
-			
-			//Bind keypress event to document
-			$(document).keypress(function(event){
-				var keycode = (event.keyCode ? event.keyCode : event.which);
-				if(keycode == '13'){
-					alert('The order is complete');	
-				}
-			});
-		</script>
+
+
 	</body>
 </html>
