@@ -123,17 +123,12 @@
 <script src="/ciscotogo/resources/metronic_assets/scripts/custom.js"></script>
 <script>
 	jQuery(document).ready(function() {
-		// initiate layout and plugins
-		var invoiceInfo = {};
-		var accountSKUInfo = {};
-		var pastSKUUsageInfo = {};
-		
+		// initiate layout and plugins		
 		App.init();
        
 		// define event handlers
 		Custom.init();
 		
-		//Get info for the customer's current draft invoice
 		Custom.getFoodData();
 		
 		
@@ -354,9 +349,10 @@
 												<div class="tiles">
 													<div id="contactTile" class="tile bg-green inlineTileDivs">
 														<div class="tile-body">
-															<div id="billToIDDiv"></div>
-															<div id="mainContactDiv"></div>
-															<div id="addressDiv"></div>
+														</div>
+													</div>
+													<div id="orderTile" class="tile bg-purple inlineTileDivs">
+														<div class="tile-body">
 														</div>
 													</div>
 													<div class="planTiles inlineTileDivs">
@@ -369,8 +365,8 @@
 											<!-- END TOP 4 TILES -->
 											<!-- BEGIN BIG BLUE TILE -->
 											<div class="row">
-												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='invoiceLoadImage' alt='Loading...'>										
-												<div id="invoiceSummaryTile" class="tile double bg-blue">
+												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='pageLoadImage' alt='Loading...'>										
+												<div id="foodInfoTile" class="tile double bg-blue">
 													<div class="tile-body" bg-blue>
 													</div>
 												</div>

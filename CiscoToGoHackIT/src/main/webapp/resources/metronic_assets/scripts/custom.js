@@ -9,9 +9,10 @@ var Custom = function () {
 	
 	//gets the contact info for the contact info file
 	
-	function fillBuildingTiles(){
-		var index,tileColor;
-		for(index = 0; index < 4; index++){
+	function fillBuildingTiles(locationList){
+		var tileColor;
+		locationList.forEach(function(location,index){
+			var tileColor;
 			switch(index % 4){
 			case 0:
 				tileColor = "bg-dark";
@@ -32,7 +33,7 @@ var Custom = function () {
 						'<div class="tileCard">'+
 							'<div class="tile '+ tileColor +' frontFlip faceFlip">' +
 								'<div id="testTile" class="tile-body">'+
-									'<h4>Building __</h4>'+
+									'<h4>'+location.buildingName+'</h4>'+
 									'<div class="tile-object">'+
 										'<div class="infoFlip">'+
 											'<i class="fa fa-info-circle clickFlip"></i>'+
@@ -46,6 +47,9 @@ var Custom = function () {
 								'<div class="tile-body">'+
 									'<div class="closeFlip">'+
 										'<i class="fa fa-times clickFlip"></i>'+
+									'</div>'+
+									'<div>'+
+										'<p>'+location.buildingAddress+'</p>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+
@@ -67,7 +71,7 @@ var Custom = function () {
 				tileObject.find('.tile-body').fadeIn();
 				tileObject.find('.tile-object').fadeIn();        				
 			});
-		}
+		});
 	}
 	
 	
@@ -91,28 +95,28 @@ var Custom = function () {
         		}
         	};
         	
-        	$('#invoiceLoadImage').fadeIn();
+        	$('#pageLoadImage').fadeIn();
         	$.when(FoodDetails.getFoodDetails())
         	.then(function(foodResults) {
         		
         		console.log(foodResults);
         		
-    			$("#invoiceLoadImage").fadeOut();    			
+    			$("#pageLoadImage").fadeOut();    			
     			$('.title-section').fadeIn();
 
     			//populate contact tile
     			$('#contactTile').fadeIn();
     			
     			//populate big blue tile
-    			$('#invoiceSummaryTile').fadeIn(); 
+    			$('#foodInfoTile').fadeIn(); 
     			
     			//populate top tiles
-    			fillBuildingTiles();
+    			fillBuildingTiles(foodResults.locations);
     			//initialize bxslider
 				$('.bxslider').show();
 	            $('.bxslider').bxSlider({
 	                minSlides: 1,
-	                maxSlides: 3,
+	                maxSlides: 2,
 	                slideWidth: 227,
 	                slideMargin: 10,
 	                moveSlides: 1,

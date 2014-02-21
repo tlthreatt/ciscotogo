@@ -44,7 +44,7 @@ p.field-button {
 /* END TOP TILES ROW */
 
 /* BEGIN BIG BLUE INVOICE TILE */
-#invoiceSummaryTile {
+#foodInfoTile {
 	height: 290px !important;
 	width: 100% !important;
 }
