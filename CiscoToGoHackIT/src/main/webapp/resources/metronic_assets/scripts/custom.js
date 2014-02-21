@@ -1,17 +1,13 @@
 /**
 Custom module for you to write your own javascript functions
 **/
-
-var disputedItems = [];
-
-
 var Custom = function () {
 	
 	//gets the contact info for the contact info file
 	
 	function fillUserTile(user){
 		$('#contactTileContents').append(
-				'<h1 style="padding-bottom:20px;">Hi, ' + user.firstName + '</h4>'+
+				'<h1 style="padding-bottom:20px;">Hi, ' + user.firstName + '</h1>'+
 				'<h4 style="padding-bottom:20px;"> Favorite Food: ' + user.favFood + '</h4>'+
 				'<h4 style="padding-bottom:20px;"> Favorite Location: ' + user.favLocation + '</h4>'+
 				'<h4> Balance: ' + user.balance + '</h4>'		
@@ -19,8 +15,16 @@ var Custom = function () {
 		
 	}
 	
-	function fillOrderTile(){
-		
+	function fillOrderTile(orders){
+		$('#orderTileContents').append(
+			'<h1 style="padding-bottom:20px;"> Orders </h1>'
+		);
+		orders.forEach(function(order){
+			console.log(order);
+			$('#orderTileContents').append(
+				'<h5 style="padding-bottom:20px;"> Order #' + order.orderID + ': ' + order.status + '</h5>'
+			);
+		});
 	}
 	
 	function fillBuildingTiles(locationList){
@@ -136,7 +140,7 @@ var Custom = function () {
     			
     			fillUserTile(orderResults[0].orders[0].user);
     			
-    			fillOrderTile();
+    			fillOrderTile(orderResults[0].orders);
     			
     			
     			//populate top tiles
