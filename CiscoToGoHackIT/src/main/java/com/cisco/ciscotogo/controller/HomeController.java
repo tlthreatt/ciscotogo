@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cisco.ciscotogo.model.DailyMenu;
 import com.cisco.ciscotogo.model.Location;
+import com.cisco.ciscotogo.model.LocationList;
 import com.cisco.ciscotogo.model.MenuCategory;
 import com.cisco.ciscotogo.model.MenuItem;
 
@@ -48,7 +49,8 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
-	public @ResponseBody ArrayList<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody LocationList getFoodDetails(HttpServletRequest request, HttpServletResponse response){
+		LocationList allLocations = new LocationList();
 		ArrayList<Location> locations = new ArrayList<Location>();
 		ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
 		ArrayList<MenuItem> menuItemsJ = new ArrayList<MenuItem>();
@@ -89,7 +91,8 @@ public class HomeController{
 		
 		locations.add(bldgJ);
 		locations.add(bldgFLSC2);
-		return locations;
+		allLocations.setLocations(locations);
+		return allLocations;
 	}
 	
 	@RequestMapping(value="/processOrder", method = RequestMethod.GET, produces = "application/json")
