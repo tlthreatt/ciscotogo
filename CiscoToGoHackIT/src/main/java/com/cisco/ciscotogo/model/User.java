@@ -4,14 +4,14 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String cec;
-	private Long employeeID;
+	private int employeeID;
 	private String location;
-	private Float balance;
+	private double balance;
 	private String favLocation;
-	private MenuItem favFood;
+	private String favFood;
 	
-	public User(String firstName, String lastName, String cec, Long employeeID,
-			String location, Float balance, String favLocation, MenuItem favFood) {
+	public User(String firstName, String lastName, String cec, int employeeID,
+			String location, double balance, String favLocation, String favFood) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -49,11 +49,11 @@ public class User {
 		this.cec = cec;
 	}
 
-	public Long getEmployeeID() {
+	public int getEmployeeID() {
 		return employeeID;
 	}
 
-	public void setEmployeeID(Long employeeID) {
+	public void setEmployeeID(int employeeID) {
 		this.employeeID = employeeID;
 	}
 
@@ -65,11 +65,11 @@ public class User {
 		this.location = location;
 	}
 
-	public Float getBalance() {
+	public double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Float balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
@@ -81,11 +81,11 @@ public class User {
 		this.favLocation = favLocation;
 	}
 
-	public MenuItem getFavFood() {
+	public String getFavFood() {
 		return favFood;
 	}
 
-	public void setFavFood(MenuItem favFood) {
+	public void setFavFood(String favFood) {
 		this.favFood = favFood;
 	}
 	

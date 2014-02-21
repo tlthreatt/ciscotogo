@@ -27,6 +27,9 @@ import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.LocationList;
 import com.cisco.ciscotogo.model.MenuCategory;
 import com.cisco.ciscotogo.model.MenuItem;
+import com.cisco.ciscotogo.model.Order;
+import com.cisco.ciscotogo.model.OrderList;
+import com.cisco.ciscotogo.model.User;
 
 @Controller
 public class HomeController{
@@ -48,9 +51,25 @@ public class HomeController{
 		return "orderToGo";
 	}
 	
-	@RequestMapping(value="/getEmployeeDetails", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody String getEmployeeDetails(HttpServletRequest request, HttpServletResponse response){
-		return "";
+	@RequestMapping(value="/getOrderDetails", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody OrderList getOrderDetails(HttpServletRequest request, HttpServletResponse response){
+		OrderList allOrders = new OrderList();
+		ArrayList<Order> orders = new ArrayList<Order>();
+		MenuItem item = new MenuItem("Chicken Sandwich", "$4.95", "A chicken sandwich");
+		MenuItem item2 = new MenuItem("Sprite", "$1.50", "Sprite");
+		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
+		menuItems.add(item); menuItems.add(item2);
+		User user = new User("Taylor", "Threatt", "tathreat", 883213, "Freedom Circle Tower 2", 0.00, "Freedom Circle Tower 2", item.getItemID());
+		//start order 1 - a completed order
+		Order order1 = new Order("Completed", user, menuItems, "Freedom Circle Tower 2", 06.45, 132435);
+		Order order2 = new Order("Cancelled", user, menuItems, "Freedom Circle Tower 2", 06.45, 354657);
+		Order order3 = new Order("Pending", user, menuItems, "Freedom Circle Tower 2", 06.45, 687980);
+		
+		orders.add(order1); orders.add(order2); orders.add(order3);
+		allOrders.setOrdrers(orders);
+		
+		
+		return allOrders;
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")

@@ -7,11 +7,11 @@ public class Order {
 	private User user;
 	private ArrayList<MenuItem> menuItems;
 	private String building;
-	private Float amount;
+	private double amount;
 	private int orderID;
 	
 	public Order(String status, User user, ArrayList<MenuItem> menuItems,
-			String building, Float amount, int orderID) {
+			String building, double amount, int orderID) {
 		super();
 		this.status = status;
 		this.user = user;
@@ -55,11 +55,11 @@ public class Order {
 		this.building = building;
 	}
 
-	public Float getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Float amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
