@@ -94,6 +94,9 @@ var Custom = function () {
         	$('#invoiceLoadImage').fadeIn();
         	$.when(FoodDetails.getFoodDetails())
         	.then(function(foodResults) {
+        		
+        		console.log(foodResults);
+        		
     			$("#invoiceLoadImage").fadeOut();    			
     			$('.title-section').fadeIn();
 

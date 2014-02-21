@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-< 		<script type="text/javascript" src="/ciscotogo/resources/metronic_assets/scripts/custom2.js"></script>
+ 		<script type="text/javascript" src="/ciscotogo/resources/metronic_assets/scripts/custom2.js"></script>
 	</head>
 	<body>
 		<h1>Current Orders</h1>
@@ -23,10 +23,8 @@
 				<td>1</td>
 				<td>6.95</td>
 				<td><button type="button">Ready?</button></td>
-				<td><input id="someTextBox" type="text" size="40" /></td>
+				<td><input id="someTextBox" type="text" size="20" /></td>
 			</tr>
 		</table>
-
-
 	</body>
 </html>
