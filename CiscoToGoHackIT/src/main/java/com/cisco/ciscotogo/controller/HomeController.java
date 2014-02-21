@@ -14,9 +14,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,20 +34,16 @@ import com.cisco.ciscotogo.model.User;
 @Controller
 public class HomeController{
 	
-	private final String XML_FILE_LOCATION = "C:\\Users\\eyaklin\\Desktop\\orderrequest.xml";
+	private final String CLAYTONS_REST_THINGY_URL = "http://10.155.252.176:10080/HackItOrderMgmtRestProejct/rest/order";
 
 	@RequestMapping(value = "/orderToGo", method = RequestMethod.GET)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
 		
-		//String request_xml = readTextFile(XML_FILE_LOCATION);
-		
-		//System.out.println(request_xml);
-		
 		//list.add(new BasicNameValuePair("xml", ""));
 		//System.out.println(list.get(0).getValue());
 		
-		//System.out.println("The order request : \n" + httpPostResponse("http://txpfdbappdev002:7001/WebexPFProxyWS/CatalogTransactionService", list));
+		System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"/1"));
 		return "orderToGo";
 	}
 	
@@ -148,7 +144,27 @@ public class HomeController{
 		return result.toString();
 	}
 	
-
+	private String httpGetResponse(String url) throws Exception{
+		HttpClient client = new DefaultHttpClient();
+		HttpGet request = new HttpGet(url);
+		
+		//request.addHeader("User-Agent", USER_AGENT);
+		
+		HttpResponse response = client.execute(request);
+		
+		BufferedReader rd = new BufferedReader(
+			new InputStreamReader(response.getEntity().getContent())
+		);
+		
+		StringBuffer result = new StringBuffer();
+		String line = "";
+		while((line = rd.readLine()) != null) {
+			result.append(line);
+		}
+		
+		return result.toString();
+	}
+	
 	private static String readTextFile(String filename) throws IOException{
 		FileInputStream fis = new FileInputStream(filename);
 		int x = fis.available();
