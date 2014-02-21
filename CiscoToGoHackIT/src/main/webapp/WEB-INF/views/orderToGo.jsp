@@ -348,11 +348,11 @@
 											<div class="row">
 												<div class="tiles">
 													<div id="contactTile" class="tile bg-green inlineTileDivs">
-														<div class="tile-body">
+														<div class="tile-body" id="contactTileContents">
 														</div>
 													</div>
 													<div id="orderTile" class="tile bg-purple inlineTileDivs">
-														<div class="tile-body">
+														<div class="tile-body" id="orderTileContents">
 														</div>
 													</div>
 													<div class="planTiles inlineTileDivs">

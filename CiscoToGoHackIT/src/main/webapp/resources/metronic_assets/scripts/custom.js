@@ -9,6 +9,20 @@ var Custom = function () {
 	
 	//gets the contact info for the contact info file
 	
+	function fillUserTile(user){
+		$('#contactTileContents').append(
+				'<h1 style="padding-bottom:20px;">Hi, ' + user.firstName + '</h4>'+
+				'<h4 style="padding-bottom:20px;"> Favorite Food: ' + user.favFood + '</h4>'+
+				'<h4 style="padding-bottom:20px;"> Favorite Location: ' + user.favLocation + '</h4>'+
+				'<h4> Balance: ' + user.balance + '</h4>'		
+		);
+		
+	}
+	
+	function fillOrderTile(){
+		
+	}
+	
 	function fillBuildingTiles(locationList){
 		var tileColor;
 		locationList.forEach(function(location,index){
@@ -95,12 +109,22 @@ var Custom = function () {
         		}
         	};
         	
+        	var OrderDetails = {
+            		getOrderDetails: function() {
+            			var promise = $.ajax({
+            				url: 'getOrderDetails/'
+            			});
+            			
+            			return promise;
+            		}
+            	};
+        	
         	$('#pageLoadImage').fadeIn();
-        	$.when(FoodDetails.getFoodDetails())
-        	.then(function(foodResults) {
+        	$.when(FoodDetails.getFoodDetails(), OrderDetails.getOrderDetails())
+        	.then(function(foodResults, orderResults) {
         		
-        		console.log(foodResults);
-        		
+        		console.log(foodResults[0]);
+        		console.log(orderResults[0]);
     			$("#pageLoadImage").fadeOut();    			
     			$('.title-section').fadeIn();
 
@@ -110,8 +134,13 @@ var Custom = function () {
     			//populate big blue tile
     			$('#foodInfoTile').fadeIn(); 
     			
+    			fillUserTile(orderResults[0].orders[0].user);
+    			
+    			fillOrderTile();
+    			
+    			
     			//populate top tiles
-    			fillBuildingTiles(foodResults.locations);
+    			fillBuildingTiles(foodResults[0].locations);
     			//initialize bxslider
 				$('.bxslider').show();
 	            $('.bxslider').bxSlider({
