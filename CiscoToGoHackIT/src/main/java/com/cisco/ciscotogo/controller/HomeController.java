@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cisco.ciscotogo.model.DailyMenu;
+import com.cisco.ciscotogo.model.Location;
+import com.cisco.ciscotogo.model.MenuCategory;
+import com.cisco.ciscotogo.model.MenuItem;
+
 @Controller
 public class HomeController{
 	
@@ -43,8 +48,48 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET)
-	public @ResponseBody String getFoodDetails(HttpServletRequest request, HttpServletResponse response){
-		return "success";
+	public @ResponseBody List<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
+		List<Location> locations = null;
+		List<DailyMenu> dailyMenusJ = null;
+		List<MenuItem> menuItemsJ = null;
+		List<MenuCategory> menuCategoriesJ = null;
+		List<DailyMenu> dailyMenusFLSC2 = null;
+		List<MenuItem> menuItemsFLSC2 = null;
+		List<MenuCategory> menuCategoriesFLSC2 = null;
+		
+		//start bldg J things
+		MenuItem chickenSandwich = new MenuItem("Chicken Sandwich", "$4.95", "Grilled chicken breast sandwich with lettuce, tomato, and american cheese");
+		MenuItem pepsi = new MenuItem("Pepsi", "$1.50", "Regular 16oz Pepsi");
+		MenuItem regularLays = new MenuItem("Original Lays Chips", "$1.00", "Original Lays Potato Chips");
+		menuItemsJ.add(chickenSandwich); menuItemsJ.add(regularLays); menuItemsJ.add(pepsi);
+		
+		MenuCategory americanGrill = new MenuCategory("American Grill", menuItemsJ);
+		menuCategoriesJ.add(americanGrill);
+		
+		DailyMenu mondayMenu = new DailyMenu("Monday", menuCategoriesJ);
+		dailyMenusJ.add(mondayMenu);
+		
+		Location bldgJ = new Location("Building J", "100 Tasman Dr. San Jose CA", dailyMenusJ);
+		//end bldg J things
+		
+		//start bldg FLSC2 things
+		MenuItem hamburger = new MenuItem("Hamburger", "$5.95", "Lean hamburger meat, grilled with lettuce, tomato, american cheese, ketchup, and mustard");
+		MenuItem sprite = new MenuItem("Sprite", "$1.50", "Regular 16oz Sprite");
+		MenuItem bbqLays = new MenuItem("BBQ Lays Chips", "$1.00", "BBQ Lays Potato Chips");
+		menuItemsFLSC2.add(hamburger); menuItemsFLSC2.add(bbqLays); menuItemsFLSC2.add(sprite);
+		
+		MenuCategory americanGrillFLSC2 = new MenuCategory("American Grill", menuItemsFLSC2);
+		menuCategoriesFLSC2.add(americanGrillFLSC2);
+		
+		DailyMenu mondayMenuFLSC2 = new DailyMenu("Monday", menuCategoriesFLSC2);
+		dailyMenusFLSC2.add(mondayMenuFLSC2);
+		
+		Location bldgFLSC2 = new Location("Building Freedom Circle Tower 2", "3979 Freedom Circle Santa Clara CA", dailyMenusFLSC2);
+		//end FLSC2 things
+		
+		locations.add(bldgJ);
+		locations.add(bldgFLSC2);
+		return locations;
 	}
 	
 	@RequestMapping(value="/processOrder", method = RequestMethod.GET)
