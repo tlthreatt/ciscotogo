@@ -35,10 +35,10 @@ p.field-button {
 	margin-bottom: 20px;
 }
 
-.planTiles .tile-body {
+.buildingTiles .tile-body {
 	display: none;
 }
-.planTiles .tile-object {
+.buildingTiles .tile-object {
 	display: none;
 }
 /* END TOP TILES ROW */
@@ -279,4 +279,8 @@ p.field-button {
 
 .tileContainer .tile .tile-body p{
 	padding-bottom:7px;
+}
+
+.menuLink:hover{
+	color:#000000;
 }

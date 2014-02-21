@@ -355,7 +355,7 @@
 														<div class="tile-body" id="orderTileContents">
 														</div>
 													</div>
-													<div class="planTiles inlineTileDivs">
+													<div class="buildingTiles inlineTileDivs">
 														<div>
 															<ul class="bxslider"></ul>
 														</div>
@@ -367,7 +367,7 @@
 											<div class="row">
 												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='pageLoadImage' alt='Loading...'>										
 												<div id="foodInfoTile" class="tile double bg-blue">
-													<div class="tile-body" bg-blue>
+													<div id="foodInfoTileContents" class="tile-body" bg-blue>
 													</div>
 												</div>
 											</div>

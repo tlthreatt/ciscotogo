@@ -51,7 +51,7 @@
 <div class="psdg-right">Chicken Sandwich</div>
 <div class="psdg-right">$5.95</div>
 <div class="psdg-right"><button type='button' class='readyButton'>Pending</button></div>
-<div class="psdg-right"><input class='completeBox' type='text' size='10'/></div>
+<div class="psdg-right"><input class='completeBox tb5' type='text' size='10'/></div>
 
 
 
