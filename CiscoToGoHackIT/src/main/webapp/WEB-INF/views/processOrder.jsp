@@ -22,8 +22,8 @@
 				<td>1</td>
 				<td>1</td>
 				<td>6.95</td>
-				<td><button type="button">Ready?</button></td>
-				<td><input id="someTextBox" type="text" size="20" /></td>
+				<td><button type="button" class="readyButton">Ready?</button></td>
+				<td><input class="completeBox" type="text" size="20" disabled=true"/></td>
 			</tr>
 		</table>
 	</body>

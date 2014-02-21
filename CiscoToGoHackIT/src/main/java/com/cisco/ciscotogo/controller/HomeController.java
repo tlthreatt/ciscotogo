@@ -48,6 +48,11 @@ public class HomeController{
 		return "orderToGo";
 	}
 	
+	@RequestMapping(value="/getEmployeeDetails", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody String getEmployeeDetails(HttpServletRequest request, HttpServletResponse response){
+		return "";
+	}
+	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
 	public @ResponseBody LocationList getFoodDetails(HttpServletRequest request, HttpServletResponse response){
 		LocationList allLocations = new LocationList();
@@ -99,7 +104,7 @@ public class HomeController{
 	public String processOrder(HttpServletRequest request, HttpServletResponse response){
 		return "processOrder";
 	}
-	
+		
 	private String httpPostResponse(String url, List<NameValuePair> list) throws Exception{
 		HttpClient client = new DefaultHttpClient();
 		HttpPost request = new HttpPost(url);
