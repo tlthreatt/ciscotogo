@@ -48,14 +48,14 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET)
-	public @ResponseBody List<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
-		List<Location> locations = null;
-		List<DailyMenu> dailyMenusJ = null;
-		List<MenuItem> menuItemsJ = null;
-		List<MenuCategory> menuCategoriesJ = null;
-		List<DailyMenu> dailyMenusFLSC2 = null;
-		List<MenuItem> menuItemsFLSC2 = null;
-		List<MenuCategory> menuCategoriesFLSC2 = null;
+	public @ResponseBody ArrayList<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
+		ArrayList<Location> locations = new ArrayList<Location>();
+		ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
+		ArrayList<MenuItem> menuItemsJ = new ArrayList<MenuItem>();
+		ArrayList<MenuCategory> menuCategoriesJ = new ArrayList<MenuCategory>();
+		ArrayList<DailyMenu> dailyMenusFLSC2 = new ArrayList<DailyMenu>();
+		ArrayList<MenuItem> menuItemsFLSC2 = new ArrayList<MenuItem>();
+		ArrayList<MenuCategory> menuCategoriesFLSC2 = new ArrayList<MenuCategory>();
 		
 		//start bldg J things
 		MenuItem chickenSandwich = new MenuItem("Chicken Sandwich", "$4.95", "Grilled chicken breast sandwich with lettuce, tomato, and american cheese");
