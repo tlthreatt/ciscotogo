@@ -1,6 +1,7 @@
 //Bind keypress event to textbox
 
 $(document).ready(function(){
+	//$('.completeBox').prop('disabled',true);
 	$('.completeBox').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if(keycode == '13'){
@@ -13,12 +14,11 @@ $(document).ready(function(){
 	});
 	
 	$('.readyButton').click(function(){
-		var statusCell = $(this).closest('td');
+		$(this).prop('disabled',true);
+		$(this).html('Ready');
 		
-		var completeBox = $(this).closest('text');
-		statusCell.empty();
-		statusCell.html('Ready');
-		console.log(completeBox);
-		completeBox.disabled = false;
+		//console.log(completeBox.attr('disabled'));
+		console.log($(this).closest('.completeBox'));
+		$(this).closest('.completeBox').prop('disabled',false);
 	});
 });
