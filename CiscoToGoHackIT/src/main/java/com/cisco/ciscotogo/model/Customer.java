@@ -3,45 +3,38 @@ package com.cisco.ciscotogo.model;
 public class Customer {
 	private int id;
 	private String cec;
+	private String phone;
 	private String email;
 	private String firstName;
 	private String lastName;
-	private int employeeID;
+	private boolean isTextEnabled;
 	private Location location;
 	private double balance;
 	private String favLocation;
 	private String favFood;
 	
-	public Customer(int id, String cec, String email, String firstName, String lastName) {
+	public Customer(int id, String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName) {
 		setId(id);
 		setCec(cec);
 		setEmail(email);
+		setPhone(phone);
+		setTextEnabled(isTextEnabled);
 		setFirstName(firstName);
 		setLastName(lastName);
 	}
 	
-	public Customer(int id, String cec, String email, String firstName, String lastName, Location location) {
-		this(id, cec, email, firstName, lastName);
+	public Customer(int id, String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location) {
+		this(id, cec, email, phone, isTextEnabled, firstName, lastName);
 		setLocation(location);
 	}
 	
-	public Customer(int id, String cec, String email, String firstName, String lastName, Location location
+	public Customer(int id, String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location
 			,double balance) {
-		this(id, cec, email, firstName, lastName, location);
+		this(id, cec, email, phone, isTextEnabled, firstName, lastName, location);
 		setBalance(balance);
 	}
 	
-	public Customer(int id, String firstName, String lastName, String cec, int employeeID,
-			Location location, double balance, String favLocation, String favFood) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.cec = cec;
-		this.employeeID = employeeID;
-		this.location = location;
-		this.balance = balance;
-		this.favLocation = favLocation;
-		this.favFood = favFood;
-	}
+
 	
 	public Customer(){}
 
@@ -85,14 +78,6 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public int getEmployeeID() {
-		return employeeID;
-	}
-
-	public void setEmployeeID(int employeeID) {
-		this.employeeID = employeeID;
-	}
-
 	public Location getLocation() {
 		return location;
 	}
@@ -123,6 +108,22 @@ public class Customer {
 
 	public void setFavFood(String favFood) {
 		this.favFood = favFood;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public boolean isTextEnabled() {
+		return isTextEnabled;
+	}
+
+	public void setTextEnabled(boolean isTextEnabled) {
+		this.isTextEnabled = isTextEnabled;
 	}
 
 
