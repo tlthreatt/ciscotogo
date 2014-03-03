@@ -37,6 +37,18 @@
   			<groupId> org.codehaus.jackson</groupId>
   			<artifactId>jackson-mapper-asl</artifactId>
   			<version>1.9.5</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>1.9</version>
+		</dependency>		
+				
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-json</artifactId>
+			<version>1.7</version>
 		</dependency>		
 				
 		<!-- AspectJ -->
