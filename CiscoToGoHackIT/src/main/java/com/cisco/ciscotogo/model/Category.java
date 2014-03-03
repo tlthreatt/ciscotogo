@@ -7,7 +7,7 @@ public class Category {
 	private String name;
 	private String availability; // in ('ALWAYS','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
 	private List<Item> items;
-	private int locationId;
+	private Location location;
 	
 	public Category(int id, String name) {
 		setId(id);
@@ -20,6 +20,11 @@ public class Category {
 	public Category(int id, String name, String availability, List<Item> items) {
 		this(id, name, availability);
 		setItems(items);
+	}
+	
+	public Category(int id, String name, String availability, List<Item> items, Location location) {
+		this(id, name, availability, items);
+		setLocation(location);
 	}
 	
 	public int getId() {
@@ -47,11 +52,11 @@ public class Category {
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
-	public int getLocationId() {
-		return locationId;
+	public Location getLocation() {
+		return location;
 	}
-	public void setLocationId(int locationId) {
-		this.locationId = locationId;
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	

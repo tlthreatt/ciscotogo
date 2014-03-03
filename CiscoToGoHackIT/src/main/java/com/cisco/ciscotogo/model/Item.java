@@ -13,6 +13,7 @@ public class Item {
 	private Date dateAdded;
 	private boolean isInStock;
 	private Category category;
+	private Order order;
 	
 	private double currentPrice; // this is the line-item price in order_item table, used for historical lookup
 	
@@ -33,7 +34,10 @@ public class Item {
 		this(id, name, description, listPrice, dateAdded, isInStock);
 		setMenuCategory(category);
 	}
-	
+	public Item(int id, String name, String description, double listPrice, Order order) {
+		this(id, name, description, listPrice);
+		setOrder(order);
+	}
 	public Item(int id, double currentPrice) {
 		setId(id);
 		setCurrentPrice(currentPrice);
@@ -86,6 +90,12 @@ public class Item {
 	}
 	public void setListPrice(double listPrice) {
 		this.listPrice = listPrice;
+	}
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
 	
