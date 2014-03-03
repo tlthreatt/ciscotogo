@@ -10,7 +10,7 @@ public class Order {
 	private Date date;
 	private Location location;
 	private Customer customer;
-	private List<Item> items;
+	private List<OrderItem> orderItems;
 	private double amount; // Not in DB, calculated from items
 	private int orderID; // Is this a human-readable number different than the PK? What is its point?
 	
@@ -22,13 +22,13 @@ public class Order {
 		setCustomer(customer);
 	}
 	public Order(int id, String status, Date date, Location location, Customer customer,
-			List<Item> items) {
+			List<OrderItem> orderItems) {
 		this(id, status, date, location, customer);
-		setMenuItems(items);
+		setOrderItems(orderItems);
 	}
 	public Order(int id, String status, Date date, Location location, Customer customer,
-			List<Item> items, double amount) {
-		this(id, status, date, location, customer, items);
+			List<OrderItem> orderItems, double amount) {
+		this(id, status, date, location, customer, orderItems);
 		setAmount(amount);
 	}
 	/*
@@ -74,11 +74,11 @@ public class Order {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public List<Item> getMenuItems() {
-		return items;
+	public List<OrderItem> getOrderItems() {
+		return orderItems;
 	}
-	public void setMenuItems(List<Item> items) {
-		this.items = items;
+	public void setOrderItems(List<OrderItem> orderItems) {
+		this.orderItems = orderItems;
 	}
 	public double getAmount() {
 		return amount;
