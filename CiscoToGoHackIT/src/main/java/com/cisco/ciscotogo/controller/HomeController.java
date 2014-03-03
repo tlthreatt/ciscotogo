@@ -22,15 +22,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cisco.ciscotogo.model.DailyMenu;
 import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.LocationList;
-import com.cisco.ciscotogo.model.MenuCategory;
-import com.cisco.ciscotogo.model.MenuItem;
+import com.cisco.ciscotogo.model.Category;
+import com.cisco.ciscotogo.model.Item;
 import com.cisco.ciscotogo.model.Order;
 import com.cisco.ciscotogo.model.OrderList;
 import com.cisco.ciscotogo.model.SendMailTLS;
-import com.cisco.ciscotogo.model.User;
+import com.cisco.ciscotogo.model.Customer;
 
 @Controller
 public class HomeController{
@@ -52,17 +51,17 @@ public class HomeController{
 	public @ResponseBody OrderList getOrderDetails(HttpServletRequest request, HttpServletResponse response){
 		OrderList allOrders = new OrderList();
 		ArrayList<Order> orders = new ArrayList<Order>();
-		MenuItem item = new MenuItem("ChickenSandwich", "$4.95", "A chicken sandwich");
-		MenuItem item2 = new MenuItem("Sprite", "$1.50", "Sprite");
-		ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();
-		menuItems.add(item); menuItems.add(item2);
-		User user = new User("Taylor", "Threatt", "tathreat", 883213, "Freedom Circle Tower 2", 0.00, "Freedom Circle Tower 2", item.getItemID());
+		//Item item = new Item(1, "ChickenSandwich", "$4.95", "A chicken sandwich");
+		//Item item2 = new Item(2, "Sprite", "$1.50", "Sprite");
+		ArrayList<Item> items = new ArrayList<Item>();
+		//items.add(item); items.add(item2);
+		//Customer customer = new Customer("Taylor", "Threatt", "tathreat", 883213, "Freedom Circle Tower 2", 0.00, "Freedom Circle Tower 2", item.getItemID());
 		//start order 1 - a completed order
-		Order order1 = new Order("Completed", user, menuItems, "Freedom Circle Tower 2", 06.45, 132435);
-		Order order2 = new Order("Cancelled", user, menuItems, "Freedom Circle Tower 2", 06.45, 354657);
-		Order order3 = new Order("Pending", user, menuItems, "Freedom Circle Tower 2", 06.45, 687980);
+		//Order order1 = new Order("Completed", customer, items, "Freedom Circle Tower 2", 06.45, 132435);
+		//Order order2 = new Order("Cancelled", customer, items, "Freedom Circle Tower 2", 06.45, 354657);
+		//Order order3 = new Order("Pending", customer, items, "Freedom Circle Tower 2", 06.45, 687980);
 		
-		orders.add(order1); orders.add(order2); orders.add(order3);
+		//orders.add(order1); orders.add(order2); orders.add(order3);
 		allOrders.setOrdrers(orders);
 		
 		
@@ -73,45 +72,45 @@ public class HomeController{
 	public @ResponseBody LocationList getFoodDetails(HttpServletRequest request, HttpServletResponse response){
 		LocationList allLocations = new LocationList();
 		ArrayList<Location> locations = new ArrayList<Location>();
-		ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
-		ArrayList<MenuItem> menuItemsJ = new ArrayList<MenuItem>();
-		ArrayList<MenuCategory> menuCategoriesJ = new ArrayList<MenuCategory>();
-		ArrayList<DailyMenu> dailyMenusFLSC2 = new ArrayList<DailyMenu>();
-		ArrayList<MenuItem> menuItemsFLSC2 = new ArrayList<MenuItem>();
-		ArrayList<MenuCategory> menuCategoriesFLSC2 = new ArrayList<MenuCategory>();
+		//ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
+		ArrayList<Item> menuItemsJ = new ArrayList<Item>();
+		ArrayList<Category> menuCategoriesJ = new ArrayList<Category>();
+		//ArrayList<DailyMenu> dailyMenusFLSC2 = new ArrayList<DailyMenu>();
+		ArrayList<Item> menuItemsFLSC2 = new ArrayList<Item>();
+		ArrayList<Category> menuCategoriesFLSC2 = new ArrayList<Category>();
 		
 		//start bldg J things
-		MenuItem chickenSandwich = new MenuItem("Chicken Sandwich", "$4.95", "Grilled chicken breast sandwich with lettuce, tomato, and american cheese");
-		MenuItem pepsi = new MenuItem("Pepsi", "$1.50", "Regular 16oz Pepsi");
-		MenuItem regularLays = new MenuItem("Original Lays Chips", "$1.00", "Original Lays Potato Chips");
-		menuItemsJ.add(chickenSandwich); menuItemsJ.add(regularLays); menuItemsJ.add(pepsi);
+		//Item chickenSandwich = new Item("Chicken Sandwich", "$4.95", "Grilled chicken breast sandwich with lettuce, tomato, and american cheese");
+		//Item pepsi = new Item("Pepsi", "$1.50", "Regular 16oz Pepsi");
+		//Item regularLays = new Item("Original Lays Chips", "$1.00", "Original Lays Potato Chips");
+		//menuItemsJ.add(chickenSandwich); menuItemsJ.add(regularLays); menuItemsJ.add(pepsi);
 		
-		MenuCategory americanGrill = new MenuCategory("American Grill", menuItemsJ);
-		menuCategoriesJ.add(americanGrill);
+		//Category americanGrill = new Category("American Grill", menuItemsJ);
+		//menuCategoriesJ.add(americanGrill);
 		
-		DailyMenu mondayMenu = new DailyMenu("Monday", menuCategoriesJ);
-		dailyMenusJ.add(mondayMenu);
+		//DailyMenu mondayMenu = new DailyMenu("Monday", menuCategoriesJ);
+		//dailyMenusJ.add(mondayMenu);
 		
-		Location bldgJ = new Location("Building J", "100 Tasman Dr. San Jose CA", dailyMenusJ);
+		//Location bldgJ = new Location("Building J", "100 Tasman Dr. San Jose CA", dailyMenusJ);
 		//end bldg J things
 		
 		//start bldg FLSC2 things
-		MenuItem hamburger = new MenuItem("Hamburger", "$5.95", "Lean hamburger meat, grilled with lettuce, tomato, american cheese, ketchup, and mustard");
-		MenuItem sprite = new MenuItem("Sprite", "$1.50", "Regular 16oz Sprite");
-		MenuItem bbqLays = new MenuItem("BBQ Lays Chips", "$1.00", "BBQ Lays Potato Chips");
-		menuItemsFLSC2.add(hamburger); menuItemsFLSC2.add(bbqLays); menuItemsFLSC2.add(sprite);
+		//Item hamburger = new Item("Hamburger", "$5.95", "Lean hamburger meat, grilled with lettuce, tomato, american cheese, ketchup, and mustard");
+		//Item sprite = new Item("Sprite", "$1.50", "Regular 16oz Sprite");
+		//Item bbqLays = new Item("BBQ Lays Chips", "$1.00", "BBQ Lays Potato Chips");
+		//menuItemsFLSC2.add(hamburger); menuItemsFLSC2.add(bbqLays); menuItemsFLSC2.add(sprite);
 		
-		MenuCategory americanGrillFLSC2 = new MenuCategory("American Grill", menuItemsFLSC2);
-		menuCategoriesFLSC2.add(americanGrillFLSC2);
+		//Category americanGrillFLSC2 = new Category("American Grill", menuItemsFLSC2);
+		//menuCategoriesFLSC2.add(americanGrillFLSC2);
 		
-		DailyMenu mondayMenuFLSC2 = new DailyMenu("Monday", menuCategoriesFLSC2);
-		dailyMenusFLSC2.add(mondayMenuFLSC2);
+		//DailyMenu mondayMenuFLSC2 = new DailyMenu("Monday", menuCategoriesFLSC2);
+		//dailyMenusFLSC2.add(mondayMenuFLSC2);
 		
-		Location bldgFLSC2 = new Location("Building Freedom Circle Tower 2", "3979 Freedom Circle Santa Clara CA", dailyMenusFLSC2);
+		//Location bldgFLSC2 = new Location("Building Freedom Circle Tower 2", "3979 Freedom Circle Santa Clara CA", dailyMenusFLSC2);
 		//end FLSC2 things
 		
-		locations.add(bldgJ);
-		locations.add(bldgFLSC2);
+		//locations.add(bldgJ);
+		//locations.add(bldgFLSC2);
 		allLocations.setLocations(locations);
 		return allLocations;
 	}
