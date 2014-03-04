@@ -25,12 +25,23 @@ import javax.ws.rs.core.Response;
 
 
 
+
+
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.cisco.ciscotogo._13.basetypes.order.ObjectFactory;
+import com.cisco.ciscotogo._13.basetypes.order.OrderBaseType;
 import com.cisco.order.dao.HibernateOrderDao;
 import com.cisco.order.domain.DataAccessException;
 import com.cisco.order.model.Order;
 import com.cisco.order.model.OrderLineItem;
+import com.cisco.order.service.OrderMgmtBiz;
+import com.cisco.order.service.OrderMgmtBizImpl;
 import com.cisco.order.services.representation.OrderListRepresantation;
 import com.cisco.order.services.representation.OrderRepresentation;
+import com.sun.jersey.server.linking.Link;
+import com.sun.jersey.server.linking.Links;
+import com.sun.jersey.server.linking.Ref;
 
 @Path("/order")
 public class OrderResource {
@@ -49,20 +60,27 @@ public class OrderResource {
 		return Response.ok(new OrderRepresentation(order.getOrderId(), order.getUserCEC(), order.getItemID(),order.getBuildingID(), order.getAmmount())).build();
 	}**/
 	
+	@GET
+	@Path("/TEST")
+	@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+	public Response testXSD(){
+		com.cisco.ciscotogo._13.basetypes.order.ObjectFactory objectFactory = new com.cisco.ciscotogo._13.basetypes.order.ObjectFactory();
+		OrderBaseType orderBaseType = objectFactory.createOrderBaseType();
+		orderBaseType.setCustomerCec("20");
+		orderBaseType.setEmployeeId("20");
+		
+		orderBaseType.setOrderStatus("GOOD");
+		return Response.ok(objectFactory.createOrder(orderBaseType)).build();
+	}
 	@POST
 	@Path("/JCreate")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces({MediaType.APPLICATION_JSON})
-	public Response createOrder2(Order order){
-		HibernateOrderDao d = new HibernateOrderDao();
-		for(OrderLineItem i : order.getOrderLines()){
-			i.setOrder(order);
-		}
-		d.save(order);
+	public Response createOrder2(OrderRepresentation order){
+		OrderMgmtBiz orderMgmtBiz = new OrderMgmtBizImpl();
+		order = (OrderRepresentation) orderMgmtBiz.createOrder(order);		
 		URI uri = UriBuilder.fromPath("").build();
-		System.out.println(order.getOrderDate());
-		return Response.created(uri).status(Status.OK).entity(new OrderRepresentation(order)).build();
-				//ok(new OrderRepresentation(order)).build();
+		return Response.created(uri).status(Status.OK).entity(order).build();
 	}
 	
 	/**

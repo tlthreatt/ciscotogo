@@ -1,5 +1,6 @@
 package com.cisco.order.services.representation;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
@@ -13,8 +14,13 @@ import com.cisco.order.model.OrderLineItem;
 import com.sun.jersey.server.linking.Ref;
 
 @XmlRootElement
-public class OrderLineRepresentation {
+public class OrderLineRepresentation implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7006163674886006646L;
+
 	@XmlElement
 	private URI self;
 	
@@ -26,9 +32,15 @@ public class OrderLineRepresentation {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public OrderLineRepresentation(Long orderId, Long itemId, Double itemPrice) {
+		this.orderId = orderId;
+		this.itemId = itemId;
+		this.itemPrice = itemPrice;
+	}
+
 	public OrderLineRepresentation(OrderLineItem lineItem){
-		this.orderId = lineItem.getOrder().getId();
-		this.itemId = lineItem.getItem_id();
+		this.orderId = lineItem.getOrderLineItemPk().getOrder().getId();
+		this.itemId = lineItem.getOrderLineItemPk().getItem_id();
 		this.itemPrice = lineItem.getItem_cost();
 	}
 	

@@ -3,6 +3,8 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/srcTest"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/schemas"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/xjcsrc"/>
         <property name="context-root" value="HackItOrderMgmtRestProejct"/>
         <property name="java-output-path" value="/HackItOrderMgmtRestProejct/build/classes"/>
     </wb-module>
