@@ -338,7 +338,63 @@
 															</div>
 														</div>
 														<div class="portlet-body">
-															
+															<div class="row">	
+																<div class="col-md-2 col-md-offset-1">
+																	<div class="portlet box green">
+																		<div class="portlet-title">
+																			<div class="caption">
+																				Monday
+																			</div>
+																		</div>
+																		<div class="portlet-body">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-2">
+																	<div class="portlet box green">
+																		<div class="portlet-title">
+																			<div class="caption">
+																				Tuesday
+																			</div>
+																		</div>
+																		<div class="portlet-body">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-2">
+																	<div class="portlet box green">
+																		<div class="portlet-title">
+																			<div class="caption">
+																				Wednesday
+																			</div>
+																		</div>
+																		<div class="portlet-body">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-2">
+																	<div class="portlet box green">
+																		<div class="portlet-title">
+																			<div class="caption">
+																				Thursday
+																			</div>
+																		</div>
+																		<div class="portlet-body">
+																		</div>
+																	</div>
+																</div>
+																<div class="col-md-2">
+																	<div class="portlet box green">
+																		<div class="portlet-title">
+																			<div class="caption">
+																				Friday
+																			</div>
+																		</div>
+																		<div class="portlet-body">
+																		</div>
+																	</div>
+																</div>
+															</div>
 														</div>
 													</div>
 												</div>
