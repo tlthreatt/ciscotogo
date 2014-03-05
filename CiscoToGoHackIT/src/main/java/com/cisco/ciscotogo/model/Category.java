@@ -26,6 +26,7 @@ public class Category {
 	@JoinColumn(name="location_id", nullable=false, unique=true)
 	private Location location;
 	
+	private String lol;
 	
 	
 	@OneToMany(mappedBy="category")
