@@ -120,6 +120,11 @@ public class HomeController{
 		return "processOrder";
 	}
 	
+	@RequestMapping(value="/updateMenu", method = RequestMethod.GET, produces = "application/json")
+	public String updateMenu(HttpServletRequest request, HttpServletResponse response){
+		return "updateMenu";
+	}
+	
 	@RequestMapping(value="/getOrderTable", method = RequestMethod.POST)
 	public @ResponseBody String getOrderTable(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		return httpGetResponse(CLAYTONS_REST_THINGY_URL+"1");

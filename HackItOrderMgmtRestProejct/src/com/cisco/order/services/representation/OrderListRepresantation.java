@@ -1,5 +1,6 @@
 package com.cisco.order.services.representation;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -17,7 +18,10 @@ import com.sun.jersey.server.linking.Ref;
 
 @Link(value = @Ref("order"), rel = "self")
 @XmlRootElement
-public class OrderListRepresantation {
+public class OrderListRepresantation implements Serializable{
+
+	private static final long serialVersionUID = 7833435468446442021L;
+
 	@Ref("order")
 	@XmlElement
 	private URI self;
@@ -39,6 +43,7 @@ public class OrderListRepresantation {
 	public OrderListRepresantation() {
 		
 	}
+
 	@JsonCreator
 	public OrderListRepresantation(
 			@JsonProperty("count") int count,

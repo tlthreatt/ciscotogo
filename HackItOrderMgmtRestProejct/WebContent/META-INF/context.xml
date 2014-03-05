@@ -2,5 +2,5 @@
 <!DOCTYPE Context [ ]>
 <Context>
 	<!-- java:comp/env/jdbc/sforums -> java:jdbc/sforums -->
-	<ResourceLink name="jdbc/sforums" global="jdbc/ciscotogo" />
+	<ResourceLink name="jdbc/sforums" global="jdbc/ciscotogoRemote" />
 </Context>

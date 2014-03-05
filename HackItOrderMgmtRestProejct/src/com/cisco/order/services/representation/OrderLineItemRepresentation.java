@@ -13,8 +13,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import com.cisco.order.model.OrderLineItem;
 import com.sun.jersey.server.linking.Ref;
 
-@XmlRootElement
-public class OrderLineRepresentation implements Serializable{
+@XmlRootElement(name="orderLine")
+public class OrderLineItemRepresentation implements Serializable{
 	
 	/**
 	 * 
@@ -28,24 +28,24 @@ public class OrderLineRepresentation implements Serializable{
 	public Long itemId;
 	public Double itemPrice;
 	
-	public OrderLineRepresentation() {
+	public OrderLineItemRepresentation() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public OrderLineRepresentation(Long orderId, Long itemId, Double itemPrice) {
+	public OrderLineItemRepresentation(Long orderId, Long itemId, Double itemPrice) {
 		this.orderId = orderId;
 		this.itemId = itemId;
 		this.itemPrice = itemPrice;
 	}
 
-	public OrderLineRepresentation(OrderLineItem lineItem){
+	public OrderLineItemRepresentation(OrderLineItem lineItem){
 		this.orderId = lineItem.getOrderLineItemPk().getOrder().getId();
 		this.itemId = lineItem.getOrderLineItemPk().getItem_id();
 		this.itemPrice = lineItem.getItem_cost();
 	}
 	
 	@JsonCreator
-	public OrderLineRepresentation(
+	public OrderLineItemRepresentation(
 			@JsonProperty("self") URI uri,
 			@JsonProperty("order_id") Long orderId, 
 			@JsonProperty("item_id") Long itemId,

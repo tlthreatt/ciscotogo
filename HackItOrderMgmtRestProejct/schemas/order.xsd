@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ciscotogo.cisco.com/13/basetypes/order" xmlns:order="http://ciscotogo.cisco.com/13/basetypes/order" elementFormDefault="qualified">
+	<element name="order" type="order:OrderBaseType"></element>
+	<complexType name="OrderBaseType">
+		 <sequence>
+		 	<element name="orderId" type="string" minOccurs="0"></element>
+		 	<element name="orderStatus" type="string" minOccurs="0"></element>
+		 	<element name="orderDate" type="date" minOccurs="0"></element>
+		 	<element name="locationId" type="long" minOccurs="0"></element>
+		 	<element name="customer_cec" type="string" minOccurs="0"></element>
+		 	<element name="employeeId" type="string" minOccurs="0"></element>
+		 	<element name="orderLines" type="order:OrderLineType" minOccurs="0" maxOccurs="unbounded"></element>
+		 </sequence>
+	</complexType>
+	<complexType name="OrderLineType">
+		<sequence>
+			<element name="itemId" type="string" minOccurs="0"></element>
+			<element name="item_price" type="double" minOccurs="0"></element>
+		</sequence>
+	</complexType>
+</schema>
