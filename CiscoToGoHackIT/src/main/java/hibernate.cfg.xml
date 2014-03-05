@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+  "-//Hibernate/Hibernate Configuration DTD//EN"
+  "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- 
+        <property name="connection.driver_class">org.apache.derby.jdbc.ClientDriver</property>
+        <property name="connection.url">jdbc:derby://localhost:1527/db</property>
+        <property name="connection.username">sysdba</property>
+        <property name="connection.password">masterkey</property>
+		-->
+		
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<!-- 
+		<property name="connection.url">jdbc:mysql://vm-clachan-001.cisco.com:3306/ciscotogo2</property> -->
+		<property name="connection.url">jdbc:mysql://localhost:3306/ciscotogo2</property>
+        <property name="connection.username">root</property>
+        
+        <!-- <property name="connection.password">Apach3!!</property> -->
+        <property name="connection.password">mysql</property>
+		
+        <!-- JDBC connection pool (use the built-in) -->
+        <property name="connection.pool_size">1</property>
+
+        <!-- SQL dialect - defaults to H2 Database -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property> <!--  found in hibernate-core -->
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+		
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+
+        <!-- Drop and re-create the database schema on startup --> <!-- create | update -->
+        <!--  create will drop and recreate the schema - deleting all data! -->
+        <property name="hbm2ddl.auto">create</property>
+		
+		
+		
+		
+		<property name="hibernate.search.default.directory_provider">filesystem</property>
+		<property name="hibernate.search.default.indexBase">target/indexes</property>
+		<!--  Names the entity models  -->
+		
+		
+		<mapping class="com.cisco.ciscotogo.model.Location" />
+		<mapping class="com.cisco.ciscotogo.model.LocationAddress" />
+		<mapping class="com.cisco.ciscotogo.model.Category" />
+		<mapping class="com.cisco.ciscotogo.model.Item" />
+		<mapping class="com.cisco.ciscotogo.model.Customer" />
+		<mapping class="com.cisco.ciscotogo.model.Employee" />
+		<mapping class="com.cisco.ciscotogo.model.Order" />
+		<mapping class="com.cisco.ciscotogo.model.OrderItem" />
+		
+	</session-factory>
+</hibernate-configuration>

@@ -1,12 +1,40 @@
 package com.cisco.ciscotogo.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 public class Employee {
+	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="employee_id")
 	private int id;
+	
+	@Column(name="employee_email", nullable=false)
 	private String email;
+	
+	@Column(name="employee_first_name", nullable=true)
 	private String firstName;
+	
+	@Column(name="employee_last_name", nullable=true)
 	private String lastName;
+	
+	@Column(name="employee_password", nullable=true)
 	private String password;
+	
+	@ManyToOne @JoinColumn(name="location_id", nullable=false)
 	private Location location;
+	
+	@OneToMany(mappedBy="employee")
+	private List<Order> orders;
+	
+	public Employee() {}
 	
 	public Employee (int id, String email) {
 		setId(id);
@@ -59,6 +87,14 @@ public class Employee {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	
 	

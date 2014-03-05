@@ -1,18 +1,49 @@
 package com.cisco.ciscotogo.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+@Entity(name="`order`")
 public class Order {
+	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="order_id")
 	private int id;
+	
+	@Column(name="order_status", nullable=false)
 	private String status;
+	
+	@Column(name="order_date", nullable=false)
 	private Date date;
+	
+	@Column(name="order_notes", nullable=true)
+	private String notes;
+	
+	@ManyToOne @JoinColumn(name="location_id", nullable=false)
 	private Location location;
+	
+	@ManyToOne @JoinColumn(name="customer_cec", nullable=false)
 	private Customer customer;
+	
+	@ManyToOne @JoinColumn(name="employee_id", nullable=true)
+	private Employee employee;
+	
+	@OneToMany(mappedBy="order")
 	private List<OrderItem> orderItems;
+	
+
+	
+	@Transient
 	private double amount; // Not in DB, calculated from items
-	private int orderID; // Is this a human-readable number different than the PK? What is its point?
+	
 	
 	public Order(int id, String status, Date date, Location location, Customer customer) {
 		setId(id);
@@ -86,12 +117,7 @@ public class Order {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	public int getOrderID() {
-		return orderID;
-	}
-	public void setOrderID(int orderID) {
-		this.orderID = orderID;
-	}
+
 
 	
 	

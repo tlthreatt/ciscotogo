@@ -1,20 +1,48 @@
 package com.cisco.ciscotogo.model;
 
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+@Entity
 public class Customer {
-	private int id;
-	private String cec;
-	private String phone;
-	private String email;
-	private String firstName;
-	private String lastName;
-	private boolean isTextEnabled;
-	private Location location;
-	private double balance;
-	private String favLocation;
-	private String favFood;
 	
-	public Customer(int id, String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName) {
-		setId(id);
+	@Id @Column(name="customer_cec")
+	private String cec;
+	
+	@Column(name="customer_phone", nullable=true)
+	private String phone;
+	
+	@Column(name="customer_email", nullable=false, unique=true)
+	private String email;
+	
+	@Column(name="customer_first_name", nullable=false)
+	private String firstName;
+	
+	@Column(name="customer_last_name", nullable=false)
+	private String lastName;
+	
+	@Column(name="customer_is_text_enabled", nullable=false)
+	private boolean isTextEnabled;
+	
+	@ManyToOne @JoinColumn(name="location_id", nullable=true)
+	private Location location;
+	
+	@OneToMany(mappedBy="customer")
+	private List<Order> orders;
+	
+	@Transient
+	private double balance;
+	
+	
+	public Customer(String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName) {
+
 		setCec(cec);
 		setEmail(email);
 		setPhone(phone);
@@ -23,28 +51,20 @@ public class Customer {
 		setLastName(lastName);
 	}
 	
-	public Customer(int id, String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location) {
-		this(id, cec, email, phone, isTextEnabled, firstName, lastName);
+	public Customer(String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location) {
+		this(cec, email, phone, isTextEnabled, firstName, lastName);
 		setLocation(location);
 	}
 	
-	public Customer(int id, String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location
+	public Customer(String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location
 			,double balance) {
-		this(id, cec, email, phone, isTextEnabled, firstName, lastName, location);
+		this(cec, email, phone, isTextEnabled, firstName, lastName, location);
 		setBalance(balance);
 	}
 	
 
 	
 	public Customer(){}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getCec() {
 		return cec;
@@ -92,22 +112,6 @@ public class Customer {
 
 	public void setBalance(double balance) {
 		this.balance = balance;
-	}
-
-	public String getFavLocation() {
-		return favLocation;
-	}
-
-	public void setFavLocation(String favLocation) {
-		this.favLocation = favLocation;
-	}
-
-	public String getFavFood() {
-		return favFood;
-	}
-
-	public void setFavFood(String favFood) {
-		this.favFood = favFood;
 	}
 
 	public String getPhone() {

@@ -3,16 +3,42 @@ package com.cisco.ciscotogo.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+@Entity
 public class Item {
+	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="item_id")
 	private int id;
+	
+	@Column(name="item_name", nullable=false)
 	private String name;
+	
+	@Column(name="item_description", nullable=true)
 	private String description;
+	
+	@Column(name="item_list_price", nullable=false)
 	private double listPrice; // this is the list price of the item
+	
+	@Column(name="item_date_added", nullable=true)
 	private Date dateAdded;
+	
+	@Column(name="item_in_stock", nullable=true)
 	private boolean isInStock;
+	
+	@ManyToOne
+	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
+	
+	@OneToMany(mappedBy="item")
 	private List<OrderItem> orderItems;
 
+	public Item() {}
 	
 	public Item(int id, String name, String description, double listPrice) {
 		setId(id);

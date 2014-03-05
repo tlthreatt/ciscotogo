@@ -2,12 +2,37 @@ package com.cisco.ciscotogo.model;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity(name="category")
 public class Category {
+	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="category_id")
 	private int id;
+	
+	@Column(name="category_name", nullable=false)
 	private String name;
+	
+	@Column(name="category_availaility", nullable=false)
 	private String availability; // in ('ALWAYS','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
-	private List<Item> items;
+	
+	@ManyToOne
+	@JoinColumn(name="location_id", nullable=false, unique=true)
 	private Location location;
+	
+	
+	
+	@OneToMany(mappedBy="category")
+	private List<Item> items;
+	
+	
+	public Category() {} 
 	
 	public Category(int id, String name) {
 		setId(id);
