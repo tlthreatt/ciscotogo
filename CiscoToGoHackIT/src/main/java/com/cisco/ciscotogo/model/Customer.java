@@ -37,6 +37,9 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<Order> orders;
 	
+	@OneToMany(mappedBy="customer")
+	private List<Rating> ratings;
+	
 	@Transient
 	private double balance;
 	

@@ -19,6 +19,10 @@ public class OrderItem {
 	@ManyToOne @JoinColumn(name="item_id", nullable=false)
 	private Item item;
 	
+	@Column(name="order_item_quantity", nullable=false)
+	private int quantity;
+	
+	// Cost == item.getListPrice() * quantity
 	@Column(name="order_item_cost", nullable=false)
 	private double cost;
 	

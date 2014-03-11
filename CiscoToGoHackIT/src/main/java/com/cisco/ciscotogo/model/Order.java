@@ -27,6 +27,9 @@ public class Order {
 	@Column(name="order_notes", nullable=true)
 	private String notes;
 	
+	@Column(name="order_desired_completion_time", nullable=true)
+	private Date desiredCompletionTime;
+	
 	@ManyToOne @JoinColumn(name="location_id", nullable=false)
 	private Location location;
 	
@@ -42,7 +45,7 @@ public class Order {
 
 	
 	@Transient
-	private double amount; // Not in DB, calculated from items
+	private double amount; // Not in DB, calculated from items (quantity * price)
 	
 	
 	public Order(int id, String status, Date date, Location location, Customer customer) {
@@ -116,6 +119,24 @@ public class Order {
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+	public Date getDesiredCompletionTime() {
+		return desiredCompletionTime;
+	}
+	public void setDesiredCompletionTime(Date desiredCompletionTime) {
+		this.desiredCompletionTime = desiredCompletionTime;
+	}
+	public Employee getEmployee() {
+		return employee;
+	}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 

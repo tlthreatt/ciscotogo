@@ -50,12 +50,15 @@
 		
 		<mapping class="com.cisco.ciscotogo.model.Location" />
 		<mapping class="com.cisco.ciscotogo.model.LocationAddress" />
+		<mapping class="com.cisco.ciscotogo.model.LocationHours" />
 		<mapping class="com.cisco.ciscotogo.model.Category" />
+		<mapping class="com.cisco.ciscotogo.model.CategoryAvailability" />
 		<mapping class="com.cisco.ciscotogo.model.Item" />
 		<mapping class="com.cisco.ciscotogo.model.Customer" />
 		<mapping class="com.cisco.ciscotogo.model.Employee" />
 		<mapping class="com.cisco.ciscotogo.model.Order" />
 		<mapping class="com.cisco.ciscotogo.model.OrderItem" />
+		<mapping class="com.cisco.ciscotogo.model.Rating" />
 		
 	</session-factory>
 </hibernate-configuration>

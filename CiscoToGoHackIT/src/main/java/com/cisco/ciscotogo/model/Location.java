@@ -35,6 +35,9 @@ public class Location {
 	@OneToMany(mappedBy="location")
 	private List<Customer> customers;
 	
+	@OneToMany(mappedBy="location")
+	private List<Rating> ratings;
+	
 	public Location() {};
 	
 	public Location(int id, String name) {

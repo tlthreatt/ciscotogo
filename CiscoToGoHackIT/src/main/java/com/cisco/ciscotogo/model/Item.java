@@ -31,6 +31,9 @@ public class Item {
 	@Column(name="item_in_stock", nullable=true)
 	private boolean isInStock;
 	
+	@Column(name="item_photo_url", nullable=true)
+	private String photoUrl;
+	
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
@@ -110,6 +113,22 @@ public class Item {
 	}
 	public void setOrderItems(List<OrderItem> orderItems) {
 		this.orderItems = orderItems;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	

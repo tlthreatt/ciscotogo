@@ -19,15 +19,15 @@ public class Category {
 	@Column(name="category_name", nullable=false)
 	private String name;
 	
-	@Column(name="category_availaility", nullable=false)
-	private String availability; // in ('ALWAYS','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
+	@Column(name="category_is_special", nullable=false)
+	private boolean isSpecial; // in ('ALWAYS','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
 	
 	@ManyToOne
 	@JoinColumn(name="location_id", nullable=false, unique=true)
 	private Location location;
 	
-	private String lol;
-	
+	@OneToMany(mappedBy="category")
+	private List<CategoryAvailability> categoryAvailabilities;
 	
 	@OneToMany(mappedBy="category")
 	private List<Item> items;
@@ -39,17 +39,17 @@ public class Category {
 		setId(id);
 		setName(name);
 	}
-	public Category(int id, String name, String availability) {
+	public Category(int id, String name, boolean isSpecial) {
 		this(id, name);
-		setAvailability(availability);
+		setSpecial(isSpecial);
 	}
-	public Category(int id, String name, String availability, List<Item> items) {
-		this(id, name, availability);
+	public Category(int id, String name, boolean isSpecial, List<Item> items) {
+		this(id, name, isSpecial);
 		setItems(items);
 	}
 	
-	public Category(int id, String name, String availability, List<Item> items, Location location) {
-		this(id, name, availability, items);
+	public Category(int id, String name, boolean isSpecial, List<Item> items, Location location) {
+		this(id, name, isSpecial, items);
 		setLocation(location);
 	}
 	
@@ -66,12 +66,7 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getAvailability() {
-		return availability;
-	}
-	public void setAvailability(String availability) {
-		this.availability = availability;
-	}
+
 	public List<Item> getItems() {
 		return items;
 	}
@@ -83,6 +78,14 @@ public class Category {
 	}
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public boolean isSpecial() {
+		return isSpecial;
+	}
+
+	public void setSpecial(boolean isSpecial) {
+		this.isSpecial = isSpecial;
 	}
 
 	
