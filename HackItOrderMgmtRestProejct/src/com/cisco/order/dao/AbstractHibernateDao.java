@@ -1,8 +1,10 @@
 package com.cisco.order.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,12 +14,17 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import com.cisco.order.domain.DataAccessException;
+import com.cisco.order.domain.Entity;
+import com.cisco.order.domain.IdentifiableEntity;
 
-public abstract class AbstractHibernateDao {
+public abstract class AbstractHibernateDao<E extends IdentifiableEntity> {
     
-
+	@SuppressWarnings("unchecked")
+	private Class<E> classVar = (Class<E>) ((ParameterizedType) getClass()
+            .getGenericSuperclass()).getActualTypeArguments()[0];;
+	
     private static final SessionFactory sessionFactory;
-
+    
     static {
         try {
             
@@ -37,7 +44,7 @@ public abstract class AbstractHibernateDao {
         return sessionFactory.openSession();
     }
 
-    protected void save(Object entity) throws DataAccessException {
+    public void save(E entity) throws DataAccessException {
         try {
             Session session = this.getSession();
             try {
@@ -57,7 +64,7 @@ public abstract class AbstractHibernateDao {
         }
     }
 
-    protected void delete(Object entity) throws DataAccessException {
+    public void delete(E entity) throws DataAccessException {
         try {
             Session session = this.getSession();
             try {
@@ -76,16 +83,40 @@ public abstract class AbstractHibernateDao {
             throw new DataAccessException("Failed to delete: " + entity, e);
         }
     }
-
-    protected Object getById(Class<?> clazz, Serializable id) throws DataAccessException {
+    
+    @SuppressWarnings("unchecked")
+    public E delete(Long id) throws DataAccessException {
         try {
             Session session = this.getSession();
             try {
                 session.beginTransaction();
                 try {
-                    Object result = session.get(clazz, id);
+                   
+					Object obj = session.get(this.classVar, id);
+                    session.delete(obj);
                     session.getTransaction().commit();
-                    return result;
+                    return (E) obj;
+                } catch (RuntimeException e) {
+                    session.getTransaction().rollback();
+                    throw e;
+                }
+            } finally {
+                session.close();
+            }
+        } catch (RuntimeException e) {
+            throw new DataAccessException("Failed to delete: " , e);
+        }
+    }
+    @SuppressWarnings("unchecked")
+	public  E getById(Long id) throws DataAccessException {
+        try {
+            Session session = this.getSession();
+            try {
+                session.beginTransaction();
+                try {
+                    Object result =  session.get(this.classVar, id);
+                    session.getTransaction().commit();
+                    return (E) result;
                 } catch (RuntimeException e) {
                     session.getTransaction().rollback();
                     throw e;
@@ -98,7 +129,8 @@ public abstract class AbstractHibernateDao {
         }
     }
 
-    protected List<?> findAll(String hqlQuery, Object... params) throws DataAccessException {
+    @SuppressWarnings("unchecked")
+	protected List<E> findAll(String hqlQuery, Object... params) throws DataAccessException {
         try {
             Session session = this.getSession();
             try {
@@ -106,7 +138,7 @@ public abstract class AbstractHibernateDao {
                 try {
                     Query query = session.createQuery(hqlQuery);
                     this.initQueryParams(query, params);
-                    List<?> result = query.list();
+                    List<E> result = query.list();
                     session.getTransaction().commit();
                     return result;
                 } catch (RuntimeException e) {
@@ -120,8 +152,30 @@ public abstract class AbstractHibernateDao {
             throw new DataAccessException("Failed to find all using query: " + hqlQuery, e);
         }
     }
-
-    protected Object findOne(String hqlQuery, Object... params) throws DataAccessException {
+    
+    protected List<E> findAll(Criteria cr) throws DataAccessException {
+        try {
+            Session session = this.getSession();
+            try {
+                session.beginTransaction();
+                try {
+                    List<E> result = (List<E>) cr.list();
+                    session.getTransaction().commit();
+                    return result;
+                } catch (RuntimeException e) {
+                    session.getTransaction().rollback();
+                    throw e;
+                }
+            } finally {
+                session.close();
+            }
+        } catch (RuntimeException e) {
+            throw new DataAccessException("Failed to find all using query: ", e);
+        }
+    }
+    
+    @SuppressWarnings("unchecked")
+	protected E findOne(String hqlQuery, Object... params) throws DataAccessException {
         try {
             Session session = this.getSession();
             try {
@@ -131,7 +185,7 @@ public abstract class AbstractHibernateDao {
                     this.initQueryParams(query, params);
                     Object result = query.uniqueResult();
                     session.getTransaction().commit();
-                    return result;
+                    return (E) result;
                 } catch (RuntimeException e) {
                     session.getTransaction().rollback();
                     throw e;
@@ -143,7 +197,7 @@ public abstract class AbstractHibernateDao {
             throw new DataAccessException("Failed to find one using query: " + hqlQuery, e);
         }
     }
-
+    
     private void initQueryParams(Query query, Object... params) {
         if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {

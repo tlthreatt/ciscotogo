@@ -2,7 +2,6 @@ package com.cisco.order.services.representation;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -10,8 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.cisco.order.model.OrderLineItem;
-import com.sun.jersey.server.linking.Ref;
 
 @XmlRootElement(name="orderLine")
 public class OrderLineItemRepresentation implements Serializable{
@@ -38,12 +35,6 @@ public class OrderLineItemRepresentation implements Serializable{
 		this.itemPrice = itemPrice;
 	}
 
-	public OrderLineItemRepresentation(OrderLineItem lineItem){
-		this.orderId = lineItem.getOrderLineItemPk().getOrder().getId();
-		this.itemId = lineItem.getOrderLineItemPk().getItem_id();
-		this.itemPrice = lineItem.getItem_cost();
-	}
-	
 	@JsonCreator
 	public OrderLineItemRepresentation(
 			@JsonProperty("self") URI uri,

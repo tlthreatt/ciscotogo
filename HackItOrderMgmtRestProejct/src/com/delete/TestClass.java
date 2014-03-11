@@ -3,7 +3,6 @@ package com.delete;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.AnnotationIntrospector;
@@ -12,7 +11,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.xc.JaxbAnnotationIntrospector;
 
 import com.cisco.order.services.representation.OrderLineItemRepresentation;
-import com.cisco.order.services.representation.OrderLineRepresentation;
 import com.cisco.order.services.representation.OrderRepresentation;
 
 
@@ -42,7 +40,7 @@ public class TestClass {
 		
 		ArrayList<OrderLineItemRepresentation> orderLines = new ArrayList<OrderLineItemRepresentation>();
 		orderLines.add(new OrderLineItemRepresentation(new Long(1),new Long(1), 10.0));
-		OrderRepresentation parentTest = new OrderRepresentation(new Long(1), "COMPLETED", new Date(), "1", "clachan", new Long(2), orderLines);
+		OrderRepresentation parentTest = new OrderRepresentation(new Long(1), "COMPLETED", new Date(), new Long(1), "clachan", new Long(2), orderLines);
 		
 		 result = mapper.writeValueAsString(parentTest);
 		 System.out.println(result);

@@ -3,18 +3,15 @@ package com.cisco.order.services.representation;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonTypeName;
 
-import com.cisco.order.model.Order;
-import com.cisco.order.model.OrderLineItem;
 import com.sun.jersey.server.linking.Link;
 import com.sun.jersey.server.linking.Links;
 import com.sun.jersey.server.linking.Ref;
@@ -37,20 +34,20 @@ public class OrderRepresentation {
 	@XmlElement
 	private Date orderDate;
 	@XmlElement
-	private String locationId;
+	private Long locationId;
 	@XmlElement
 	private Long employeeId;
 	@XmlElement
 	private String userCEC;
 	@XmlElement
-	private ArrayList<OrderLineItemRepresentation> orderLines;
+	private List<OrderLineItemRepresentation> orderLines;
 	
 	public OrderRepresentation(){
 		
 	}
 	public OrderRepresentation(Long orderId,
-			String status, Date orderDate, String locationId, String userCEC,
-			Long employeeId, ArrayList<OrderLineItemRepresentation> children) {
+			String status, Date orderDate, Long locationId, String userCEC,
+			Long employeeId, List<OrderLineItemRepresentation> children) {
 		super();
 		this.orderId = orderId;
 		this.status = status;
@@ -60,19 +57,6 @@ public class OrderRepresentation {
 		this.employeeId = employeeId;
 		this.orderLines = children;
 	}
-
-	public OrderRepresentation(Order order){
-		this.orderId = order.getId();
-		this.status = order.getStatus();
-		this.orderDate = order.getOrderDate();
-		this.locationId = order.getBuildingID();
-		this.userCEC = order.getUserCEC();
-		this.employeeId = order.getEmployeeId();
-		this.orderLines = new ArrayList<OrderLineItemRepresentation>();
-		for(OrderLineItem i: order.getOrderLines()){
-			this.orderLines.add(new OrderLineItemRepresentation(i));
-		}
-	}
 	
 	@JsonCreator
 	private OrderRepresentation(
@@ -80,7 +64,7 @@ public class OrderRepresentation {
 			@JsonProperty("orderId") Long orderId, 
 			@JsonProperty("status") String status,
 			@JsonProperty("orderDate") Date orderDate,
-			@JsonProperty("locationId") String locationId,
+			@JsonProperty("locationId") Long locationId,
 			@JsonProperty("userCEC") String userCEC,
 			@JsonProperty("employeeId") Long employeeId,
 			@JsonProperty("orderLine") ArrayList<OrderLineItemRepresentation> orderlines) {
@@ -106,7 +90,7 @@ public class OrderRepresentation {
 	public Date getOrderDate() {
 		return orderDate;
 	}
-	public String getLocationId() {
+	public Long getLocationId() {
 		return locationId;
 	}
 	public String getUserCEC() {
@@ -115,7 +99,7 @@ public class OrderRepresentation {
 	public Long getEmployeeId() {
 		return employeeId;
 	}
-	public ArrayList<OrderLineItemRepresentation> getOrderLines() {
+	public List<OrderLineItemRepresentation> getOrderLines() {
 		return orderLines;
 	}
 }

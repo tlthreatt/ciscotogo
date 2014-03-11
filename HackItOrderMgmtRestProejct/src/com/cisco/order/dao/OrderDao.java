@@ -1,17 +1,15 @@
 package com.cisco.order.dao;
 import java.util.List;
+import java.util.Map;
 
 import com.cisco.order.domain.DataAccessException;
-import com.cisco.order.model.Order;
+import com.cisco.order.model.hibernate.Order;
 
-public interface OrderDao{
-	public Order getById(Long id) throws DataAccessException;
-
-    public Order getByEmail(String email) throws DataAccessException;
+public interface OrderDao extends IdentifiableEntityDao<Order> {
 
     public List<Order> getAll() throws DataAccessException;
-
-    public void save(Order order) throws DataAccessException;
-
-    public void delete(Order order) throws DataAccessException;
+    
+    public Order delete(Long id) throws DataAccessException;
+    
+    public List<Order> searchOrder(Map<String, Object> criteria) throws DataAccessException;
 }

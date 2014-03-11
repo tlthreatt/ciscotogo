@@ -1,4 +1,4 @@
-package com.cisco.order.model;
+package com.cisco.order.model.hibernate;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +29,7 @@ public class Order extends IdentifiableEntity{
 	private static final long serialVersionUID = 8896567139368730035L;
 	
 	public String userCEC;
-	public String buildingID;
+	public Long buildingID;
 	public String status;
 	public Date orderDate;
 	public Long employeeId;
@@ -37,7 +37,7 @@ public class Order extends IdentifiableEntity{
 	
 	public Order(){}
 	
-	public Order(Long orderId, String userCEC, String buildingID, String status, Date orderDate, Long employeeId, List<OrderLineItem> items) {
+	public Order(Long orderId, String userCEC, Long buildingID, String status, Date orderDate, Long employeeId, List<OrderLineItem> items) {
 		setId(orderId); 
 		this.userCEC = userCEC;
 		this.buildingID = buildingID;
@@ -47,33 +47,33 @@ public class Order extends IdentifiableEntity{
 		this.orderLines = items;
 	}
 	
-	@Column(name = "customer_cec", unique = false, nullable = false) 
+	@Column(name = "customer_cec") 
 	public String getUserCEC() {
 		return userCEC;
 	}
 	
 	
-	@Column(name = "location_id", unique = false, nullable = false) 
-	public String getBuildingID() {
+	@Column(name = "location_id") 
+	public Long getBuildingID() {
 		return buildingID;
 	}
 
-	@Column(name = "order_status", nullable = false, length=30) 
+	@Column(name = "order_status", length=30) 
 	public String getStatus() {
 		return status;
 	}
 	
-	@Column(name = "employee_id", nullable = false) 
+	@Column(name = "employee_id") 
 	public Long getEmployeeId() {
 		return employeeId;
 	}
 	
-	@Column(name = "order_date", nullable = false) 
+	@Column(name = "order_date") 
 	public Date getOrderDate() {
 		return orderDate;
 	}
 	
-	@OneToMany(mappedBy = "orderLineItemPk.order",fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "order",fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     @OrderBy("item_id")  
 	public List<OrderLineItem> getOrderLines() {
 		return orderLines;
@@ -91,7 +91,7 @@ public class Order extends IdentifiableEntity{
 		this.userCEC = userCEC;
 	}
 
-	public void setBuildingID(String buildingID) {
+	public void setBuildingID(Long buildingID) {
 		this.buildingID = buildingID;
 	}
 

@@ -1,11 +1,9 @@
 package com.cisco.order.service;
 
 import java.util.Map;
-
-import com.cisco.order.proxy.OrderHibernateDAOProxy;
 import com.cisco.order.services.representation.OrderRepresentation;
 
-public class OrderMgmtBizImpl implements OrderMgmtBiz{
+public class OrderMgmtBizImpl extends AbstractOrderMgmtBiz{
 
 	public OrderMgmtBizImpl() {
 		// TODO Auto-generated constructor stub
@@ -13,8 +11,6 @@ public class OrderMgmtBizImpl implements OrderMgmtBiz{
 
 	@Override
 	public Object createOrder(Object obj) {
-		// TODO Auto-generated method stub
-		OrderHibernateDAOProxy proxy = new OrderHibernateDAOProxy();
 		obj = proxy.saveOrder((OrderRepresentation) obj);
 		return obj;
 	}
@@ -26,21 +22,26 @@ public class OrderMgmtBizImpl implements OrderMgmtBiz{
 	}
 
 	@Override
-	public Object deleteOrder(Object obj) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object deleteOrder(Long id) {
+		Object rspObj = proxy.deleteOrder(id);
+		return rspObj;
 	}
-
+	
 	@Override
 	public Object getOrder(Object obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Object rspobj = proxy.getById((Long) obj);
+		return rspobj;
 	}
 
 	@Override
 	public Object searchOrder(Map<String, Object> criteria) {
-		// TODO Auto-generated method stub
-		return null;
+		Object rspObj = null;
+		if(criteria == null){
+			rspObj = proxy.getAll();
+		} else {
+			rspObj = proxy.searchOrder(criteria);
+		}
+		return rspObj;
 	}
 
 }

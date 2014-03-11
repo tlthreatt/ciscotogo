@@ -10,8 +10,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
-import com.cisco.order.model.Order;
-import com.cisco.order.model.OrderLineItem;
+import com.cisco.order.model.hibernate.Order;
+import com.cisco.order.model.hibernate.OrderLineItem;
 
 public class MainMethodTest {
 
@@ -24,7 +24,7 @@ public class MainMethodTest {
 		//location.setName("test Location");
 		 List<OrderLineItem> orderLine = new ArrayList<OrderLineItem>();
 			
-			Order st = new Order(null,"clachan","1","SUBMITTED",new Date(),new Long(1),orderLine);
+			Order st = new Order(null,"clachan",new Long(1),"SUBMITTED",new Date(),new Long(1),orderLine);
 			orderLine.add(new OrderLineItem(new Long(1), 10.0));
 			orderLine.add(new OrderLineItem(new Long(2), 12.0));
 			orderLine.add(new OrderLineItem(new Long(3), 13.0));

@@ -1,55 +1,49 @@
 package com.cisco.order.dao;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.xml.bind.DataBindingException;
-
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.exception.ConstraintViolationException;
 
 import com.cisco.order.domain.DataAccessException;
 import com.cisco.order.domain.DuplicateEntityException;
-import com.cisco.order.model.Order;
-import com.cisco.order.providers.DuplicateEntityExceptionMapper;
+import com.cisco.order.model.hibernate.Order;
 
-public class HibernateOrderDao extends AbstractHibernateDao implements OrderDao {
+import org.apache.commons.lang.*;
 
-	@Override
-	public Order getById(Long id) {
-		
-			return (Order) super.getById(Order.class, id);		
-	}
 
-	@Override
-	public Order getByEmail(String email) throws DataAccessException {
-		return (Order) super.findOne("from User where email =?", email);
-	}
+public class HibernateOrderDao extends AbstractHibernateDao<Order> implements OrderDao {
 	
-	@SuppressWarnings("unchecked")
-	public List<Order> getByCafeId(String cafeId){
-		return (List<Order>) super.findAll("from Order where buildingID =?", cafeId);
-	}
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<Order> getAll() throws DataAccessException {
 		return (List<Order>) super.findAll("from Order order by id");
 	}
-
+	
 	@Override
-	public void save(Order order) {
-		try{
-			super.save(order);
-		} catch (ConstraintViolationException e){
-			throw new DuplicateEntityException();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
-			throw new DuplicateEntityException();
+	public List<Order> searchOrder(Map<String, Object> criteria)
+			throws DataAccessException {
+		Criteria criterion = this.getSession().createCriteria(Order.class,"order");
+		if(criteria.get("LOCATION_ID") != null && !StringUtils.isEmpty(criteria.get("LOCATION_ID").toString()) ){
+			criterion.add(Restrictions.eq("order.buildingID", criteria.get("LOCATION_ID")));
 		}
-
-	}
-
-	@Override
-	public void delete(Order order) throws DataAccessException {
-		super.delete(order);
-
+		if(criteria.get("CUSTOMER_CEC") != null && !StringUtils.isEmpty(criteria.get("CUSTOMER_CEC").toString()) ){
+			criterion.add(Restrictions.eq("order.userCEC", criteria.get("CUSTOMER_CEC").toString()));
+		}	
+		if(criteria.get("EMPLOYEE_ID") != null && !StringUtils.isEmpty(criteria.get("EMPLOYEE_ID").toString()) ){
+			criterion.add(Restrictions.eq("order.employeeId", criteria.get("EMPLOYEE_ID")));
+		}	
+		if(criteria.get("ORDER_STATUS") != null && !StringUtils.isEmpty(criteria.get("ORDER_STATUS").toString()) ){
+			criterion.add(Restrictions.eq("order.status", criteria.get("ORDER_STATUS").toString()));
+		}
+		if(criteria.get("DATE_FROM") != null && !StringUtils.isEmpty(criteria.get("DATE_FROM").toString()) ){
+			criterion.add(Restrictions.gt("order.orderDate", criteria.get("DATE_FROM")));
+		}
+		if(criteria.get("DATE_TO") != null && !StringUtils.isEmpty(criteria.get("DATE_TO").toString()) ){
+			criterion.add(Restrictions.lt("order.orderDate", criteria.get("DATE_TO")));
+		}	
+		criterion.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		return (List<Order>) super.findAll(criterion);
 	}
 }

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-import com.cisco.order.model.Order;
+import com.cisco.order.model.hibernate.Order;
 import com.sun.jersey.server.linking.Link;
 import com.sun.jersey.server.linking.Ref;
 
@@ -33,15 +33,15 @@ public class OrderListRepresantation implements Serializable{
 	@JsonProperty("orders")
 	private Collection<OrderRepresentation> orders;
 	
-	public OrderListRepresantation(Collection<Order> Orders) {
-		this.orders = new LinkedList<OrderRepresentation>();
-		for (Order order : Orders) {
-			this.orders.add(new OrderRepresentation(order));
-		}
-		orderCount = Orders.size();
-	}
 	public OrderListRepresantation() {
 		
+	}
+
+	public OrderListRepresantation(int orderCount,
+			Collection<OrderRepresentation> orders) {
+		super();
+		this.orderCount = orderCount;
+		this.orders = orders;
 	}
 
 	@JsonCreator
