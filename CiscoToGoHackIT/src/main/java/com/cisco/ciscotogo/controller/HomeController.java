@@ -17,6 +17,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ import com.cisco.ciscotogo.model.LocationList;
 import com.cisco.ciscotogo.model.Category;
 import com.cisco.ciscotogo.model.Item;
 import com.cisco.ciscotogo.model.Order;
+import com.cisco.ciscotogo.model.OrderItem;
 import com.cisco.ciscotogo.model.OrderList;
 import com.cisco.ciscotogo.model.SendMailTLS;
 import com.cisco.ciscotogo.model.Customer;
@@ -40,7 +42,7 @@ public class HomeController{
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
 		
-		//list.add(new BasicNameValuePair("xml", ""));
+		list.add(new BasicNameValuePair("xml", ""));
 		//System.out.println(list.get(0).getValue());
 		//System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"1/tathreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
 		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"1"));
@@ -48,12 +50,17 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/getOrderDetails", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody OrderList getOrderDetails(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody List<Order> getOrderDetails(HttpServletRequest request, HttpServletResponse response){
 		OrderList allOrders = new OrderList();
 		ArrayList<Order> orders = new ArrayList<Order>();
+		Order order = new Order();order.setId(1);
+		Item item = new Item(0, "test","test", 10);
+		OrderItem orderItem = new OrderItem(order, item);
+		order.setOrderItems(new ArrayList<OrderItem>());
+		order.getOrderItems().add(orderItem);
+		orders.add(order);
 		//Item item = new Item(1, "ChickenSandwich", "$4.95", "A chicken sandwich");
 		//Item item2 = new Item(2, "Sprite", "$1.50", "Sprite");
-		ArrayList<Item> items = new ArrayList<Item>();
 		//items.add(item); items.add(item2);
 		//Customer customer = new Customer("Taylor", "Threatt", "tathreat", 883213, "Freedom Circle Tower 2", 0.00, "Freedom Circle Tower 2", item.getItemID());
 		//start order 1 - a completed order
@@ -62,10 +69,11 @@ public class HomeController{
 		//Order order3 = new Order("Pending", customer, items, "Freedom Circle Tower 2", 06.45, 687980);
 		
 		//orders.add(order1); orders.add(order2); orders.add(order3);
-		allOrders.setOrdrers(orders);
+		//allOrders.setOrdrers(orders);
 		
 		
-		return allOrders;
+		//return allOrders;
+		return orders;
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
