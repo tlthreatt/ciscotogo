@@ -35,6 +35,24 @@ public class Category {
 	
 	public Category() {} 
 	
+	
+	public Category(String name) {
+		setName(name);
+	}
+	public Category(String name, boolean isSpecial) {
+		this(name);
+		setSpecial(isSpecial);
+	}
+	public Category(String name, boolean isSpecial, List<Item> items) {
+		this(name, isSpecial);
+		setItems(items);
+	}
+	public Category(String name, boolean isSpecial, List<Item> items, Location location) {
+		this(name, isSpecial, items);
+		setLocation(location);
+	}
+	
+	
 	public Category(int id, String name) {
 		setId(id);
 		setName(name);

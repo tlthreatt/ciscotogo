@@ -1,6 +1,5 @@
 package com.cisco.ciscotogo.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -10,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import javax.persistence.CascadeType;
 
 @Entity(name="location")
 public class Location {
@@ -24,7 +25,7 @@ public class Location {
 	@OneToOne(mappedBy="location")
 	private LocationAddress locationAddress;
 	
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
 	private List<Category> categories;
 	
 	@OneToMany(mappedBy="location")

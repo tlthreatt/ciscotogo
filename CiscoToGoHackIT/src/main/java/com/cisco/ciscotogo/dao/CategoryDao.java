@@ -1,5 +1,6 @@
 package com.cisco.ciscotogo.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -14,15 +15,39 @@ import com.cisco.ciscotogo.model.Location;
 
 
 public class CategoryDao {
+	
+	public static void main(String[] args) {
+		CategoryDao dao = new CategoryDao();
+		
+		Location location = new Location();
+		location.setName("Freedom Circle");
+		List<Category> categories = new ArrayList<Category>();
+		categories.add(new Category("Cat 1", false, null, location));
+		categories.add(new Category("Cat 2", false, null, location));
+		categories.add(new Category("Cat 3", false, null, location));
+		dao.save(location);
+		
+		//List<Category> categories = dao.getAllCategories(location)
+	}
+	
+	
 	Configuration configuration = new Configuration().configure();
 	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
 	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	
-
 	
 	
 	
-	//session.save(location);
+	
+	public void save(Location location) {
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		
+		session.save(location);
+		
+		session.getTransaction().commit();
+		session.close();
+	}
 	
 	public List<Location> getAllLocations() {
 		Session session = sessionFactory.openSession();
@@ -31,12 +56,6 @@ public class CategoryDao {
 		//session.get(Location.class, "pk of class");
 		
 		Query query = session.createQuery("from Location");
-		// Pagination
-		/*
-		 * query.setFirstResult(5);
-		 * query.setMaxResults(5);
-		 * 
-		 */
 		
 		List<Location> locations = (List<Location>)query.list();
 		
@@ -50,7 +69,7 @@ public class CategoryDao {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
-		Query query = session.createQuery("from Category where location = :");
+		Query query = session.createQuery("from Category where location.id = " + location.getId());
 		List<Category> categories = (List<Category>)query.list();
 		
 		session.getTransaction().commit();
