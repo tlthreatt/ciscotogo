@@ -9,11 +9,13 @@ var Custom = function () {
 		$('#foodInfoTileContents').append('<div style="float:left; width:300px;"><h1 style="line-height:60px">Choose a Meal</h1><h1 style="line-height:60px">From '+ name + '</h1></div>');
 		$('#foodInfoTileContents').append('<div id="mealRadioButtons" style="float:left; width:200px;"></div>');
 		
-		categories.forEach(function(c){
-			$('#mealRadioButtons').append('<h3 style="line-height:50px">' + c.name + '</h3>');
-			console.log(c.menuItems);
-			c.menuItems.forEach(function(m){
-				$('#mealRadioButtons').append('<input type="radio" name="item" value = "'+m.itemID + '"><label style="font-size:20px">' +m.itemID + '</label><br>');
+		categories.forEach(function(category){
+			alert("categoreies = " + JSON.stringify(category));
+			$('#mealRadioButtons').append('<h3 style="line-height:50px">' + category.name + '</h3>');
+			console.log(category.items);
+			alert("items = " + JSON.stringify(category.items))
+			category.items.forEach(function(item){
+				$('#mealRadioButtons').append('<input type="radio" name="item" value = "'+item.id + '"><label style="font-size:20px">' +item.name + '</label><label id="item' + item.id + '"price=' + item.listprice + '" style="font-size:20px">' + item.listPrice + '</label><br>');
 			});
 		});
 		$('#foodInfoTileContents').append(
@@ -78,6 +80,7 @@ var Custom = function () {
 				tileColor = "bg-green";
 				break;
 			}
+			//alert('location.name == ' + location.name);
 			$(".buildingTiles").find('ul').append(
 					'<li>'+
 					'<div class="tileContainer">'+
@@ -160,7 +163,14 @@ var Custom = function () {
         	$.when(FoodDetails.getFoodDetails(), OrderDetails.getOrderDetails())
         	.then(function(foodResults, orderResults) {
         		
-        		alert("hi");
+        		//alert("hi");
+        		
+        		
+        		//alert("toString() = " + JSON.stringify(foodResults));
+        		//foodResults[0] is actual list
+        		//alert("[0] = " + JSON.stringify(foodResults[0]));
+        		//alert("[0][0] = " + JSON.stringify(foodResults[0][0]));
+        		
         		
         		console.log(foodResults[0]);
         		console.log(orderResults[0]);
@@ -179,7 +189,7 @@ var Custom = function () {
     			
     			
     			//populate top tiles
-    			fillBuildingTiles(foodResults);
+    			fillBuildingTiles(foodResults[0]);
     			//initialize bxslider
 				$('.bxslider').show();
 	            $('.bxslider').bxSlider({
@@ -201,9 +211,12 @@ var Custom = function () {
 	            $('.menuLink').click(function(){ 
 	            	var index = parseInt($(this).attr('id'));
 	            	console.log($(this).attr('id'));
+	            	//alert("index == " + index);
 	            	$('#foodInfoTileContents').empty();
-	            	createOrderForm(foodResults[0].locations[index].buildingName, foodResults[0].locations[index].dailyMenus[0].menuCategories);
-	            		
+	            	//alert("foodResults[0][index].categories = " + foodResults[0][index].categories);
+	            	//alert("foodResults[0][index].name = " + foodResults[0][index].name);
+	            	//createOrderForm(foodResults[0].locations[index].buildingName, foodResults[0].locations[index].dailyMenus[0].menuCategories);
+	            	createOrderForm(foodResults[0][index].name, foodResults[0][index].categories);
 	            	$('#cancelButton').click(function(){
 	            		$('#foodInfoTileContents').empty();
 	            	});
@@ -213,7 +226,15 @@ var Custom = function () {
 	            		$('input:radio:checked').each(function(){
 	            			isChecked = true;
 	            			console.log($(this).val());
-	            			dat = "req=1/tathreat/"+ $(this).val()+"/"+foodResults[0].locations[index].buildingName+"/6/Pending";
+	            			//dat = "req=1/tathreat/"+ $(this).val()+"/"+foodResults[0][0].locations[index].buildingName+"/6/Pending";
+	            			var item_ids = [$(this).val()];
+	            			var location_id = foodResults[0][0].id;
+	            			var status = "Pending"
+	            			alert("location_id = " + location_id);
+	            			var customer_cec = "tathreat"
+	            			var dat = {item_ids : item_ids, customer_cec:customer_cec, location_id:location_id, status:status};
+	            			dat = {json:JSON.stringify(dat)};
+	            			alert(dat);
 	            			$.ajax({
 	            				type: "POST",
 	            				url: "createOrder/",

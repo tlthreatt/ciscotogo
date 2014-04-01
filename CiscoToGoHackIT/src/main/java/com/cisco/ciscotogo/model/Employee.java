@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Employee {
@@ -35,7 +37,8 @@ public class Employee {
 	@JsonBackReference
 	private Location location;
 	
-	@OneToMany(mappedBy="employee")
+	//*Is this necessary?
+	@OneToMany(mappedBy="employee") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Order> orders;
 	

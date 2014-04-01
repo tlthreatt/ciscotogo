@@ -42,6 +42,7 @@ public class Item {
 	@JsonBackReference
 	private Category category;
 	
+	/* Probably dont want to cascade here */
 	@OneToMany(mappedBy="item")
 	@JsonBackReference
 	private List<OrderItem> orderItems;
@@ -63,13 +64,17 @@ public class Item {
 	public Item(int id, String name, String description, double listPrice, Date dateAdded, boolean isInStock,
 			Category category) {
 		this(id, name, description, listPrice, dateAdded, isInStock);
-		setMenuCategory(category);
+		setCategory(category);
 	}
 	public Item(int id, String name, String description, double listPrice, List<OrderItem> orderItems) {
 		this(id, name, description, listPrice);
 		setOrderItems(orderItems);
 	}
 	
+	public Item(int id) {
+		setId(id);
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -101,12 +106,7 @@ public class Item {
 	public void setInStock(boolean isInStock) {
 		this.isInStock = isInStock;
 	}
-	public Category getMenuCategory() {
-		return category;
-	}
-	public void setMenuCategory(Category category) {
-		this.category = category;
-	}
+	
 	public double getListPrice() {
 		return listPrice;
 	}

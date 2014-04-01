@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity(name="category")
 public class Category {
@@ -26,15 +28,15 @@ public class Category {
 	private boolean isSpecial; // in ('ALWAYS','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY','SUNDAY')
 	
 	@ManyToOne
-	@JoinColumn(name="location_id", nullable=false, unique=true)
+	@JoinColumn(name="location_id", nullable=false)
 	@JsonBackReference
 	private Location location;
 	
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<CategoryAvailability> categoryAvailabilities;
 	
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Item> items;
 	

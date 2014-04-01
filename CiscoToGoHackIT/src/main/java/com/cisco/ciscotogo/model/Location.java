@@ -2,7 +2,7 @@ package com.cisco.ciscotogo.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
+//import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity(name="location")
 public class Location {
@@ -23,26 +25,28 @@ public class Location {
 	@OneToOne(mappedBy="location")
 	private LocationAddress locationAddress;
 	*/
-	@OneToOne(mappedBy="location")
+	@OneToOne(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private LocationAddress locationAddress;
 	
-	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="location")
+	@Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Category> categories;
 	
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Employee> employees;
-	@OneToMany(mappedBy="location")
+	
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Order> orders;
 	
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Customer> customers;
 	
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<Rating> ratings;
 	
@@ -55,6 +59,9 @@ public class Location {
 	public Location(int id, String name, List<Category> categories) {
 		this(id, name);
 		setCategories(categories);
+	}
+	public Location(int id) {
+		setId(id);
 	}
 	/*
 	public Location(int id, String name, LocationAddress locationAddress) {

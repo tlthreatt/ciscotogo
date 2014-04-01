@@ -39,6 +39,9 @@ public class OrderItem {
 		this(order, item);
 		setCost(cost);
 	}
+	public OrderItem() {
+		// TODO Auto-generated constructor stub
+	}
 	public Order getOrder() {
 		return order;
 	}

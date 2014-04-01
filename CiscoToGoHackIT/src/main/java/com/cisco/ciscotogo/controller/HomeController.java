@@ -21,17 +21,17 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cisco.ciscotogo.model.Location;
-import com.cisco.ciscotogo.model.LocationList;
-import com.cisco.ciscotogo.model.Category;
+import com.cisco.ciscotogo.buisness.CreateOrder;
+import com.cisco.ciscotogo.buisness.Debug;
 import com.cisco.ciscotogo.model.Item;
+import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.Order;
 import com.cisco.ciscotogo.model.OrderItem;
 import com.cisco.ciscotogo.model.OrderList;
 import com.cisco.ciscotogo.model.SendMailTLS;
-import com.cisco.ciscotogo.model.Customer;
 
 @Controller
 public class HomeController{
@@ -78,60 +78,9 @@ public class HomeController{
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
 	public @ResponseBody List<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
-		LocationList allLocations = new LocationList();
-		ArrayList<Location> locations = new ArrayList<Location>();
-		//ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
-		ArrayList<Item> itemsJ = new ArrayList<Item>();
-		ArrayList<Category> categoriesJ = new ArrayList<Category>();
-		//ArrayList<DailyMenu> dailyMenusFLSC2 = new ArrayList<DailyMenu>();
-		ArrayList<Item> menuItemsFLSC2 = new ArrayList<Item>();
-		ArrayList<Category> menuCategoriesFLSC2 = new ArrayList<Category>();
 		
-		
-		
-		Item chickenSandwhich = new Item(1, "Chicken Sandwhich", "A Chicken Sandwhich", 10);
-		Item pepsi = new Item(2, "Pepsi", "A Pepsi", 2);
-		itemsJ.add(chickenSandwhich); itemsJ.add(pepsi);
-		Category americanGrill = new Category("American Grill", false, itemsJ);
-		categoriesJ.add(americanGrill);
-		
-		//start bldg J things
-		//Item chickenSandwich = new Item("Chicken Sandwich", "$4.95", "Grilled chicken breast sandwich with lettuce, tomato, and american cheese");
-		//Item pepsi = new Item("Pepsi", "$1.50", "Regular 16oz Pepsi");
-		//Item regularLays = new Item("Original Lays Chips", "$1.00", "Original Lays Potato Chips");
-		//itemsJ.add(chickenSandwich); itemsJ.add(regularLays); itemsJ.add(pepsi);
-		
-		//Category americanGrill = new Category("American Grill", itemsJ);
-		//categoriesJ.add(americanGrill);
-		
-		//DailyMenu mondayMenu = new DailyMenu("Monday", categoriesJ);
-		//dailyMenusJ.add(mondayMenu);
-		
-		Location location = new Location();
-		location.setName("Bldg J");
-		americanGrill.setLocation(location);
-		location.setCategories(categoriesJ);
-		//end bldg J things
-		
-		//start bldg FLSC2 things
-		//Item hamburger = new Item("Hamburger", "$5.95", "Lean hamburger meat, grilled with lettuce, tomato, american cheese, ketchup, and mustard");
-		//Item sprite = new Item("Sprite", "$1.50", "Regular 16oz Sprite");
-		//Item bbqLays = new Item("BBQ Lays Chips", "$1.00", "BBQ Lays Potato Chips");
-		//menuItemsFLSC2.add(hamburger); menuItemsFLSC2.add(bbqLays); menuItemsFLSC2.add(sprite);
-		
-		//Category americanGrillFLSC2 = new Category("American Grill", menuItemsFLSC2);
-		//menuCategoriesFLSC2.add(americanGrillFLSC2);
-		
-		//DailyMenu mondayMenuFLSC2 = new DailyMenu("Monday", menuCategoriesFLSC2);
-		//dailyMenusFLSC2.add(mondayMenuFLSC2);
-		
-		//Location bldgFLSC2 = new Location("Building Freedom Circle Tower 2", "3979 Freedom Circle Santa Clara CA", dailyMenusFLSC2);
-		//end FLSC2 things
-		
-		locations.add(location);
-		//locations.add(bldgFLSC2);
-		
-		return locations;
+		System.out.println("Calling Initialize Database:");
+		return Debug.InitializeDatabase();
 	}
 	
 	@RequestMapping(value="/processOrder", method = RequestMethod.GET, produces = "application/json")
@@ -168,12 +117,13 @@ public class HomeController{
 	}
 		
 	@RequestMapping(value="/createOrder", method = RequestMethod.POST)
-	public @ResponseBody String createOrder(String req) throws Exception{
-		System.out.println(req);
-		req=req.replaceAll(" ", "%20");
-		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
-		SendMailTLS mailer = new SendMailTLS();
-		mailer.sendEmail("Taylor", "tathreat@cisco.com", 2);
+	public @ResponseBody String createOrder(@RequestParam("json") String json) throws Exception{
+		System.out.println("JSON IS == " + json);
+		CreateOrder.CreateOrder(json);
+		//req=req.replaceAll(" ", "%20");
+		//httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
+		//SendMailTLS mailer = new SendMailTLS();
+		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 2);
 		return "success";
 	}
 	

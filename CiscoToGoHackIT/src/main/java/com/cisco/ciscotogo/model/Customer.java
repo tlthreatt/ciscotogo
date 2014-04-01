@@ -49,7 +49,9 @@ public class Customer {
 	@Transient
 	private double balance;
 	
-	
+	public Customer(String cec) {
+		setCec(cec);
+	}
 	public Customer(String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName) {
 
 		setCec(cec);

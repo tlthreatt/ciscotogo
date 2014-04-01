@@ -14,58 +14,53 @@ import com.cisco.ciscotogo.model.Category;
 import com.cisco.ciscotogo.model.Location;
 
 
-public class CategoryDao {
+public class CategoryDao extends Dao implements DaoInterface<Category>{
 	
 	public static void main(String[] args) {
 		CategoryDao dao = new CategoryDao();
 		
+		/*
 		Location location = new Location();
 		location.setName("Freedom Circle");
 		List<Category> categories = new ArrayList<Category>();
 		categories.add(new Category("Cat 1", false, null, location));
 		categories.add(new Category("Cat 2", false, null, location));
 		categories.add(new Category("Cat 3", false, null, location));
+		location.setCategories(categories);
 		dao.save(location);
+		
+		*/
+		//Configuration configuration = new Configuration().configure();
+		//ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+		//SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+		
+		//Session session = sessionFactory.openSession();
+		
 		
 		//List<Category> categories = dao.getAllCategories(location)
 	}
 	
 	
-	Configuration configuration = new Configuration().configure();
-	ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-	SessionFactory sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 	
-	
-	
-	
-	
-	public void save(Location location) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		session.save(location);
-		
-		session.getTransaction().commit();
-		session.close();
+	public Category get(int id) {
+		Session session = getSession();
+		Category category = (Category) session.get(Category.class, id);
+		return category;
 	}
-	
-	public List<Location> getAllLocations() {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
+
+	@Override
+	public void save(Category category) {
+		Session session = getSession();
+		//session.beginTransaction();
 		
-		//session.get(Location.class, "pk of class");
+		session.save(category);
 		
-		Query query = session.createQuery("from Location");
-		
-		List<Location> locations = (List<Location>)query.list();
-		
-		session.getTransaction().commit();
-		session.close();
-		
-		return locations;
+		//session.getTransaction().commit();
+		//session.close();
 	}
+
 	
-	public List<Category> getAllCategories(Location location) {
+	public List<Category> getAll(Location location) {
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 		
@@ -73,9 +68,13 @@ public class CategoryDao {
 		List<Category> categories = (List<Category>)query.list();
 		
 		session.getTransaction().commit();
-		session.close();
+		//session.close();
 		
 		return null;
 	}
+
+
+
+
 
 }

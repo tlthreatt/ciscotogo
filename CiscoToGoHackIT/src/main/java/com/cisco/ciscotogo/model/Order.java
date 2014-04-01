@@ -15,6 +15,8 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity(name="`order`")
 public class Order {
@@ -45,7 +47,8 @@ public class Order {
 	@JsonBackReference
 	private Employee employee;
 	
-	@OneToMany(mappedBy="order")
+	
+	@OneToMany(mappedBy="order") @Cascade(CascadeType.SAVE_UPDATE)
 	@JsonManagedReference
 	private List<OrderItem> orderItems;
 	
