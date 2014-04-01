@@ -2,6 +2,7 @@ package com.cisco.ciscotogo.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import javax.persistence.CascadeType;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity(name="location")
 public class Location {
@@ -23,20 +24,26 @@ public class Location {
 	private LocationAddress locationAddress;
 	*/
 	@OneToOne(mappedBy="location")
+	@JsonManagedReference
 	private LocationAddress locationAddress;
 	
 	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Category> categories;
 	
 	@OneToMany(mappedBy="location")
+	@JsonManagedReference
 	private List<Employee> employees;
 	@OneToMany(mappedBy="location")
+	@JsonManagedReference
 	private List<Order> orders;
 	
 	@OneToMany(mappedBy="location")
+	@JsonManagedReference
 	private List<Customer> customers;
 	
 	@OneToMany(mappedBy="location")
+	@JsonManagedReference
 	private List<Rating> ratings;
 	
 	public Location() {};

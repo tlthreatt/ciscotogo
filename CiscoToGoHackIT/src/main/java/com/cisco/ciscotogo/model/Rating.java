@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity(name="rating")
 public class Rating {
 
@@ -21,9 +23,11 @@ public class Rating {
 	private int stars; // one through 10
 	
 	@ManyToOne @JoinColumn(name="customer_cec", nullable=false)
+	@JsonBackReference
 	private Customer customer;
 	
 	@ManyToOne @JoinColumn(name="location_id", nullable=false)
+	@JsonBackReference
 	private Location location;
 
 	

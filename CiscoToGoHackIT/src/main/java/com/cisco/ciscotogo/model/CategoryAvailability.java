@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity(name="category_availability")
 public class CategoryAvailability {
 	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="category_availability_id")
 	private int id;
 	
 	@ManyToOne @JoinColumn(name="category_id", nullable=false)
+	@JsonBackReference
 	private Category category;
 	
 	@Column(name="category_availability_timing", nullable=false)

@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 @Entity
 public class Item {
 	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="item_id")
@@ -36,9 +39,11 @@ public class Item {
 	
 	@ManyToOne
 	@JoinColumn(name="category_id", nullable=false)
+	@JsonBackReference
 	private Category category;
 	
 	@OneToMany(mappedBy="item")
+	@JsonBackReference
 	private List<OrderItem> orderItems;
 
 	public Item() {}

@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity
 public class Customer {
 	
@@ -32,12 +35,15 @@ public class Customer {
 	private boolean isTextEnabled;
 	
 	@ManyToOne @JoinColumn(name="location_id", nullable=true)
+	@JsonBackReference
 	private Location location;
 	
 	@OneToMany(mappedBy="customer")
+	@JsonManagedReference
 	private List<Order> orders;
 	
 	@OneToMany(mappedBy="customer")
+	@JsonManagedReference
 	private List<Rating> ratings;
 	
 	@Transient

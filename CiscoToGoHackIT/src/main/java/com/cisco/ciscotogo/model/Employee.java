@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity
 public class Employee {
 	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="employee_id")
@@ -29,9 +32,11 @@ public class Employee {
 	private String password;
 	
 	@ManyToOne @JoinColumn(name="location_id", nullable=false)
+	@JsonBackReference
 	private Location location;
 	
 	@OneToMany(mappedBy="employee")
+	@JsonManagedReference
 	private List<Order> orders;
 	
 	public Employee() {}

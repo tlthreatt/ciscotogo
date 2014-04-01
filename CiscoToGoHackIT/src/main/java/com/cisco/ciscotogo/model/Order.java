@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity(name="`order`")
 public class Order {
 	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="order_id")
@@ -31,15 +34,19 @@ public class Order {
 	private Date desiredCompletionTime;
 	
 	@ManyToOne @JoinColumn(name="location_id", nullable=false)
+	@JsonBackReference
 	private Location location;
 	
 	@ManyToOne @JoinColumn(name="customer_cec", nullable=false)
+	@JsonBackReference
 	private Customer customer;
 	
 	@ManyToOne @JoinColumn(name="employee_id", nullable=true)
+	@JsonBackReference
 	private Employee employee;
 	
 	@OneToMany(mappedBy="order")
+	@JsonManagedReference
 	private List<OrderItem> orderItems;
 	
 

@@ -84,7 +84,7 @@ var Custom = function () {
 						'<div class="tileCard">'+
 							'<div class="tile '+ tileColor +' frontFlip faceFlip">' +
 								'<div id="testTile" class="tile-body">'+
-									'<h4 class="buildingTileTitle" style="line-height:22px;">'+location.buildingName+'</h4>'+
+									'<h4 class="buildingTileTitle" style="line-height:22px;">'+location.name+'</h4>'+
 									'<div class="tile-object">'+
 									    '<h3 id='+index+ ' class="menuLink" style="padding-bottom:100px;padding-left:15px;">Click for menu</h3>'+
 										'<div class="infoFlip">'+
@@ -99,7 +99,7 @@ var Custom = function () {
 										'<i class="fa fa-times clickFlip"></i>'+
 									'</div>'+
 									'<div>'+
-										'<p>'+location.buildingAddress+'</p>'+
+										//'<p>'+location.buildingAddress+'</p>'+
 									'</div>'+
 								'</div>'+
 							'</div>'+
@@ -156,8 +156,11 @@ var Custom = function () {
             	};
         	
         	$('#pageLoadImage').fadeIn();
+        	
         	$.when(FoodDetails.getFoodDetails(), OrderDetails.getOrderDetails())
         	.then(function(foodResults, orderResults) {
+        		
+        		alert("hi");
         		
         		console.log(foodResults[0]);
         		console.log(orderResults[0]);
@@ -170,13 +173,13 @@ var Custom = function () {
     			//populate big blue tile
     			$('#foodInfoTile').fadeIn(); 
     			
-    			fillUserTile(orderResults[0].orders[0].user);
+    			//fillUserTile(orderResults[0].orderItems[0].user);
     			
-    			fillOrderTile(orderResults[0].orders);
+    			//fillOrderTile(orderResults[0].orders);
     			
     			
     			//populate top tiles
-    			fillBuildingTiles(foodResults[0].locations);
+    			fillBuildingTiles(foodResults);
     			//initialize bxslider
 				$('.bxslider').show();
 	            $('.bxslider').bxSlider({

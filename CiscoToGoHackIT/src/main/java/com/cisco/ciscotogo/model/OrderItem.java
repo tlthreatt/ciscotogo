@@ -8,15 +8,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 @Entity(name="order_item")
 public class OrderItem {
 	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="order_item_id")
 	private int id;
 	
 	@ManyToOne @JoinColumn(name="order_id", nullable=false)
+	@JsonBackReference
 	private Order order;
 	
 	@ManyToOne @JoinColumn(name="item_id", nullable=false)
+	@JsonManagedReference
 	private Item item;
 	
 	@Column(name="order_item_quantity", nullable=false)

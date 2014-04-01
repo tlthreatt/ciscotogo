@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity(name="location_hours")
 public class LocationHours implements Serializable {
 	public static void main(String[] args)throws ParseException {
@@ -31,6 +33,7 @@ public class LocationHours implements Serializable {
 	}
 	
 	@OneToOne @Id @JoinColumn(name="location_id", nullable=false)
+	@JsonBackReference
 	private Location location;
 	
 	@Column(name="location_hours_breakfast_start", nullable=false)

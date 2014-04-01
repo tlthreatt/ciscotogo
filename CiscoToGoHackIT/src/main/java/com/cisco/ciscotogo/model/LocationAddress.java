@@ -8,10 +8,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity(name="location_address")
 public class LocationAddress implements Serializable{
 	
 	@OneToOne @Id @JoinColumn(name = "location_id")
+	@JsonBackReference
 	private Location location;
 
 	

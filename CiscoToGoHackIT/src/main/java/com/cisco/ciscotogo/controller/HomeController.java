@@ -43,7 +43,7 @@ public class HomeController{
 		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
 		
 		list.add(new BasicNameValuePair("xml", ""));
-		//System.out.println(list.get(0).getValue());
+		System.out.println(list.get(0).getValue());
 		//System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"1/tathreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
 		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"1"));
 		return "orderToGo";
@@ -77,29 +77,40 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
-	public @ResponseBody LocationList getFoodDetails(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody List<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
 		LocationList allLocations = new LocationList();
 		ArrayList<Location> locations = new ArrayList<Location>();
 		//ArrayList<DailyMenu> dailyMenusJ = new ArrayList<DailyMenu>();
-		ArrayList<Item> menuItemsJ = new ArrayList<Item>();
-		ArrayList<Category> menuCategoriesJ = new ArrayList<Category>();
+		ArrayList<Item> itemsJ = new ArrayList<Item>();
+		ArrayList<Category> categoriesJ = new ArrayList<Category>();
 		//ArrayList<DailyMenu> dailyMenusFLSC2 = new ArrayList<DailyMenu>();
 		ArrayList<Item> menuItemsFLSC2 = new ArrayList<Item>();
 		ArrayList<Category> menuCategoriesFLSC2 = new ArrayList<Category>();
+		
+		
+		
+		Item chickenSandwhich = new Item(1, "Chicken Sandwhich", "A Chicken Sandwhich", 10);
+		Item pepsi = new Item(2, "Pepsi", "A Pepsi", 2);
+		itemsJ.add(chickenSandwhich); itemsJ.add(pepsi);
+		Category americanGrill = new Category("American Grill", false, itemsJ);
+		categoriesJ.add(americanGrill);
 		
 		//start bldg J things
 		//Item chickenSandwich = new Item("Chicken Sandwich", "$4.95", "Grilled chicken breast sandwich with lettuce, tomato, and american cheese");
 		//Item pepsi = new Item("Pepsi", "$1.50", "Regular 16oz Pepsi");
 		//Item regularLays = new Item("Original Lays Chips", "$1.00", "Original Lays Potato Chips");
-		//menuItemsJ.add(chickenSandwich); menuItemsJ.add(regularLays); menuItemsJ.add(pepsi);
+		//itemsJ.add(chickenSandwich); itemsJ.add(regularLays); itemsJ.add(pepsi);
 		
-		//Category americanGrill = new Category("American Grill", menuItemsJ);
-		//menuCategoriesJ.add(americanGrill);
+		//Category americanGrill = new Category("American Grill", itemsJ);
+		//categoriesJ.add(americanGrill);
 		
-		//DailyMenu mondayMenu = new DailyMenu("Monday", menuCategoriesJ);
+		//DailyMenu mondayMenu = new DailyMenu("Monday", categoriesJ);
 		//dailyMenusJ.add(mondayMenu);
 		
-		//Location bldgJ = new Location("Building J", "100 Tasman Dr. San Jose CA", dailyMenusJ);
+		Location location = new Location();
+		location.setName("Bldg J");
+		americanGrill.setLocation(location);
+		location.setCategories(categoriesJ);
 		//end bldg J things
 		
 		//start bldg FLSC2 things
@@ -117,10 +128,10 @@ public class HomeController{
 		//Location bldgFLSC2 = new Location("Building Freedom Circle Tower 2", "3979 Freedom Circle Santa Clara CA", dailyMenusFLSC2);
 		//end FLSC2 things
 		
-		//locations.add(bldgJ);
+		locations.add(location);
 		//locations.add(bldgFLSC2);
-		allLocations.setLocations(locations);
-		return allLocations;
+		
+		return locations;
 	}
 	
 	@RequestMapping(value="/processOrder", method = RequestMethod.GET, produces = "application/json")
