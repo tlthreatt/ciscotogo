@@ -21,7 +21,7 @@ public class Employee {
 	@Id @GeneratedValue(strategy=GenerationType.TABLE) @Column(name="employee_id")
 	private int id;
 	
-	@Column(name="employee_email", nullable=false)
+	@Column(name="employee_email", nullable=false, unique=true)
 	private String email;
 	
 	@Column(name="employee_first_name", nullable=true)
@@ -38,7 +38,7 @@ public class Employee {
 	private Location location;
 	
 	//*Is this necessary?
-	@OneToMany(mappedBy="employee") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="employee") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Order> orders;
 	
@@ -60,6 +60,10 @@ public class Employee {
 		setPassword(password);
 		setLocation(location);
 	}
+	public Employee(String email) {
+		setEmail(email);
+	}
+
 	public int getId() {
 		return id;
 	}

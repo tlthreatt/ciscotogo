@@ -4,22 +4,32 @@ import org.hibernate.Session;
 
 import com.cisco.ciscotogo.model.Item;
 
-public class ItemDao extends Dao implements DaoInterface<Item> {
+public class ItemDao extends Dao  {
 
-	@Override
-	public Item get(int id) {
-		Session session = getSession();
+	
+	public static Item get(int id) {
+		session = getSession();
 		Item item = (Item) session.get(Item.class, id);
 		return item;
 	}
 
-	@Override
-	public void save(Item item) {
-		Session session = getSession();
+
+	public static void save(Item item) {
+		session = getSession();
 		session.beginTransaction();
 		session.save(item);
 		session.getTransaction().commit();
+		session.close();
 		
+	}
+
+	
+	public static void delete(Item item) {
+		session = getSession();
+		session.beginTransaction();
+		session.delete(item);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

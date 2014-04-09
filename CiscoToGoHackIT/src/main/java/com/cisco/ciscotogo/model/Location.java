@@ -1,10 +1,12 @@
 package com.cisco.ciscotogo.model;
 
 import java.util.List;
+import java.util.Set;
 
 //import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,28 +27,28 @@ public class Location {
 	@OneToOne(mappedBy="location")
 	private LocationAddress locationAddress;
 	*/
-	@OneToOne(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToOne(mappedBy="location") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private LocationAddress locationAddress;
 	
-	@OneToMany(mappedBy="location")
-	@Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="location", fetch=FetchType.EAGER)
+	@Cascade(CascadeType.ALL)
 	@JsonManagedReference
-	private List<Category> categories;
+	private Set<Category> categories;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Employee> employees;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Order> orders;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Customer> customers;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Rating> ratings;
 	
@@ -56,7 +58,7 @@ public class Location {
 		setId(id);
 		setName(name);
 	}
-	public Location(int id, String name, List<Category> categories) {
+	public Location(int id, String name, Set<Category> categories) {
 		this(id, name);
 		setCategories(categories);
 	}
@@ -88,10 +90,10 @@ public class Location {
 		this.name = name;
 	}
 	
-	public List<Category> getCategories() {
+	public Set<Category> getCategories() {
 		return categories;
 	}
-	public void setCategories(List<Category> categories) {
+	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
 	/*

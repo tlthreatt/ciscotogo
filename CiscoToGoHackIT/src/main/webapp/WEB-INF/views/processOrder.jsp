@@ -44,17 +44,9 @@
 
 
 
-<div id="orderId" class="psdg-left"></div>
-<div id="fullName" class="psdg-right"></div>
-<div id="cec" class="psdg-right"></div>
-<div id="buildingID"class="psdg-right"></div>
-<div id="menuItem" class="psdg-right"></div>
-<div id="price" class="psdg-right"></div>
-<div class="psdg-right"><button id='status' type='button' class='readyButton'></button></div>
-<div class="psdg-right"><input class='completeBox tb5' type='text' size='10'/></div>
 
 
-
+<!-- 
 <div class="psdg-left"></div>
 <div class="psdg-right"></div>
 <div class="psdg-right"></div>
@@ -123,7 +115,7 @@
 <div class="psdg-right"></div>
 <div class="psdg-right"></div>
 
-
+-->
 
 
 

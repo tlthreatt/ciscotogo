@@ -14,7 +14,7 @@ import com.cisco.ciscotogo.model.Category;
 import com.cisco.ciscotogo.model.Location;
 
 
-public class CategoryDao extends Dao implements DaoInterface<Category>{
+public class CategoryDao extends Dao {
 	
 	public static void main(String[] args) {
 		CategoryDao dao = new CategoryDao();
@@ -42,35 +42,40 @@ public class CategoryDao extends Dao implements DaoInterface<Category>{
 	
 	
 	
-	public Category get(int id) {
-		Session session = getSession();
+	public static Category get(int id) {
+		session = getSession();
 		Category category = (Category) session.get(Category.class, id);
 		return category;
 	}
 
-	@Override
-	public void save(Category category) {
-		Session session = getSession();
-		//session.beginTransaction();
+	
+	public static void save(Category category) {
+		session = getSession();
+		session.beginTransaction();
 		
 		session.save(category);
 		
-		//session.getTransaction().commit();
-		//session.close();
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
-	public List<Category> getAll(Location location) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
+	public static List<Category> getAll(Location location) {
+		session = sessionFactory.openSession();
 		Query query = session.createQuery("from Category where location.id = " + location.getId());
 		List<Category> categories = (List<Category>)query.list();
-		
-		session.getTransaction().commit();
-		//session.close();
-		
 		return null;
+	}
+
+
+
+	
+	public static void delete(Category category) {
+		session = getSession();
+		session.beginTransaction();
+		session.delete(category);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 

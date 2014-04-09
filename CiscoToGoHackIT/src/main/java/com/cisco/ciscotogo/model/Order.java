@@ -48,13 +48,13 @@ public class Order {
 	private Employee employee;
 	
 	
-	@OneToMany(mappedBy="order") @Cascade(CascadeType.SAVE_UPDATE)
+	@OneToMany(mappedBy="order") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<OrderItem> orderItems;
 	
 
 	
-	@Transient
+	@Column(name="order_amount", nullable=true)
 	private double amount; // Not in DB, calculated from items (quantity * price)
 	
 	
@@ -88,6 +88,9 @@ public class Order {
 	}*/
 	
 	public Order(){}
+	public Order(int id) {
+		setId(id);
+	}
 	public int getId() {
 		return id;
 	}

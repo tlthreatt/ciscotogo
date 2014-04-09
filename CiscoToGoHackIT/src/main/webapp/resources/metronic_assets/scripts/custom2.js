@@ -1,21 +1,52 @@
 //Bind keypress event to textbox
 
 $(document).ready(function(){
-	var obj;
 	
+	var current_employee;
+	
+	$.ajax({
+		type : "POST",
+		url : "getEmployeeDetails/",
+		async : false,
+		success : function(response) {
+			//alert("promise.responeText == " + JSON.stringify(response));
+			current_employee = response;
+			//current_employee = JSON.parseJSON(response);
+			
+		}
+	});
+	
+	var obj;
+	//alert("before getordetable  " + JSON.stringify(current_employee));
 	$.ajax({
 		type: "POST",
 		url: "getOrderTable/",
+		data : {json:JSON.stringify(current_employee)},
 		success: function(response){
-			obj = $.parseJSON(response);
-			console.log(obj);
-			$('#orderId').html(obj.orderId);
-			$('#fullName').html(obj.userCEC);
-			$('#cec').html(obj.userCEC);
-			$('#buildingID').html(obj.buildingID);
-			$('#menuItem').html(obj.itemID);
-			$('#price').html(obj.ammount);
-			$('#status').html(obj.status);
+			// ** change this to accomodate set of orders wtf?
+			//obj = $.parseJSON(response);
+			//alert("WTF3");
+			obj = response;
+			//alert("obj == " + obj)
+			//alert("respone = " + obj);
+			//alert("obj = " + JSON.stringify(obj));
+			//alert("obj[0] = " + JSON.stringify(obj[0]));
+			//alert("obj[0].orderItems = " + JSON.stringify(obj[0].orderItems));
+			console.log(JSON.stringify(obj));
+			for (var ob = 0; ob < obj.length; ob++) {
+				//alert("ob == " + JSON.stringify(obj[ob]));
+				$('#orderId').html(obj[ob].id);
+				$('#fullName').html("Taylor Threatt");
+				$('#cec').html("tathreat");
+				$('#buildingID').html("Bldg J");
+				//orderItems
+				var orderItemName = obj[ob].orderItems[0].item.name;
+				$('#menuItem').html(obj[ob].orderItems[0].item.name);
+				$('#price').html(obj[ob].amount);
+				$('#status').html(obj[ob].status);
+			}
+			
+			//alert("fin");
 		}
 		
 	});
@@ -47,9 +78,9 @@ $(document).ready(function(){
 	$('.readyButton').click(function(){
 		$(this).prop('disabled',true);
 		$(this).html('Ready');
-		
-		var dat =  "req="+obj.orderId+"/"+obj.userCEC+"/"+obj.itemID+"/"+obj.buildingID+"/"+obj.ammount+"/Ready";
-		dat=dat.replace(/\s/g,"%20");
+		//alert(obj[0].id);
+		var dat = {json:JSON.stringify({id:obj[0].id})};
+		//alert("dat = " + JSON.stringify(dat));
 		console.log(dat);
 		$.ajax({
 			type: "POST",

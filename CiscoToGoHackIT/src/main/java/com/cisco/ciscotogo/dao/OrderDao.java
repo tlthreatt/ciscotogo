@@ -1,28 +1,31 @@
 package com.cisco.ciscotogo.dao;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
 
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.Order;
 import com.cisco.ciscotogo.model.OrderItem;
 
-public class OrderDao extends Dao implements DaoInterface<Order> {
+public class OrderDao extends Dao  {
 
 	
-	@Override
-	public Order get(int id) {
-		Session session = getSession();
+	
+	public static Order get(int id) {
+		session = getSession();
 		Order order = (Order) session.get(Order.class, id);
 		return order;
 	}
 	
-	@Override
-	public void save(Order order) {
-		Session session = getSession();
+	
+	public static void save(Order order) {
+		session = getSession();
 		session.beginTransaction();
 		
 		// Not sure if this should be here or in business layer
@@ -35,41 +38,61 @@ public class OrderDao extends Dao implements DaoInterface<Order> {
 		session.save(order);
 		
 		session.getTransaction().commit();
-		//session.close();
+		session.close();
 	}
 	
 
 	
-	public List<Order> getAllOrders(Customer customer) {
-		Session session = getSession();
-		//session.beginTransaction();
-		
-		//session.get(Location.class, "pk of class");
-		
-		Query query = session.createQuery("from Order where customer.cec = " + customer.getCec());
+	public static List<Order> getAll(Customer customer) {
+		session = getSession();
+
+		Query query = session.createQuery("from com.cisco.ciscotogo.model.Order where customer.cec = '" + customer.getCec() + "'");
 		
 		List<Order> orders = (List<Order>)query.list();
 		
-		//session.getTransaction().commit();
-		session.close();
 		
 		return orders;
 	}
 	
-	public List<Order> getAllOrders(Location location) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		
-		//session.get(Location.class, "pk of class");
-		
-		Query query = session.createQuery("from Order where location.id = " + location.getId());
-		
+	public static List<Order> getAllRecent(Customer customer, int maxResults) {
+		session = getSession();
+		Query query = session.createQuery("from com.cisco.ciscotogo.model.Order where customer.cec = '" + customer.getCec() + "'").setMaxResults(maxResults);
 		List<Order> orders = (List<Order>)query.list();
+		return orders;
+	}
+	
+	public static Set<Order> getAllRecent(Location location) {
+		session = sessionFactory.openSession();
+		Calendar nowDate = new GregorianCalendar();
+		Calendar floorDate = (Calendar)nowDate.clone();
+		floorDate.set(Calendar.HOUR_OF_DAY, 0);
+		floorDate.set(Calendar.MINUTE, 0);
+		floorDate.set(Calendar.SECOND, 0);
+		floorDate.set(Calendar.MILLISECOND, 0);
 		
-		session.getTransaction().commit();
-		session.close();
+		String hql = "from com.cisco.ciscotogo.model.Order where location.id = :id";// and date >= :floorDate and date <= :nowDate";
+		Query query = session.createQuery(hql).setInteger("id", location.getId());//.setDate("floorDate", floorDate.getTime()).setDate("nowDate", nowDate.getTime());
+		
+		Set<Order> orders = new LinkedHashSet((List<Order>)query.list());
 		
 		return orders;
+	}
+
+	
+	public static void delete(Order order) {
+		session = getSession();
+		session.beginTransaction();
+		session.delete(order);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+
+	public static void setOrderToReady(Order o) {
+		Order order = (Order)get(o.getId());
+		order.setStatus("Complete");
+		save(order);
+		
 	}
 
 

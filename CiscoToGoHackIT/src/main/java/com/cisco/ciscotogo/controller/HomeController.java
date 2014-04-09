@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,94 +18,148 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import org.codehaus.jettison.json.JSONException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cisco.ciscotogo.buisness.CreateOrder;
-import com.cisco.ciscotogo.buisness.Debug;
-import com.cisco.ciscotogo.model.Item;
+import com.cisco.ciscotogo.buisness.CustomerBiz;
+import com.cisco.ciscotogo.buisness.EmployeeBiz;
+import com.cisco.ciscotogo.buisness.LocationBiz;
+import com.cisco.ciscotogo.buisness.OrderBiz;
+import com.cisco.ciscotogo.misc.SendMailTLS;
+import com.cisco.ciscotogo.model.Customer;
+import com.cisco.ciscotogo.model.Employee;
 import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.Order;
-import com.cisco.ciscotogo.model.OrderItem;
-import com.cisco.ciscotogo.model.OrderList;
-import com.cisco.ciscotogo.model.SendMailTLS;
 
 @Controller
 public class HomeController{
 	
+	private Customer currentCustomer;
+	private Employee currentEmployee;
+	
 	private final String CLAYTONS_REST_THINGY_URL = "http://10.155.252.176:10080/HackItOrderMgmtRestProejct/rest/order/";
-
-	@RequestMapping(value = "/orderToGo", method = RequestMethod.GET)
+	@RequestMapping(value= "/customerLogin", method = RequestMethod.GET)
+	public String customerLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("in /customerLogin");
+		return "customerLogin";
+	}
+	@RequestMapping(value = "/orderToGo", method = RequestMethod.POST)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List<NameValuePair> list = new ArrayList<NameValuePair>(1);
+		System.out.println("in /orderToGo");
 		
-		list.add(new BasicNameValuePair("xml", ""));
-		System.out.println(list.get(0).getValue());
-		//System.out.println("The order request : \n" + httpPostResponse(CLAYTONS_REST_THINGY_URL+"1/tathreat/Chicken%20Sandwich/Building%20J/6/Pending", list));
-		//System.out.println("The order request : \n" + httpGetResponse(CLAYTONS_REST_THINGY_URL+"1"));
-		return "orderToGo";
+		/** This is loading fake test data while I code this. Before the demo it needs to have a permanent fake test data in db */
+		//Debug.InitializeDatabase();
+		String customerCec = (String)request.getParameter("customer_cec");
+		String customerPassword = (String)request.getParameter("customer_password");
+		System.out.println("customerCec = '" + customerCec + "' and pass = '" + customerPassword + "'");
+		// This should also fetch the balance for the customer, which I'm hard coding in CustomerBiz.validatePassword for now.
+		Customer customer = CustomerBiz.validatePassword(customerCec, customerPassword);
+		if (customer != null) {
+			System.out.println("BALANCE == " + customer.getBalance());
+			setCurrentCustomer(customer);
+			System.out.println("returning order to go");
+			return "orderToGo";
+		} else {
+			// Something needs to show up saying they messed up username/password on page
+			System.out.println("returning customer login");
+			return "customerLogin";
+		}
+		
+	}
+	@RequestMapping(value="/getCustomerDetails", method=RequestMethod.POST, produces="application/json")
+	public @ResponseBody Customer getCustomerDetails(HttpServletRequest request, HttpServletResponse response) throws JSONException {
+		System.out.println("BALANCE FO SHO = " + getCurrentCustomer().getBalance());
+		return getCurrentCustomer();
 	}
 	
-	@RequestMapping(value="/getOrderDetails", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<Order> getOrderDetails(HttpServletRequest request, HttpServletResponse response){
-		OrderList allOrders = new OrderList();
-		ArrayList<Order> orders = new ArrayList<Order>();
-		Order order = new Order();order.setId(1);
-		Item item = new Item(0, "test","test", 10);
-		OrderItem orderItem = new OrderItem(order, item);
-		order.setOrderItems(new ArrayList<OrderItem>());
-		order.getOrderItems().add(orderItem);
-		orders.add(order);
-		//Item item = new Item(1, "ChickenSandwich", "$4.95", "A chicken sandwich");
-		//Item item2 = new Item(2, "Sprite", "$1.50", "Sprite");
-		//items.add(item); items.add(item2);
-		//Customer customer = new Customer("Taylor", "Threatt", "tathreat", 883213, "Freedom Circle Tower 2", 0.00, "Freedom Circle Tower 2", item.getItemID());
-		//start order 1 - a completed order
-		//Order order1 = new Order("Completed", customer, items, "Freedom Circle Tower 2", 06.45, 132435);
-		//Order order2 = new Order("Cancelled", customer, items, "Freedom Circle Tower 2", 06.45, 354657);
-		//Order order3 = new Order("Pending", customer, items, "Freedom Circle Tower 2", 06.45, 687980);
+	@RequestMapping(value="/getOrderDetails", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody Customer getOrderDetails(HttpServletRequest request, HttpServletResponse response) throws JSONException{
+	//public @ResponseBody Customer getOrderDetails(@RequestParam("json") String json, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		//If we assume CEC is coming in through JQuery (probably wrong), then balance would be as well
+		System.out.println("in /getOrderDetails");
+		String json = (String)request.getParameter("json");
+		System.out.println(json);
+		return OrderBiz.FetchCustomerAndRecentOrders(json);
 		
-		//orders.add(order1); orders.add(order2); orders.add(order3);
-		//allOrders.setOrdrers(orders);
-		
-		
-		//return allOrders;
-		return orders;
+	
 	}
 	
-	@RequestMapping(value="/getFoodDetails", method = RequestMethod.GET,produces = "application/json")
-	public @ResponseBody List<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
-		
-		System.out.println("Calling Initialize Database:");
-		return Debug.InitializeDatabase();
+	@RequestMapping(value="/getFoodDetails", method = RequestMethod.POST,produces = "application/json")
+	public @ResponseBody Set<Location> getFoodDetails(HttpServletRequest request, HttpServletResponse response){
+	//public @ResponseBody List<Location> getFoodDetails(@RequestParam("customer_cec") String customerCec, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		// Ideally the customer would have a "recent_location" table to pull these from
+		System.out.println("in /getFoodDetails");
+		return LocationBiz.FetchLocationsAndCategoriesAndItems();
 	}
 	
-	@RequestMapping(value="/processOrder", method = RequestMethod.GET, produces = "application/json")
+	
+	
+	
+	
+	@RequestMapping(value= "/employeeLogin", method = RequestMethod.GET)
+	public String employeeLogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("in /employeeLogin");
+		return "employeeLogin";
+	}
+	
+	@RequestMapping(value="/processOrder", method = RequestMethod.GET)
+	public String processOrderNoLogin(HttpServletRequest request, HttpServletResponse response) {
+		if (currentEmployee == null) {
+			return "employeeLogin";
+		} else {
+			return processOrder(request, response);
+		}
+	}
+	@RequestMapping(value="/processOrder", method = RequestMethod.POST, produces = "application/json")
 	public String processOrder(HttpServletRequest request, HttpServletResponse response){
-		return "processOrder";
+		
+		String employeeEmail = (String)request.getParameter("employee_email");
+		String employeePassword = (String)request.getParameter("employee_password");
+
+		Employee employee = EmployeeBiz.validatePassword(employeeEmail, employeePassword);
+		if (employee != null) {
+			setCurrentEmployee(employee);
+			System.out.println("returning order to go");
+			return "processOrder";
+		} else {
+			// Something needs to show up saying they messed up username/password on page
+			System.out.println("returning customer login");
+			return "employeeLogin";
+		}
+	}
+	@RequestMapping(value="/getEmployeeDetails", method=RequestMethod.POST, produces="application/json")
+	public @ResponseBody Employee getEmployeeDetails(HttpServletRequest request, HttpServletResponse response) throws JSONException {
+		System.out.println("in employee details");
+		return getCurrentEmployee();
 	}
 	
 	@RequestMapping(value="/updateMenu", method = RequestMethod.GET, produces = "application/json")
 	public String updateMenu(HttpServletRequest request, HttpServletResponse response){
 		return "updateMenu";
 	}
-	
+	//custom2.js
 	@RequestMapping(value="/getOrderTable", method = RequestMethod.POST)
-	public @ResponseBody String getOrderTable(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		return httpGetResponse(CLAYTONS_REST_THINGY_URL+"1");
+	public @ResponseBody Set<Order> getOrderTable(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		System.out.println("in /getOrderTable");
+		String json = (String)request.getParameter("json");
+		System.out.println(json);
+		Set<Order> orders = OrderBiz.FetchRecentOrders(json);
+		return orders;
 	}
 	
 	@RequestMapping(value="/orderReady", method = RequestMethod.POST)
-	public @ResponseBody String orderReady(String req) throws Exception{
-		System.out.println(req);
-		req=req.replaceAll(" ", "%20");
-		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
-		SendMailTLS mailer = new SendMailTLS();
-		mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
+	public @ResponseBody String orderReady(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		String json = (String)request.getParameter("json");
+		System.out.println("in /orderReady");
+		System.out.println("json == " + json);
+		//SendMailTLS mailer = new SendMailTLS();
+		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
+		OrderBiz.SetOrderToReady(json);
 		return "success";
 	}
 	
@@ -119,7 +174,7 @@ public class HomeController{
 	@RequestMapping(value="/createOrder", method = RequestMethod.POST)
 	public @ResponseBody String createOrder(@RequestParam("json") String json) throws Exception{
 		System.out.println("JSON IS == " + json);
-		CreateOrder.CreateOrder(json);
+		OrderBiz.CreateOrder(json);
 		//req=req.replaceAll(" ", "%20");
 		//httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
 		//SendMailTLS mailer = new SendMailTLS();
@@ -179,5 +234,17 @@ public class HomeController{
 		fis.read(b);
 		String content = new String(b);
 		return content;
+	}
+	public Customer getCurrentCustomer() {
+		return currentCustomer;
+	}
+	public void setCurrentCustomer(Customer currentCustomer) {
+		this.currentCustomer = currentCustomer;
+	}
+	public Employee getCurrentEmployee() {
+		return currentEmployee;
+	}
+	public void setCurrentEmployee(Employee currentEmployee) {
+		this.currentEmployee = currentEmployee;
 	}
 }

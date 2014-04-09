@@ -6,16 +6,21 @@ var Custom = function () {
 	//gets the contact info for the contact info file
 	
 	function createOrderForm(name, categories){
+		
 		$('#foodInfoTileContents').append('<div style="float:left; width:300px;"><h1 style="line-height:60px">Choose a Meal</h1><h1 style="line-height:60px">From '+ name + '</h1></div>');
 		$('#foodInfoTileContents').append('<div id="mealRadioButtons" style="float:left; width:200px;"></div>');
 		
 		categories.forEach(function(category){
-			alert("categoreies = " + JSON.stringify(category));
+			//alert("categoreies = " + JSON.stringify(category));
 			$('#mealRadioButtons').append('<h3 style="line-height:50px">' + category.name + '</h3>');
 			console.log(category.items);
-			alert("items = " + JSON.stringify(category.items))
+			//alert("items = " + JSON.stringify(category.items))
 			category.items.forEach(function(item){
-				$('#mealRadioButtons').append('<input type="radio" name="item" value = "'+item.id + '"><label style="font-size:20px">' +item.name + '</label><label id="item' + item.id + '"price=' + item.listprice + '" style="font-size:20px">' + item.listPrice + '</label><br>');
+				
+				var html_string = '<input type="checkbox" name="item" value="' + item.id + '">';
+				html_string += '<label style="font-size:16px">' + item.name + '</label>';
+				html_string += '<label style="font-size:16px">' + item.listPrice + '</label><br>'
+				$('#mealRadioButtons').append(html_string);
 			});
 		});
 		$('#foodInfoTileContents').append(
@@ -26,27 +31,35 @@ var Custom = function () {
 		
 	}
 	
-	function fillUserTile(user){
+	function fillUserTile(customer){
+		//alert("customer == " + JSON.stringify(customer));
+		
 		$('#contactTileContents').append(
-				'<h1 style="padding-bottom:20px;">Hi, ' + user.firstName + '</h1>'+
-				'<h4 style="padding-bottom:20px;"> Favorite Food: ' + user.favFood + '</h4>'+
-				'<h4 style="padding-bottom:20px;"> Favorite Location: ' + user.favLocation + '</h4>'+
-				'<h4> Balance: ' + user.balance + '</h4>'		
+				'<h1 style="padding-bottom:20px;">Hi, ' + customer.firstName + '</h1>' +
+				//'<h4 style="padding-bottom:20px;"> Favorite Food: ' + user.favFood + '</h4>'+
+				//'<h4 style="padding-bottom:20px;"> Favorite Location: ' + user.favLocation + '</h4>'+
+				
+				'<h4> Balance: ' + customer.balance + '</h4>'	
 		);
 		
 	}
 	
 	function fillOrderTile(orders){
-		$('#orderTileContents').append(
+		$('#orderTileContents').html(
 			'<h1 style="padding-bottom:20px;"> Orders </h1>'
 		);
-		orders.forEach(function(order){
-			console.log(order);
-			$('#orderTileContents').append(
-				'<h5 style="padding-bottom:20px;"> Order #' + order.orderID + ': ' + order.status + '</h5>'
-			);
-		});
+		if (orders.length == 0) {
+			$('#orderTileContents').append('<h5 style="padding-bottom:20px;">You have no current Orders</h5>');
+		} else {
+			orders.forEach(function(order){
+				console.log(order);
+				$('#orderTileContents').append(
+					'<h5 style="padding-bottom:20px;"> Order #' + order.id + ': ' + order.status + '</h5>'
+				);
+			});
+		}
 		var obj;
+		/*
 		$.ajax({
 			type: "POST",
 			url: "getOrderTable/",
@@ -57,6 +70,7 @@ var Custom = function () {
 				);
 			}
 		});
+		*/
 		
 		
 		
@@ -64,6 +78,7 @@ var Custom = function () {
 	
 	function fillBuildingTiles(locationList){
 		var tileColor;
+		//alert("locationList == " + JSON.stringify(locationList));
 		locationList.forEach(function(location,index){
 			var tileColor;
 			switch(index % 4){
@@ -127,10 +142,17 @@ var Custom = function () {
 		});
 	}
 	
+	/*
+	 * Customer CEC is hard coded to taylor's. Make sure this is updated with LDAP information.
+	 */
+	
+	var current_customer; // = {customer_cec:"tathreat", customer_balance:20.00};
+	//alert ("current_customer == " + JSON.stringify(current_customer));
 	
     // public functions
     return {
-
+    	
+    	
         //main function
         init: function () {     
            
@@ -138,20 +160,44 @@ var Custom = function () {
                 
         getFoodData: function(){
         	//GET FOOD INFO
+        	var CustomerDetails = {
+        			getCustomerDetails: function() {
+            			//alert("trying ajax to getCustomerDetails/");
+            			var promise = $.ajax({
+            				url: 'getCustomerDetails/',
+            				type:"POST",
+            				async:false
+            				
+            			});
+            			///alert("promise.responseText == " + JSON.stringify(promise.responseText));
+            			///alert("promise == " + JSON.stringify(promise));
+            			///current_customer = promise;
+            			return promise.responseText;
+            		}
+            	};
+        	
         	var FoodDetails = {
         		getFoodDetails: function() {
+        			//alert("trying ajax to getFoodDetails/ " + JSON.stringify(current_customer));
         			var promise = $.ajax({
-        				url: 'getFoodDetails/'
+        				url: 'getFoodDetails/',
+        				type:"POST",
+        				data:{json:JSON.stringify(current_customer)}
+        				
         			});
-        			
+        			//alert("foodDetails promise.resp = " + promise.responseText);
+        			//alert("foodDetails promise.resp = " + JSON.stringify(promise));
         			return promise;
         		}
         	};
         	
         	var OrderDetails = {
             		getOrderDetails: function() {
+            			//alert("trying ajax to getOrderDetails/ " + JSON.stringify(current_customer));
             			var promise = $.ajax({
-            				url: 'getOrderDetails/'
+            				url: 'getOrderDetails/',
+            				type:"POST",
+            				data:{json:JSON.stringify(current_customer)}
             			});
             			
             			return promise;
@@ -159,6 +205,15 @@ var Custom = function () {
             	};
         	
         	$('#pageLoadImage').fadeIn();
+        	/*
+        	$.when(CustomerDetails.getCustomerDetails())
+        	.then(function(customerResults) {
+        		alert("whenthen " + JSON.stringify(customerResults));
+        		current_customer = customerResults;
+        	*/
+        	//synchronous ajax returns a json string not a json object
+        	current_customer = jQuery.parseJSON(CustomerDetails.getCustomerDetails());
+        	//alert("asynch " + JSON.stringify(current_customer));
         	
         	$.when(FoodDetails.getFoodDetails(), OrderDetails.getOrderDetails())
         	.then(function(foodResults, orderResults) {
@@ -170,6 +225,8 @@ var Custom = function () {
         		//foodResults[0] is actual list
         		//alert("[0] = " + JSON.stringify(foodResults[0]));
         		//alert("[0][0] = " + JSON.stringify(foodResults[0][0]));
+        		
+        		//alert("orderResults == " + JSON.stringify(orderResults));
         		
         		
         		console.log(foodResults[0]);
@@ -183,9 +240,9 @@ var Custom = function () {
     			//populate big blue tile
     			$('#foodInfoTile').fadeIn(); 
     			
-    			//fillUserTile(orderResults[0].orderItems[0].user);
+    			fillUserTile(orderResults[0]);
     			
-    			//fillOrderTile(orderResults[0].orders);
+    			fillOrderTile(orderResults[0].orders);
     			
     			
     			//populate top tiles
@@ -223,39 +280,70 @@ var Custom = function () {
 	            	
 	            	$('#confirmButton').click(function(){
 	            		var isChecked = false;
-	            		$('input:radio:checked').each(function(){
+	            		var items = [];
+	            		var location_id = foodResults[0][0].id;
+            			var customer_cec = "tathreat"
+            			var item;
+            			var total_amount = 0.0;
+	            		$('input:checkbox:checked').each(function(){
 	            			isChecked = true;
 	            			console.log($(this).val());
 	            			//dat = "req=1/tathreat/"+ $(this).val()+"/"+foodResults[0][0].locations[index].buildingName+"/6/Pending";
-	            			var item_ids = [$(this).val()];
-	            			var location_id = foodResults[0][0].id;
-	            			var status = "Pending"
-	            			alert("location_id = " + location_id);
-	            			var customer_cec = "tathreat"
-	            			var dat = {item_ids : item_ids, customer_cec:customer_cec, location_id:location_id, status:status};
-	            			dat = {json:JSON.stringify(dat)};
-	            			alert(dat);
-	            			$.ajax({
-	            				type: "POST",
-	            				url: "createOrder/",
-	            				data: dat,
-	            				success:function(){
-	            					alert('Order Created');
-	            					$('#dbOrder').html('Order #1: Pending');
-	            					$('#foodInfoTileContents').empty();
-	            				}
+	            			var item_id = $(this).val();
+	            			var item_price;
+	            			foodResults[0][0].categories.forEach(function (c) { 
+	            				item = c.items.filter(function (i) {
+	            					//alert("!item = " + JSON.stringify(i));
+	            					return i.id == item_id});//.map(function(i){return i});
 	            			});
+	            			//alert("item == " + JSON.stringify(item));
+	            			//alert("item[0] == " + JSON.stringify(item[0]));
+	            			//alert("item price == " + item[0].listPrice);
+	            			items.push({id:item_id, list_price:item[0].listPrice});
+	            			total_amount += item[0].listPrice;
+	            			alert("total amount = " + total_amount)
 	            			
 	            		})
+	            		
+	            		
+	            		
 	            		if(!isChecked){
 	            			alert('Did not choose a meal!');
+	            			return;
 	            		}
+	            		if (total_amount > current_customer.balance) {
+	            			alert('Your balance of $' + current_customer.balance + ' is less than $' + total_amount + '.');
+	            			return;
+	            		}
+
+            			var dat = {items : items, customer_cec:customer_cec, location_id:location_id, total_amount:total_amount};
+            			dat = {json:JSON.stringify(dat)};
+            			//alert(dat);
+            			$.ajax({
+            				type: "POST",
+            				url: "createOrder/",
+            				data: dat,
+            				success:function(){
+            					//alert('Order Created');
+            					$('#dbOrder').html('Order #1: Pending');
+            					$('#foodInfoTileContents').empty();
+            					
+            					$.when(OrderDetails.getOrderDetails())
+            	        		.then(function(orderResults) { 
+            	        			//alert( "orderResults = " + JSON.stringify(orderResults));
+            	        			// for some reason its not a list this time, no [0]
+            	        			fillOrderTile(orderResults.orders);
+            	        		});
+            				}
+            			});
 	            		
 	            	});
 	            });
 	            
 	            
         	});
+        	
+       // }); // when customer details then
         	
         	
         },

@@ -1,4 +1,4 @@
-package com.cisco.ciscotogo.model;
+package com.cisco.ciscotogo.misc;
 
 import java.util.Properties;
 

@@ -12,6 +12,8 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 import org.codehaus.jackson.annotate.JsonManagedReference;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Customer {
@@ -31,6 +33,10 @@ public class Customer {
 	@Column(name="customer_last_name", nullable=false)
 	private String lastName;
 	
+	/* This should be nullable=false once authentication is finished */
+	@Column(name="customer_password", nullable=true)
+	private String password;
+	
 	@Column(name="customer_is_text_enabled", nullable=false)
 	private boolean isTextEnabled;
 	
@@ -38,17 +44,23 @@ public class Customer {
 	@JsonBackReference
 	private Location location;
 	
-	@OneToMany(mappedBy="customer")
+	/* Should I cascade here?*/
+	@OneToMany(mappedBy="customer") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Order> orders;
 	
-	@OneToMany(mappedBy="customer")
+	/* Should I cascade here? */
+	@OneToMany(mappedBy="customer") @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Rating> ratings;
 	
+	
 	@Transient
+	@Column(name="customer_balance")
 	private double balance;
 	
+
+
 	public Customer(String cec) {
 		setCec(cec);
 	}
@@ -66,12 +78,13 @@ public class Customer {
 		this(cec, email, phone, isTextEnabled, firstName, lastName);
 		setLocation(location);
 	}
-	
+	/*
 	public Customer(String cec, String email, String phone, boolean isTextEnabled, String firstName, String lastName, Location location
 			,double balance) {
 		this(cec, email, phone, isTextEnabled, firstName, lastName, location);
 		setBalance(balance);
 	}
+	*/
 	
 
 	
@@ -116,7 +129,7 @@ public class Customer {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-
+	
 	public double getBalance() {
 		return balance;
 	}
@@ -124,6 +137,7 @@ public class Customer {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+	
 
 	public String getPhone() {
 		return phone;
@@ -140,7 +154,25 @@ public class Customer {
 	public void setTextEnabled(boolean isTextEnabled) {
 		this.isTextEnabled = isTextEnabled;
 	}
-
+	public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 
 	
 	
