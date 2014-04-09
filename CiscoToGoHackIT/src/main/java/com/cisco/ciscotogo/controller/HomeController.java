@@ -47,6 +47,11 @@ public class HomeController{
 		System.out.println("in /customerLogin");
 		return "customerLogin";
 	}
+	@RequestMapping(value= "/testlogin", method = RequestMethod.GET)
+	public String testlogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("in /testlogin");
+		return "testlogin";
+	}
 	@RequestMapping(value = "/orderToGo", method = RequestMethod.POST)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("in /orderToGo");
