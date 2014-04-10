@@ -114,7 +114,7 @@
 <div class="psdg-top-cell">Menu Item</div>
 <div class="psdg-top-cell">Price</div>
 <div class="psdg-top-cell">Status</div>
-<div class="psdg-top-cell" style="border:none;">Text Box</div>
+<div class="psdg-top-cell" style="border:none;">Pickup Status</div>
 </div>
 
 
