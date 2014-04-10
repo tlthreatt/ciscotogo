@@ -88,5 +88,11 @@ public class OrderBiz {
 		OrderDao.setOrderToReady(order);
 		
 	}
+	public static void SetOrderToComplete(String json) throws JSONException {
+		JSONObject jsonObject = (JSONObject)new JSONTokener(json).nextValue();
+		Order order = new Order(jsonObject.getInt("id"));
+		OrderDao.setOrderToComplete(order);
+		
+	}
 
 }

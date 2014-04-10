@@ -48,8 +48,8 @@
 <div id="buildingID"class="psdg-right"></div>
 <div id="menuItem" class="psdg-right"></div>
 <div id="price" class="psdg-right"></div>
-<div class="psdg-right"><button id='1status' type='button' class='readyButton'></button></div>
-<div class="psdg-right"><input class='completeBox tb5' type='text' size='10'/></div>
+<div id="readyButton" class="psdg-right"></div>
+<div id="completeBox" class="psdg-right"></div>
 
 
 

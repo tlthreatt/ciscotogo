@@ -1,7 +1,40 @@
 //Bind keypress event to textbox
 
-$(document).ready(function(){
+	function ready_button(button, orderId) {
+		$(button).prop('disabled', true);
+		$(button).html('Ready');
+		var dat = {json:JSON.stringify({id:orderId})};
+		alert("dat = " + JSON.stringify(dat));
+		console.log(dat);
+		$.ajax({
+			type: "POST",
+			url: "orderReady/",
+			data:dat,
+			success: function(){
+				
+			}
+			
+		});
+	}
+
+	function complete_text(txt, orderId) {
+		$(txt).prop('disabled', true);
+		var dat = {json:JSON.stringify({id:orderId})};
+		alert("dat = " + JSON.stringify(dat));
+		console.log(dat);
+		$.ajax({
+			type: "POST",
+			url: "orderComplete/",
+			data:dat,
+			success: function(){
+				
+			}
+			
+		});
+	}
 	
+$(document).ready(function(){
+
 	var current_employee;
 	
 	$.ajax({
@@ -35,27 +68,41 @@ $(document).ready(function(){
 			console.log(JSON.stringify(obj));
 			for (var ob = 0; ob < obj.length; ob++) {
 				//alert("ob == " + JSON.stringify(obj[ob]));
-				$('#orderId').html(obj[ob].id);
-				$('#fullName').html("Taylor Threatt");
-				$('#cec').html("tathreat");
-				$('#buildingID').html("Bldg J");
+				$('#orderId').append("<div>" + obj[ob].id + "</div>");
+				$('#fullName').append("<div>" + "Taylor Threatt" + "</div>");
+				$('#cec').append("<div>" + "tathreat" + "</div>");
+				$('#buildingID').append("<div>" + "Bldg J" + "</div>");
 				//orderItems
 				var orderItemName = obj[ob].orderItems[0].item.name;
-				$('#menuItem').html(obj[ob].orderItems[0].item.name);
-				$('#price').html(obj[ob].amount);
-				$('#status').html(obj[ob].status);
+				$('#menuItem').append("<div>" + obj[ob].orderItems[0].item.name + "</div>");
+				$('#price').append("<div>" + obj[ob].amount + "</div>");
+				if (obj[ob].status == "Pending") { //"<div>" + obj[ob].status + "</div>"
+					$('#readyButton').append("<div>" + "<button id='1status' type='button' class='readyButton' onclick='ready_button(this," +obj[ob].id + ");'></button>" + "</div>");
+					//$('#completeBox').append("<div>" + "<input class='completeBox tb5' type='text' size='10'  onkeypress='complete_text(this," + obj[ob].id + ");' />" + "</div>"); // onkeypress='complete_text(this," + obj[ob].id + ")
+					$('#completeBox').append("<div>" + " " + "</div");
+				} else if (obj[ob].status == "Ready") {
+					$('#readyButton').append("<div>" + "Ready" + "</div>");
+					$('#completeBox').append("<div>" + "<input class='completeBox tb5' type='text' size='10' onkeypress='complete_text(this," + obj[ob].id + ");' />" + "</div>"); // onkeypress='complete_text(this," + obj[ob].id + ")
+				} else if (obj[ob].status == "Complete") {
+					$('#readyButton').append("<div>" + "Complete" + "</div>");
+					$('#completeBox').append("<div>" + "Complete" + "</div>");
+				}
+				
+				
 			}
 			
 			//alert("fin");
 		}
 		
 	});
+	
+	
 	//$('.completeBox').prop('disabled',true);
+	/*
 	$('.completeBox').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if(keycode == '13'){
-			var dat =  "req="+obj.orderId+"/"+obj.userCEC+"/"+obj.itemID+"/"+obj.buildingID+"/"+obj.ammount+"/Complete";
-			dat=dat.replace(/\s/g,"%20");
+			var dat = {json:JSON.stringify({id:orderId})};
 			console.log(dat);
 			$.ajax({
 				type: "POST",
@@ -74,12 +121,17 @@ $(document).ready(function(){
 		//at document level will also be triggered
 		event.stopPropagation();
 	});
+	*/
+	
+
+	
+
 	
 	$('.readyButton').click(function(){
 		$(this).prop('disabled',true);
 		$(this).html('Ready');
 		//alert(obj[0].id);
-		var dat = {json:JSON.stringify({id:obj[0].id})};
+		var dat = {json:JSON.stringify({id:orderId})};
 		//alert("dat = " + JSON.stringify(dat));
 		console.log(dat);
 		$.ajax({
@@ -92,4 +144,5 @@ $(document).ready(function(){
 			
 		});
 	});
+	
 });

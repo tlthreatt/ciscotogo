@@ -169,10 +169,13 @@ public class HomeController{
 	}
 	
 	@RequestMapping(value="/orderComplete", method = RequestMethod.POST)
-	public @ResponseBody String orderComplete(String req) throws Exception{
-		System.out.println(req);
-		req=req.replaceAll(" ", "%20");
-		httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
+	public @ResponseBody String orderComplete(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		System.out.println("in /orderComplete");
+		String json = (String)request.getParameter("json");
+		System.out.println("json == " + json);
+		//SendMailTLS mailer = new SendMailTLS();
+		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
+		OrderBiz.SetOrderToComplete(json);
 		return "success";
 	}
 		

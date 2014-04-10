@@ -90,9 +90,13 @@ public class OrderDao extends Dao  {
 
 	public static void setOrderToReady(Order o) {
 		Order order = (Order)get(o.getId());
+		order.setStatus("Ready");
+		save(order);
+	}
+	public static void setOrderToComplete(Order o) {
+		Order order = (Order)get(o.getId());
 		order.setStatus("Complete");
 		save(order);
-		
 	}
 
 

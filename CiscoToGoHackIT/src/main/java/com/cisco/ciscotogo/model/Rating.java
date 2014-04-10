@@ -31,7 +31,18 @@ public class Rating {
 	private Location location;
 
 	
-	
+	public Rating(int id) {
+		setId(id);
+	}
+	public Rating(String review, int stars) {
+		setReview(review);
+		setStars(stars);
+	}
+	public Rating(int id, String review, int stars) {
+		setId(id);
+		setReview(review);
+		setStars(stars);
+	}
 	
 	public int getId() {
 		return id;
