@@ -40,8 +40,8 @@ var Custom = function () {
 			category.items.forEach(function(item){
 				
 				var html_string = '<input type="checkbox" name="item" value="' + item.id + '">';
-				html_string += '<label style="font-size:16px">' + item.name + '</label>';
-				html_string += '<label style="font-size:16px">' + item.listPrice + '</label><br>';
+				html_string += '<label style="font-size:16px">' + item.name + "  " + '</label>';
+				html_string += '<label style="font-size:16px">' + "---$" + item.listPrice + '</label><br>';
 				
 				$('#mealRadioButtons').append(html_string);
 			});
