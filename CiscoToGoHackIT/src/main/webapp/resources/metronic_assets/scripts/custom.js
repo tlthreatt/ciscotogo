@@ -207,8 +207,8 @@ var Custom = function () {
             			///alert("promise.responseText == " + JSON.stringify(promise.responseText));
             			///alert("promise == " + JSON.stringify(promise));
             			///current_customer = promise;
-            			alert("WTF" + JSON.stringify(promise));
-            			alert("WTF" + promise.responseText);
+            			//alert("WTF" + JSON.stringify(promise));
+            			//alert("WTF" + promise.responseText);
             			return promise.responseText;
             		}
             	};
@@ -225,7 +225,7 @@ var Custom = function () {
         			//alert("foodDetails promise.resp = " + promise.responseText);
         			//alert("foodDetails promise.resp = " + JSON.stringify(promise));
         			return promise;
-        			alert("food details promise == " + JSON.stringify(promise));
+        			//alert("food details promise == " + JSON.stringify(promise));
         		}
         	};
         	
@@ -239,7 +239,7 @@ var Custom = function () {
             			});
             			
             			return promise;
-            			alert("orderdetails promise == " + JSON.stringify(promise));
+            			//alert("orderdetails promise == " + JSON.stringify(promise));
             		}
             	};
         	
@@ -268,8 +268,8 @@ var Custom = function () {
         		
         		//alert("orderResults == " + JSON.stringify(orderResults));
         		
-        		alert("foodResuls = " + JSON.stringify(foodResults));
-        		alert("foodResults[0] = " + JSON.stringify(foodResults[0]));
+        		//alert("foodResuls = " + JSON.stringify(foodResults));
+        		//alert("foodResults[0] = " + JSON.stringify(foodResults[0]));
         		
         		console.log(foodResults[0]);
         		console.log(orderResults[0]);
@@ -314,7 +314,7 @@ var Custom = function () {
 	            	//this can be the location_id?
 	            	var index = parseInt($(this).attr('id'));
 	            	location_id = foodResults[0][index].id;
-	            	alert("location_id == " + location_id);
+	            	//alert("location_id == " + location_id);
 	            	console.log($(this).attr('id'));
 	            	//alert("index == " + index);
 	            	$('#foodInfoTileContents').empty();
@@ -349,7 +349,7 @@ var Custom = function () {
 	            			//dat = "req=1/tathreat/"+ $(this).val()+"/"+foodResults[0][0].locations[index].buildingName+"/6/Pending";
 	            			var item_id = $(this).val();
 	            			var item_price;
-	            			alert("location_id = " + location_id);
+	            			//alert("location_id = " + location_id);
 	            			//categoryLoop: // this is to break out of the loop once an item matches
 	            			foodResults[0][0].categories.forEach(function (c) { 
 	            				
@@ -391,7 +391,7 @@ var Custom = function () {
 	            		}
 	            		var new_customer_balance = current_customer.balance - total_amount;
 	            		current_customer.balance = new_customer_balance;
-	            		alert("new customer balance == " + new_customer_balance);
+	            		//alert("new customer balance == " + new_customer_balance);
 	            		$('#customer_balance').text("Balance: " + new_customer_balance);
             			var dat = {items : items, customer_cec:customer_cec, new_customer_balance:new_customer_balance, location_id:location_id, total_amount:total_amount};
             			dat = {json:JSON.stringify(dat)};
