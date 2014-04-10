@@ -34,7 +34,7 @@ Download more PSD stuff from www.psdgraphics.com
 #psdg-top {
 	margin:0;
 	padding: 0;
-	width: 978px;
+	width: 970px;
 	height: 46px;
 	border-top: 2px solid #FFF;
 	background: #eff4ff url(images/top-light-blue.png) repeat-x left top;	
@@ -54,7 +54,7 @@ Download more PSD stuff from www.psdgraphics.com
 #psdg-middle {
 	margin:0;
 	padding: 0;
-	width: 978px;
+	width: 970px;
 	background: #f6f6f6 url(images/center-bcg.png) repeat-y right top;	
 }
 
@@ -77,19 +77,19 @@ Download more PSD stuff from www.psdgraphics.com
 .psdg-right {
 	float:left;
 	margin:0;
-	padding: 11px 0 0 0;
+	padding: 5px 0 0 0;
 	width: 105px;
 	text-align:center;
 	height: 24px;
 	border-right: 1px solid #ced9ec;
-	border-bottom: 1px solid #b3c1db;
+	/* border-bottom: 1px solid #b3c1db; */
 }
 
 #psdg-bottom {
 	clear:both;
 	margin:0;
 	padding: 0;
-	width: 978px;
+	width: 970px;
 	height: 48px;
 	border-top: 2px solid #FFF;
 	background: #e4e3e3 url(images/bottom-line.png) repeat-x left top;	
@@ -112,7 +112,7 @@ Download more PSD stuff from www.psdgraphics.com
 #psdg-footer {
 	font-size: 10px;
 	color:#8a8a8a;
-	margin:0;
+	margin:970px;
 	padding: 8px 0 8px 12px;
 	width: 966px;
 	background: #f6f6f6 url(images/center-bcg.png) repeat-y right top;	
