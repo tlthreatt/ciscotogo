@@ -277,6 +277,7 @@ input[type=submit]:active {
   <section class="container">
     <div class="login">
       <h1>Login to CiscoToGo</h1>
+      <h1>Please enter your CEC credentials</h1>
       <form method="post" action="/ciscotogo/orderToGo">
         <p><input type="text" name="customer_cec" value="" placeholder="Username or Email"></p>
         <p><input type="password" name="customer_password" value="" placeholder="Password"></p>
