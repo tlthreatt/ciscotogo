@@ -15,7 +15,85 @@
   </head>
 <body>
   <div class="navbar navbar-static-top">
-    <div class="navbar-inner" style="overflow:hidden; background-image:url(http://wwwin-dev.cisco.com/it/swc/templates/sow/platform/img/cisco-header.png); background-position:center; background-repeat:no-repeat;min-height:75px;"> </div>
+  	<!-- begin: masterbrand banner -->
+			<div id="fw-banner">
+				<div id="fw-banner-w1">
+
+					<!-- skiplinks -->
+					<div id="fw-mbsk">
+						<p>
+							<a href="http://www.cisco.com" tabindex="3">Home</a> <a
+								href="#content">Skip to content</a> <a href="#hinav">Skip to
+								navigation</a> <a href="#pagefooter">Skip to footer</a>
+						</p>
+					</div>
+
+					<!-- logo -->
+					<div id="fw-mbl">
+						<p>
+							<a href="http://www.cisco.com">Cisco.com Worldwide Home</a>
+						</p>
+					</div>
+  <!-- search -->
+					<span class="search-entitlement">Guest</span>
+					<div id="fw-mbs">
+						<form name="sitewidesearch"
+							action="http://tools.cisco.com/search/JSP/search-results.get"
+							method="get" id="sitewidesearch">
+							<label for="searchPhrase" name="search" id="search">Search</label>
+							<p class="field-button">
+								<input type="text" tabindex="1" name="strQueryText"
+									class="field-button-field" id="searchPhrase" value=""
+									autocomplete="off"> <input type="submit" tabindex="2"
+									value="Search" class="field-button-button" id="go">
+							</p>
+							<input type="hidden" value="cisco.com"
+								name="Search All cisco.com"> <input type="hidden"
+								value="en" name="language"> <input type="hidden"
+								value="US" name="country"> <input type="hidden"
+								value="f" name="thissection"> <input type="hidden"
+								value="Guest" name="accessLevel">
+						</form>
+					</div>
+					<!-- end #fw-mbs -->
+					<script type="text/javascript">
+						if ((typeof cdc.search) == "undefined") {
+							cdc.search = new Object();
+						}
+						cdc.search.country = "US";
+						cdc.search.language = "en";
+					</script>
+					<!-- end search -->
+
+					<!-- toolbar -->
+					<div id="fw-ft-basic">
+						<div class="ft-toolbar">
+							<div class="ft-group ft-country-lang-group">
+								<div class="ft-sect ft-country">
+									<a
+										href="http://cisco.com/en/US/swassets/sw274/sitewide_country_language_selector.html"
+										class="ft-label"><span class="ft-country-name">Worldwide</span>
+										<span class="ft-country-change">[change]</span></a>
+								</div>
+							</div>
+							</div>
+					</div>
+					<!-- end toolbar -->
+
+
+				</div>
+				<!-- end #fw-banner-w1 -->
+			</div>
+			<!-- end #fw-banner -->
+			<!-- end: masterbrand banner -->
+  
+  
+  
+  
+  
+  
+  
+<!--     <div class="navbar-inner" style="overflow:hidden; background-image:url(http://wwwin-dev.cisco.com/it/swc/templates/sow/platform/img/cisco-header.png); background-position:center; background-repeat:no-repeat;min-height:75px;"> </div> -->
   </div>
   <div style="width:1024px;height:720px;margin:0 auto;padding-top:20px;" id="csw-module-content">
 
