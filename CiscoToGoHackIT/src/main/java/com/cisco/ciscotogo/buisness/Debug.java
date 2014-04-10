@@ -14,7 +14,7 @@ import org.hibernate.tool.hbm2ddl.Target;
 import com.cisco.ciscotogo.dao.CustomerDao;
 import com.cisco.ciscotogo.dao.EmployeeDao;
 import com.cisco.ciscotogo.dao.LocationDao;
-import com.cisco.ciscotogo.dao.RatingDao;
+//import com.cisco.ciscotogo.dao.RatingDao;
 import com.cisco.ciscotogo.model.Category;
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;

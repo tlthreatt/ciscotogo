@@ -188,37 +188,37 @@
 					</div>
 
 					<!-- megamenus -->
-					<div id="fw-mm">
-						<table class="mm-items" cellspacing="0" summary="">
-							<tr>
-								<td class="mm-item" id="products-mm-item"><a
-									href="http://www.cisco.com/en/US/products/index.html"
-									class="mm-link">Products &amp; Services</a> <a
-									href="//www.cisco.com/web/fw/co/painted-menu-content.html#products-mm-menu"
-									class="mm-reflink">(menu)</a></td>
-								<td class="mm-item" id="support-mm-item"><a
-									href="http://www.cisco.com/cisco/web/support/index.html"
-									class="mm-link">Support</a> <a
-									href="//www.cisco.com/web/fw/co/painted-menu-content.html#support-mm-menu"
-									class="mm-reflink">(menu)</a></td>
-								<td class="mm-item" id="ordering-mm-item"><a
-									href="http://www.cisco.com/en/US/ordering/index.shtml"
-									class="mm-link">How to Buy</a> <a
-									href="//www.cisco.com/web/fw/co/painted-menu-content.html#ordering-mm-menu"
-									class="mm-reflink">(menu)</a></td>
-								<td class="mm-item" id="training-mm-item"><a
-									href="http://www.cisco.com/en/US/learning/index.html"
-									class="mm-link">Training &amp; Events</a> <a
-									href="//www.cisco.com/web/fw/co/painted-menu-content.html#training-mm-menu"
-									class="mm-reflink">(menu)</a></td>
-								<td class="mm-item" id="partner-mm-item"><a
-									href="http://www.cisco.com/en/US/partners/index.html"
-									class="mm-link">Partners</a> <a
-									href="//www.cisco.com/web/fw/co/painted-menu-content.html#partner-mm-menu"
-									class="mm-reflink">(menu)</a></td>
-							</tr>
-						</table>
-					</div>
+<!-- 					<div id="fw-mm"> -->
+<!-- 						<table class="mm-items" cellspacing="0" summary=""> -->
+<!-- 							<tr> -->
+<!-- 								<td class="mm-item" id="products-mm-item"><a -->
+<!-- 									href="http://www.cisco.com/en/US/products/index.html" -->
+<!-- 									class="mm-link">Products &amp; Services</a> <a -->
+<!-- 									href="//www.cisco.com/web/fw/co/painted-menu-content.html#products-mm-menu" -->
+<!-- 									class="mm-reflink">(menu)</a></td> -->
+<!-- 								<td class="mm-item" id="support-mm-item"><a -->
+<!-- 									href="http://www.cisco.com/cisco/web/support/index.html" -->
+<!-- 									class="mm-link">Support</a> <a -->
+<!-- 									href="//www.cisco.com/web/fw/co/painted-menu-content.html#support-mm-menu" -->
+<!-- 									class="mm-reflink">(menu)</a></td> -->
+<!-- 								<td class="mm-item" id="ordering-mm-item"><a -->
+<!-- 									href="http://www.cisco.com/en/US/ordering/index.shtml" -->
+<!-- 									class="mm-link">How to Buy</a> <a -->
+<!-- 									href="//www.cisco.com/web/fw/co/painted-menu-content.html#ordering-mm-menu" -->
+<!-- 									class="mm-reflink">(menu)</a></td> -->
+<!-- 								<td class="mm-item" id="training-mm-item"><a -->
+<!-- 									href="http://www.cisco.com/en/US/learning/index.html" -->
+<!-- 									class="mm-link">Training &amp; Events</a> <a -->
+<!-- 									href="//www.cisco.com/web/fw/co/painted-menu-content.html#training-mm-menu" -->
+<!-- 									class="mm-reflink">(menu)</a></td> -->
+<!-- 								<td class="mm-item" id="partner-mm-item"><a -->
+<!-- 									href="http://www.cisco.com/en/US/partners/index.html" -->
+<!-- 									class="mm-link">Partners</a> <a -->
+<!-- 									href="//www.cisco.com/web/fw/co/painted-menu-content.html#partner-mm-menu" -->
+<!-- 									class="mm-reflink">(menu)</a></td> -->
+<!-- 							</tr> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
 					<!-- end #fw-mm -->
 
 					<!-- search -->
@@ -263,25 +263,25 @@
 										<span class="ft-country-change">[change]</span></a>
 								</div>
 							</div>
-							<div class="ft-group ft-guest-group">
-								<div class="ft-sect ft-login">
-									<a href="http://www.cisco.com/cgi-bin/login" class="ft-label">Log
-										In</a>
-								</div>
-								<div class="ft-sect ft-account">
-									<a
-										href="http://www.cisco.com/web/siteassets/account/index.html"
-										class="ft-label">Account</a>
-								</div>
-								<div class="ft-sect ft-register">
-									<a href="http://tools.cisco.com/RPF/register/register.do"
-										class="ft-label">Register</a>
-								</div>
+<!-- 							<div class="ft-group ft-guest-group"> -->
+<!-- 								<div class="ft-sect ft-login"> -->
+<!-- 									<a href="http://www.cisco.com/cgi-bin/login" class="ft-label">Log -->
+<!-- 										In</a> -->
+<!-- 								</div> -->
+<!-- 								<div class="ft-sect ft-account"> -->
+<!-- 									<a -->
+<!-- 										href="http://www.cisco.com/web/siteassets/account/index.html" -->
+<!-- 										class="ft-label">Account</a> -->
+<!-- 								</div> -->
+<!-- 								<div class="ft-sect ft-register"> -->
+<!-- 									<a href="http://tools.cisco.com/RPF/register/register.do" -->
+<!-- 										class="ft-label">Register</a> -->
+<!-- 								</div> -->
 <!-- 								<div class="ft-sect"> -->
 <!-- 									<a href="http://www.cisco.com/cisco/psn/web/workspace" -->
 <!-- 										class="ft-label">My Cisco</a> -->
 <!-- 								</div> -->
-							</div>
+<!-- 							</div> -->
 						</div>
 					</div>
 					<!-- end toolbar -->

@@ -30,7 +30,7 @@ import com.cisco.ciscotogo.buisness.CustomerBiz;
 import com.cisco.ciscotogo.buisness.EmployeeBiz;
 import com.cisco.ciscotogo.buisness.LocationBiz;
 import com.cisco.ciscotogo.buisness.OrderBiz;
-import com.cisco.ciscotogo.buisness.RatingBiz;
+//import com.cisco.ciscotogo.buisness.RatingBiz;
 import com.cisco.ciscotogo.dao.CustomerDao;
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;
@@ -109,15 +109,15 @@ public class HomeController{
 		return LocationBiz.FetchLocationsAndCategoriesAndItems();
 	}
 	
-	@RequestMapping(value="/getRatingDetails", method = RequestMethod.POST,produces = "application/json")
-	public @ResponseBody List<Rating> getRatingDetails(HttpServletRequest request, HttpServletResponse response) throws JSONException{
-	//public @ResponseBody List<Location> getFoodDetails(@RequestParam("customer_cec") String customerCec, HttpServletRequest request, HttpServletResponse response) throws Exception{
-		// Ideally the customer would have a "recent_location" table to pull these from
-		System.out.println("in /getRatingDetails");
-		String json = (String)request.getParameter("json");
-		
-		return RatingBiz.FetchReviews(json);
-	}
+//	@RequestMapping(value="/getRatingDetails", method = RequestMethod.POST,produces = "application/json")
+//	public @ResponseBody List<Rating> getRatingDetails(HttpServletRequest request, HttpServletResponse response) throws JSONException{
+//	//public @ResponseBody List<Location> getFoodDetails(@RequestParam("customer_cec") String customerCec, HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		// Ideally the customer would have a "recent_location" table to pull these from
+//		System.out.println("in /getRatingDetails");
+//		String json = (String)request.getParameter("json");
+//		
+//		return RatingBiz.FetchReviews(json);
+//	}
 	
 	
 	
