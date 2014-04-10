@@ -383,7 +383,7 @@
 													</div>
 												</div>
 											</div>
-											
+											<!-- 
 											<div class="row slimScrollDiv">
 												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='ratingLoadImage' alt='Loading...'>										
 												<div id="ratingInfoTile" class="tile double bg-blue slimScrollDiv">
@@ -393,7 +393,7 @@
 													</div>
 												</div>
 											</div>
-											
+											-->
 										</div>
 										<!-- END CONTAINER -->
 										<!-- ***END MAIN CONTENT SAMPLE*** -->
