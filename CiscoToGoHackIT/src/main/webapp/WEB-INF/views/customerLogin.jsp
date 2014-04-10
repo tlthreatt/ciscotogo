@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Login Form</title>
+  <title>CiscoToGo Login</title>
   <!-- <link rel="stylesheet" href="css/style.css"> -->
   <style type="text/css">
    html, body, div, span, applet, object, iframe,
@@ -279,8 +279,8 @@ input[type=submit]:active {
       <h1>Login to CiscoToGo</h1>
       <h1>Please enter your CEC credentials</h1>
       <form method="post" action="/ciscotogo/orderToGo">
-        <p><input type="text" name="customer_cec" value="" placeholder="Username or Email"></p>
-        <p><input type="password" name="customer_password" value="" placeholder="Password"></p>
+        <p><input type="text" name="customer_cec" value="" placeholder="CEC Username"></p>
+        <p><input type="password" name="customer_password" value="" placeholder="CEC Password"></p>
         <p class="remember_me">
           <label>
             <input type="checkbox" name="remember_me" id="remember_me">

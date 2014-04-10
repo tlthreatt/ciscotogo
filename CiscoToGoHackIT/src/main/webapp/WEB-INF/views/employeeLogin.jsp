@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Login Form</title>
+  <title>CiscoToGo Kitchen Login</title>
   <!-- <link rel="stylesheet" href="css/style.css"> -->
   <style type="text/css">
    html, body, div, span, applet, object, iframe,
@@ -276,10 +276,10 @@ input[type=submit]:active {
 <body>
   <section class="container">
     <div class="login">
-      <h1>Employee Login for CiscoToGo</h1>
+      <h1>Kitchen Login for CiscoToGo</h1>
       <h1>**This portal is not for Cisco Employees!**</h1>
       <form method="post" action="/ciscotogo/processOrder">
-        <p><input type="text" name="employee_email" value="" placeholder="Username or Email"></p>
+        <p><input type="text" name="employee_email" value="" placeholder="Email"></p>
         <p><input type="password" name="employee_password" value="" placeholder="Password"></p>
         <p class="remember_me">
           <label>
@@ -292,7 +292,7 @@ input[type=submit]:active {
     </div>
 
     <div class="login-help">
-      <p>Forgot your password? <a href="https://pwreset.cisco.com/CISCO/psf.exe#2">Click here to reset it</a>.</p>
+      <p>Forgot your password? <a href="https://pwreset.cisco.com/CISCO/psf.exe#2">Sorry, it's gone forever :-(</a></p>
     </div>
   </section>
 </body>
