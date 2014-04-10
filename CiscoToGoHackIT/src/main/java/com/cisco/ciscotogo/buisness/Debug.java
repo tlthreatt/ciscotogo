@@ -104,8 +104,8 @@ public class Debug {
 		Category beveragesFLSC2 = new Category("Beverages", false);
 		beveragesFLSC2.setLocation(locationFLSC2);
 		
-		Category mariosJ = new Category("Mario's Italian Kitchen", false);
-		mariosJ.setLocation(location);
+		//Category mariosJ = new Category("Mario's Italian Kitchen", false);
+		//mariosJ.setLocation(location);
 		
 		Category chinaFLSC2 = new Category("China Bistro", false);
 		chinaFLSC2.setLocation(locationFLSC2);
@@ -132,27 +132,27 @@ public class Debug {
 		snappleJ.setListPrice(1.99);
 		snappleJ.setCategory(beveragesJ);
 		
-		Item lasagnaJ = new Item();
-		lasagnaJ.setName("Lasagna (contains meat)");
-		lasagnaJ.setListPrice(5.99);
-		lasagnaJ.setCategory(mariosJ);
-		
+		//Item lasagnaJ = new Item();
+		//lasagnaJ.setName("Lasagna (contains meat)");
+		//lasagnaJ.setListPrice(5.99);
+		//lasagnaJ.setCategory(mariosJ);
+		/*
 		Item eggplantJ = new Item();
 		eggplantJ.setName("Eggplant Parmesan");
 		eggplantJ.setListPrice(5.99);
 		eggplantJ.setCategory(mariosJ);
-		
-		itemsJ.add(chickenSandwhich); bevItemsJ.add(pepsi);
-		itemsJ.add(hamburgerJ); bevItemsJ.add(snappleJ);
-		italyItemsJ.add(eggplantJ); italyItemsJ.add(lasagnaJ);
-		
+		*/
+//		itemsJ.add(chickenSandwhich); bevItemsJ.add(pepsi);
+//		itemsJ.add(hamburgerJ); bevItemsJ.add(snappleJ);
+//		italyItemsJ.add(eggplantJ); italyItemsJ.add(lasagnaJ);
+//		
 		americanGrill.setItems(itemsJ);
-		mariosJ.setItems(italyItemsJ);
+		//mariosJ.setItems(italyItemsJ);
 		beveragesJ.setItems(bevItemsJ);
 		
 		categoriesJ.add(americanGrill);
 		categoriesJ.add(beveragesJ);
-		categoriesJ.add(mariosJ);
+		//categoriesJ.add(mariosJ);
 		
 		location.setCategories(categoriesJ);
 		System.out.println("Supposed to be saving location  J");		
@@ -160,7 +160,7 @@ public class Debug {
 	
 		locations.add(location);
 	
-		
+		/*
 		//these items are for FLSC2
 		Item chickenSandwhichFLSC2 = new Item();
 		chickenSandwhichFLSC2.setName("Chicken Sandwhich");
@@ -209,7 +209,7 @@ public class Debug {
 		LocationDao.save(locationFLSC2);
 	
 		locations.add(locationFLSC2);
-		
+		*/
 		
 		
 		
@@ -224,6 +224,7 @@ public class Debug {
 		//turn this off
 		CustomerDao.save(customer);
 		
+		/*
 		Customer customer1 = new Customer("clachan");
 		customer1.setEmail("clachan@cisco.com");
 		customer1.setFirstName("Clayton");
@@ -233,6 +234,7 @@ public class Debug {
 		customer1.setBalance(15.00);
 		//turn this off
 		CustomerDao.save(customer1);
+		*/
 		
 		/*
 		Customer customer2 = new Customer("eyaklin");
@@ -265,14 +267,14 @@ public class Debug {
 		employee.setPassword("password");
 		employee.setLocation(location);
 		EmployeeDao.save(employee);
-		
+		/*
 		Employee employee1 = new Employee("taylor@ciscotogo.com");
 		employee1.setFirstName("Taylor");
 		employee1.setLastName("Threatt");
 		employee1.setPassword("password");
 		employee1.setLocation(location);
 		EmployeeDao.save(employee1);
-	
+		*/
 		
 		
 	}

@@ -24,7 +24,7 @@
 		$(txt).prop('disabled', true);
 		var dat = {json:JSON.stringify({id:orderId})};
 		//alert("dat = " + JSON.stringify(dat));
-		$('#btn_' + orderId).html("<div id='btn_"  + obj[ob].id + "'>" + "Complete" + "</div>");
+		$('#btn_' + orderId).html("<div id='btn_"  + orderId + "'>" + "Complete" + "</div>");
 		console.log(dat);
 		$.ajax({
 			type: "POST",

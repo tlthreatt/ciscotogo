@@ -32,11 +32,11 @@ import com.cisco.ciscotogo.buisness.LocationBiz;
 import com.cisco.ciscotogo.buisness.OrderBiz;
 //import com.cisco.ciscotogo.buisness.RatingBiz;
 import com.cisco.ciscotogo.dao.CustomerDao;
+import com.cisco.ciscotogo.misc.SendMailTLS;
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;
 import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.Order;
-import com.cisco.ciscotogo.model.Rating;
 
 @Controller
 public class HomeController{
@@ -180,8 +180,8 @@ public class HomeController{
 		String json = (String)request.getParameter("json");
 		System.out.println("in /orderReady");
 		System.out.println("json == " + json);
-		//SendMailTLS mailer = new SendMailTLS();
-		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
+		SendMailTLS mailer = new SendMailTLS();
+		mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
 		OrderBiz.SetOrderToReady(json);
 		return "success";
 	}
@@ -191,8 +191,8 @@ public class HomeController{
 		System.out.println("in /orderComplete");
 		String json = (String)request.getParameter("json");
 		System.out.println("json == " + json);
-		//SendMailTLS mailer = new SendMailTLS();
-		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
+		SendMailTLS mailer = new SendMailTLS();
+		mailer.sendEmail("Taylor", "tathreat@cisco.com", 1);
 		OrderBiz.SetOrderToComplete(json);
 		return "success";
 	}
@@ -207,8 +207,8 @@ public class HomeController{
 		CustomerDao.update(currentCustomer);
 		//This causes a duplicate key entry -- I would have thought it would update it but its trying to insert a new row
 		
-		//SendMailTLS mailer = new SendMailTLS();
-		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 2);
+		SendMailTLS mailer = new SendMailTLS();
+		mailer.sendEmail("Taylor", "tathreat@cisco.com", 2);
 		return "success";
 	}
 	
