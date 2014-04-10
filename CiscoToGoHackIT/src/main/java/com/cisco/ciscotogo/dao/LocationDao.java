@@ -36,6 +36,7 @@ public class LocationDao extends Dao {
 		Query query = session.createQuery("select location from com.cisco.ciscotogo.model.Location location join location.categories categories join categories.items items where location.id = categories.location.id AND items.category.id = categories.id");
 		
 		Set<Location> locations = new HashSet<Location>((List<Location>)query.list());
+		/*
 		System.out.println("locations length = " + locations.size());
 		for (Location location : locations) {
 			System.out.print(location.getName());
@@ -46,7 +47,7 @@ public class LocationDao extends Dao {
 				}
 			}
 		}
-		
+		*/
 		return locations;
 		
 	}

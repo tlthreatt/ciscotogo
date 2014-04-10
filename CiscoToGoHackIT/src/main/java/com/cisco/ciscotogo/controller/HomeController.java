@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,12 +30,13 @@ import com.cisco.ciscotogo.buisness.CustomerBiz;
 import com.cisco.ciscotogo.buisness.EmployeeBiz;
 import com.cisco.ciscotogo.buisness.LocationBiz;
 import com.cisco.ciscotogo.buisness.OrderBiz;
+import com.cisco.ciscotogo.buisness.RatingBiz;
 import com.cisco.ciscotogo.dao.CustomerDao;
-import com.cisco.ciscotogo.misc.SendMailTLS;
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;
 import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.Order;
+import com.cisco.ciscotogo.model.Rating;
 
 @Controller
 public class HomeController{
@@ -54,6 +54,11 @@ public class HomeController{
 	public String testlogin(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("in /testlogin");
 		return "testlogin";
+	}
+	@RequestMapping(value= "/orderToGo", method = RequestMethod.GET)
+	public String customerLoginRedirect(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("in /orderToGoGet");
+		return "customerLogin";
 	}
 	@RequestMapping(value = "/orderToGo", method = RequestMethod.POST)
 	public String dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -102,6 +107,16 @@ public class HomeController{
 		// Ideally the customer would have a "recent_location" table to pull these from
 		System.out.println("in /getFoodDetails");
 		return LocationBiz.FetchLocationsAndCategoriesAndItems();
+	}
+	
+	@RequestMapping(value="/getRatingDetails", method = RequestMethod.POST,produces = "application/json")
+	public @ResponseBody List<Rating> getRatingDetails(HttpServletRequest request, HttpServletResponse response) throws JSONException{
+	//public @ResponseBody List<Location> getFoodDetails(@RequestParam("customer_cec") String customerCec, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		// Ideally the customer would have a "recent_location" table to pull these from
+		System.out.println("in /getRatingDetails");
+		String json = (String)request.getParameter("json");
+		
+		return RatingBiz.FetchReviews(json);
 	}
 	
 	

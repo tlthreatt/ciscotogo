@@ -4,9 +4,9 @@
 		$(button).prop('disabled', true);
 		$(button).html('Ready');
 		var dat = {json:JSON.stringify({id:orderId})};
-		alert("dat = " + JSON.stringify(dat));
+		//alert("dat = " + JSON.stringify(dat));
 		console.log(dat);
-		alert($("#rfid_" + orderId).text);
+		//alert($("#rfid_" + orderId).text);
 		$("#rfid_" + orderId).html("<div id='rfid_"  + orderId + "'>" + "<input class='completeBox tb5' type='text' size='10' onkeypress='complete_text(this," + orderId + ");' />" + "</div>");
 		
 		$.ajax({
@@ -23,7 +23,8 @@
 	function complete_text(txt, orderId) {
 		$(txt).prop('disabled', true);
 		var dat = {json:JSON.stringify({id:orderId})};
-		alert("dat = " + JSON.stringify(dat));
+		//alert("dat = " + JSON.stringify(dat));
+		$('#btn_' + orderId).html("<div id='btn_"  + obj[ob].id + "'>" + "Complete" + "</div>");
 		console.log(dat);
 		$.ajax({
 			type: "POST",

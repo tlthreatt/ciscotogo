@@ -3,6 +3,28 @@ Custom module for you to write your own javascript functions
 **/
 var Custom = function () {
 	
+	
+	
+	function createRatingForm(location) {
+		/*
+		$('#ratingInfoTileContents').append('<div style="float:left; width:300px;"><h1 style="line-height:60px">Recent Ratings </h1><h1 style="line-height:60px">of '+ location.name + '</h1></div>');
+		
+		dat = {json:JSON.stringify({location_id:location.id})};
+		alert("dat == " + dat);
+		
+		$.ajax({
+			type: "POST",
+			url: "getRatings/",
+			data : dat,
+			success: function(response){
+				obj = $.parseJSON(response);
+				alert("ratings == " + JSON.stringify(obj));
+				$("#ratingLoadImage").fadeOut();   
+			}
+		});
+		*/
+	}
+	
 	//gets the contact info for the contact info file
 	
 	function createOrderForm(name, categories){
@@ -19,7 +41,8 @@ var Custom = function () {
 				
 				var html_string = '<input type="checkbox" name="item" value="' + item.id + '">';
 				html_string += '<label style="font-size:16px">' + item.name + '</label>';
-				html_string += '<label style="font-size:16px">' + item.listPrice + '</label><br>'
+				html_string += '<label style="font-size:16px">' + item.listPrice + '</label><br>';
+				
 				$('#mealRadioButtons').append(html_string);
 			});
 		});
@@ -184,6 +207,8 @@ var Custom = function () {
             			///alert("promise.responseText == " + JSON.stringify(promise.responseText));
             			///alert("promise == " + JSON.stringify(promise));
             			///current_customer = promise;
+            			alert("WTF" + JSON.stringify(promise));
+            			alert("WTF" + promise.responseText);
             			return promise.responseText;
             		}
             	};
@@ -200,6 +225,7 @@ var Custom = function () {
         			//alert("foodDetails promise.resp = " + promise.responseText);
         			//alert("foodDetails promise.resp = " + JSON.stringify(promise));
         			return promise;
+        			alert("food details promise == " + JSON.stringify(promise));
         		}
         	};
         	
@@ -213,6 +239,7 @@ var Custom = function () {
             			});
             			
             			return promise;
+            			alert("orderdetails promise == " + JSON.stringify(promise));
             		}
             	};
         	
@@ -255,6 +282,9 @@ var Custom = function () {
     			//populate big blue tile
     			$('#foodInfoTile').fadeIn(); 
     			
+    			//populate rating tile
+    			$('#ratingInfoTile').fadeIn();
+    			
     			fillUserTile(orderResults[0]);
     			
     			fillOrderTile(orderResults[0].orders);
@@ -288,6 +318,7 @@ var Custom = function () {
 	            	console.log($(this).attr('id'));
 	            	//alert("index == " + index);
 	            	$('#foodInfoTileContents').empty();
+	            	$('#ratingInfoTileContents').empty();
 	            	//alert("foodResults[0][index].categories = " + foodResults[0][index].categories);
 	            	//alert("foodResults[0][index].name = " + foodResults[0][index].name);
 	            	//createOrderForm(foodResults[0].locations[index].buildingName, foodResults[0].locations[index].dailyMenus[0].menuCategories);
@@ -296,6 +327,14 @@ var Custom = function () {
 	            		$('#foodInfoTileContents').empty();
 	            	});
 	            	
+	            	
+	            	createRatingForm(foodResults[0][index]);
+	            	
+	            	
+	            	//Review confirm button
+	            	
+	            	
+	            	// Order confirm button
 	            	$('#confirmButton').click(function(){
 	            		var isChecked = false;
 	            		var items = [];

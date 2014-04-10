@@ -14,6 +14,7 @@ import org.hibernate.tool.hbm2ddl.Target;
 import com.cisco.ciscotogo.dao.CustomerDao;
 import com.cisco.ciscotogo.dao.EmployeeDao;
 import com.cisco.ciscotogo.dao.LocationDao;
+import com.cisco.ciscotogo.dao.RatingDao;
 import com.cisco.ciscotogo.model.Category;
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;
@@ -22,6 +23,7 @@ import com.cisco.ciscotogo.model.Location;
 import com.cisco.ciscotogo.model.LocationAddress;
 import com.cisco.ciscotogo.model.LocationHours;
 import com.cisco.ciscotogo.model.LocationList;
+import com.cisco.ciscotogo.model.Rating;
 
 public class Debug {
 	public static void main(String[] args) {
@@ -153,7 +155,7 @@ public class Debug {
 		categoriesJ.add(mariosJ);
 		
 		location.setCategories(categoriesJ);
-		
+		System.out.println("Supposed to be saving location  J");		
 		LocationDao.save(location);
 	
 		locations.add(location);
@@ -203,7 +205,7 @@ public class Debug {
 		categoriesFLSC2.add(chinaFLSC2);
 		
 		locationFLSC2.setCategories(categoriesFLSC2);
-				
+		System.out.println("Supposed to be saving location FLSC2");		
 		LocationDao.save(locationFLSC2);
 	
 		locations.add(locationFLSC2);
@@ -231,6 +233,30 @@ public class Debug {
 		customer1.setBalance(15.00);
 		//turn this off
 		CustomerDao.save(customer1);
+		
+		/*
+		Customer customer2 = new Customer("eyaklin");
+		customer2.setEmail("eyaklin@cisco.com");
+		customer2.setFirstName("Eric");
+		customer2.setLastName("Yaklin");
+		customer2.setPassword("password");
+		customer2.setTextEnabled(false);
+		// turn this off
+		customer2.setBalance(10.00);
+		CustomerDao.save(customer2);
+		
+		
+		// RATINGS
+		Rating rating1 = new Rating("The cute lunch lady won't go out with me", 1);
+		rating1.setCustomer(customer);
+		rating1.setLocation(location);
+		RatingDao.save(rating1);
+		
+		Rating rating2 = new Rating("This is my favorite cafeteria in Cisco", 5);
+		rating2.setCustomer(customer1);
+		rating2.setLocation(location);
+		RatingDao.save(rating2);
+		*/
 		
 		//EMPLOYEES
 		Employee employee = new Employee("matthew@ciscotogo.com");

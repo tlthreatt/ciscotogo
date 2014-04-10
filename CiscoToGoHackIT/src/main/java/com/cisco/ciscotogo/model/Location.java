@@ -3,6 +3,7 @@ package com.cisco.ciscotogo.model;
 import java.util.List;
 import java.util.Set;
 
+
 //import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,12 +36,12 @@ public class Location {
 	@JsonManagedReference
 	private LocationHours locationHours;
 	
-	@OneToMany(mappedBy="location", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="location")//, fetch=FetchType.LAZY)
 	@Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private Set<Category> categories;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="location", fetch=FetchType.LAZY) //@Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Employee> employees;
 	
@@ -48,12 +49,13 @@ public class Location {
 	@JsonManagedReference
 	private List<Order> orders;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="location", fetch=FetchType.LAZY) @Cascade(CascadeType.ALL)
 	@JsonManagedReference
 	private List<Customer> customers;
 	
-	@OneToMany(mappedBy="location") @Cascade(CascadeType.ALL)
+	@OneToMany(mappedBy="location", fetch=FetchType.LAZY) //@Cascade(CascadeType.ALL)
 	@JsonManagedReference
+	//@JsonBackReference
 	private List<Rating> ratings;
 	
 	public Location() {};

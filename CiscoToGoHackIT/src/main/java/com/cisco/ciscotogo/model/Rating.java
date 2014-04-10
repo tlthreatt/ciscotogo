@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity(name="rating")
 public class Rating {
@@ -23,10 +24,12 @@ public class Rating {
 	private int stars; // one through 10
 	
 	@ManyToOne @JoinColumn(name="customer_cec", nullable=false)
-	@JsonBackReference
+	//@JsonBackReference
+	@JsonManagedReference
 	private Customer customer;
 	
 	@ManyToOne @JoinColumn(name="location_id", nullable=false)
+	//@JsonManagedReference
 	@JsonBackReference
 	private Location location;
 

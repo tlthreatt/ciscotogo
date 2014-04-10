@@ -364,24 +364,36 @@
 											</div>
 											<!-- END TOP 4 TILES -->
 											<!-- BEGIN BIG BLUE TILE -->
-											<div class="row">
+											<div class="row slimScrollDiv">
 												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='pageLoadImage' alt='Loading...'>										
-												<div id="foodInfoTile" class="tile double bg-blue">
-													<div id="foodInfoTileContents" class="tile-body" bg-blue>
+												<div id="foodInfoTile" class="tile double bg-blue slimScrollDiv">
+													<div id="foodInfoTileContents" class="tile-body slimScrollDiv" bg-blue>
 														<h1>HEALTH NEWS!</h1>
 														<br>
 														<br>
 														<h3>This just in! Studies show that BROCOLI IS BAD FOR YOU.</h3>
+														<!-- 
 														<br>
 														<h3>Eat Healthy! Grab a Snickers.</h3>
 														<br>
 														<h3>Studies show that spinach makes you DUMB.</h3>
 														<br>
 														<h3>HEALTH NEWS! is brought to you by HOSTESS (trademark copyright blah blah blah)</h3>
+														-->
 													</div>
 												</div>
 											</div>
-
+											
+											<div class="row slimScrollDiv">
+												<img src='/ciscotogo/resources/images/ajax-loader-white.gif' id='ratingLoadImage' alt='Loading...'>										
+												<div id="ratingInfoTile" class="tile double bg-blue slimScrollDiv">
+													<div id="ratingInfoTileContents" class="tile-body slimScrollDiv bg-blue">
+														<h3>Review and Rate your Favorite Cafeterias.</h3>
+													
+													</div>
+												</div>
+											</div>
+											
 										</div>
 										<!-- END CONTAINER -->
 										<!-- ***END MAIN CONTENT SAMPLE*** -->

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -50,8 +51,9 @@ public class Customer {
 	private List<Order> orders;
 	
 	/* Should I cascade here? */
-	@OneToMany(mappedBy="customer") @Cascade(CascadeType.ALL)
-	@JsonManagedReference
+	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY) //@Cascade(CascadeType.ALL)
+	//@JsonManagedReference
+	@JsonBackReference
 	private List<Rating> ratings;
 	
 	/* This should be transient */
