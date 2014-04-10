@@ -1,5 +1,6 @@
 package com.cisco.ciscotogo.buisness;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +19,8 @@ import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;
 import com.cisco.ciscotogo.model.Item;
 import com.cisco.ciscotogo.model.Location;
+import com.cisco.ciscotogo.model.LocationAddress;
+import com.cisco.ciscotogo.model.LocationHours;
 import com.cisco.ciscotogo.model.LocationList;
 
 public class Debug {
@@ -67,6 +70,22 @@ public class Debug {
 		
 		Location location = new Location();
 		location.setName("Bldg J");
+		LocationAddress locationAddress = new LocationAddress();
+		locationAddress.setLocation(location);
+		locationAddress.setCity("San Jose");
+		locationAddress.setCountry("USA");
+		locationAddress.setState("CA");
+		locationAddress.setStreet("255 W Tasman Dr");
+		locationAddress.setZip("95134");
+		LocationHours locationHours = new LocationHours();
+		locationHours.setLocation(location);
+		locationHours.setBreakfastStart(new Time(7,30,0));
+		locationHours.setBreakfastEnd(new Time(9,30,0));
+		locationHours.setLunchStart(new Time(11,30,0));
+		locationHours.setLunchEnd(new Time(13,30,0));
+		location.setLocationAddress(locationAddress);
+		location.setLocationHours(locationHours);
+		
 		
 		Location locationFLSC2 = new Location();
 		locationFLSC2.setName("Webex Tower");
@@ -198,6 +217,7 @@ public class Debug {
 		customer.setFirstName("Taylor");
 		customer.setLastName("Threatt");
 		customer.setPassword("password");
+		customer.setBalance(20.00);
 		customer.setTextEnabled(true);
 		//turn this off
 		CustomerDao.save(customer);
@@ -208,6 +228,7 @@ public class Debug {
 		customer1.setLastName("Chan");
 		customer1.setPassword("password");
 		customer1.setTextEnabled(true);
+		customer1.setBalance(15.00);
 		//turn this off
 		CustomerDao.save(customer1);
 		

@@ -6,6 +6,9 @@
 		var dat = {json:JSON.stringify({id:orderId})};
 		alert("dat = " + JSON.stringify(dat));
 		console.log(dat);
+		alert($("#rfid_" + orderId).text);
+		$("#rfid_" + orderId).html("<div id='rfid_"  + orderId + "'>" + "<input class='completeBox tb5' type='text' size='10' onkeypress='complete_text(this," + orderId + ");' />" + "</div>");
+		
 		$.ajax({
 			type: "POST",
 			url: "orderReady/",
@@ -73,19 +76,28 @@ $(document).ready(function(){
 				$('#cec').append("<div>" + "tathreat" + "</div>");
 				$('#buildingID').append("<div>" + "Bldg J" + "</div>");
 				//orderItems
-				var orderItemName = obj[ob].orderItems[0].item.name;
-				$('#menuItem').append("<div>" + obj[ob].orderItems[0].item.name + "</div>");
+				//var orderItemName = obj[ob].orderItems[0].item.name;
+				//alert(obj[ob].orderItems[0].item.name);
+				var menuItemString = "<div>";
+				for (var i = 0; i < obj[ob].orderItems.length; i++) {
+					//alert(JSON.stringify(obj[ob].orderItems[i]));
+					menuItemString += obj[ob].orderItems[i].item.name + "<br />";
+				}
+				menuItemString = menuItemString.substring(0, menuItemString.length - 6);
+				menuItemString += "</div>";
+				//alert("str = " + menuItemString);
+				$('#menuItem').append(menuItemString);
 				$('#price').append("<div>" + obj[ob].amount + "</div>");
 				if (obj[ob].status == "Pending") { //"<div>" + obj[ob].status + "</div>"
-					$('#readyButton').append("<div>" + "<button id='1status' type='button' class='readyButton' onclick='ready_button(this," +obj[ob].id + ");'></button>" + "</div>");
+					$('#readyButton').append("<div id='btn_"  + obj[ob].id + "'>" + "<button id='1status' type='button' class='readyButton' onclick='ready_button(this," +obj[ob].id + ");'></button>" + "</div>");
 					//$('#completeBox').append("<div>" + "<input class='completeBox tb5' type='text' size='10'  onkeypress='complete_text(this," + obj[ob].id + ");' />" + "</div>"); // onkeypress='complete_text(this," + obj[ob].id + ")
-					$('#completeBox').append("<div>" + " " + "</div");
+					$('#completeBox').append("<div id='rfid_"  + obj[ob].id + "'>" + " " + "</div");
 				} else if (obj[ob].status == "Ready") {
-					$('#readyButton').append("<div>" + "Ready" + "</div>");
-					$('#completeBox').append("<div>" + "<input class='completeBox tb5' type='text' size='10' onkeypress='complete_text(this," + obj[ob].id + ");' />" + "</div>"); // onkeypress='complete_text(this," + obj[ob].id + ")
+					$('#readyButton').append("<div id='btn_"  + obj[ob].id + "'>" + "Ready" + "</div>");
+					$('#completeBox').append("<div id='rfid_"  + obj[ob].id + "'>" + "<input class='completeBox tb5' type='text' size='10' onkeypress='complete_text(this," + obj[ob].id + ");' />" + "</div>"); // onkeypress='complete_text(this," + obj[ob].id + ")
 				} else if (obj[ob].status == "Complete") {
-					$('#readyButton').append("<div>" + "Complete" + "</div>");
-					$('#completeBox').append("<div>" + "Complete" + "</div>");
+					$('#readyButton').append("<div id='btn_"  + obj[ob].id + "'>" + "Complete" + "</div>");
+					$('#completeBox').append("<div id='rfid_"  + obj[ob].id + "'>" + "Complete" + "</div>");
 				}
 				
 				

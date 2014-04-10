@@ -54,8 +54,8 @@ public class Customer {
 	@JsonManagedReference
 	private List<Rating> ratings;
 	
-	
-	@Transient
+	/* This should be transient */
+	//@Transient
 	@Column(name="customer_balance")
 	private double balance;
 	

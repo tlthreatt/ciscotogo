@@ -31,6 +31,10 @@ public class Location {
 	@JsonManagedReference
 	private LocationAddress locationAddress;
 	
+	@OneToOne(mappedBy="location") @Cascade(CascadeType.ALL)
+	@JsonManagedReference
+	private LocationHours locationHours;
+	
 	@OneToMany(mappedBy="location", fetch=FetchType.EAGER)
 	@Cascade(CascadeType.ALL)
 	@JsonManagedReference
@@ -96,14 +100,54 @@ public class Location {
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
 	}
-	/*
+	
 	public LocationAddress getLocationAddress() {
 		return locationAddress;
 	}
 	public void setLocationAddress(LocationAddress locationAddress) {
 		this.locationAddress = locationAddress;
 	}
-	*/
+
+	public LocationHours getLocationHours() {
+		return locationHours;
+	}
+
+	public void setLocationHours(LocationHours locationHours) {
+		this.locationHours = locationHours;
+	}
+
+	public List<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(List<Employee> employees) {
+		this.employees = employees;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
+	}
+
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	
 
 	
 

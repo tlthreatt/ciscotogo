@@ -27,6 +27,16 @@ public class CustomerDao extends Dao {
 		session.getTransaction().commit();
 		session.close();
 	}
+	
+	public static void update(Customer customer) {
+		session = getSession();
+		session.beginTransaction();
+		
+		session.update(customer);
+		
+		session.getTransaction().commit();
+		session.close();
+	}
 
 	
 	public static void delete(Customer customer) {

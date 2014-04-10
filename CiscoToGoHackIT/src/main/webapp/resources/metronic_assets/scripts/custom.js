@@ -39,7 +39,7 @@ var Custom = function () {
 				//'<h4 style="padding-bottom:20px;"> Favorite Food: ' + user.favFood + '</h4>'+
 				//'<h4 style="padding-bottom:20px;"> Favorite Location: ' + user.favLocation + '</h4>'+
 				
-				'<h4> Balance: ' + customer.balance + '</h4>'	
+				'<h4 id="customer_balance"> Balance: ' + customer.balance + '</h4>'	
 		);
 		
 	}
@@ -96,6 +96,14 @@ var Custom = function () {
 				break;
 			}
 			//alert('location.name == ' + location.name);
+			var locationAddress = location.locationAddress;
+			var locationHours = location.locationHours;
+			/*
+			var breakfastStart = locationHours.breakfastStart;
+			var breakfastEnd = locationHours.breakfastEnd;
+			var lunchStart = locationHours.lunchStart;
+			var lunchEnd = locationHours.lunchEnd;
+			*/
 			$(".buildingTiles").find('ul').append(
 					'<li>'+
 					'<div class="tileContainer">'+
@@ -117,7 +125,9 @@ var Custom = function () {
 										'<i class="fa fa-times clickFlip"></i>'+
 									'</div>'+
 									'<div>'+
-										//'<p>'+location.buildingAddress+'</p>'+
+										'<p>'+locationAddress.street+',<br />' + locationAddress.city + ', ' + locationAddress.state + ' ' + locationAddress.zip + '<br /> ' + locationAddress.country + '</p>'+
+										'<p>Breakfast from ' + locationHours.breakfastStart + ' to ' + locationHours.breakfastEnd + '</p>' +
+										'<p>Lunch from ' + locationHours.lunchStart + ' to ' + locationHours.lunchEnd + '</p>' +
 									'</div>'+
 								'</div>'+
 							'</div>'+
@@ -148,6 +158,8 @@ var Custom = function () {
 	
 	var current_customer; // = {customer_cec:"tathreat", customer_balance:20.00};
 	//alert ("current_customer == " + JSON.stringify(current_customer));
+	
+	
 	
     // public functions
     return {
@@ -220,6 +232,7 @@ var Custom = function () {
         		
         		//alert("hi");
         		
+        		var location_id;
         		
         		//alert("toString() = " + JSON.stringify(foodResults));
         		//foodResults[0] is actual list
@@ -228,6 +241,8 @@ var Custom = function () {
         		
         		//alert("orderResults == " + JSON.stringify(orderResults));
         		
+        		alert("foodResuls = " + JSON.stringify(foodResults));
+        		alert("foodResults[0] = " + JSON.stringify(foodResults[0]));
         		
         		console.log(foodResults[0]);
         		console.log(orderResults[0]);
@@ -266,7 +281,10 @@ var Custom = function () {
 	        	});
 
 	            $('.menuLink').click(function(){ 
+	            	//this can be the location_id?
 	            	var index = parseInt($(this).attr('id'));
+	            	location_id = foodResults[0][index].id;
+	            	alert("location_id == " + location_id);
 	            	console.log($(this).attr('id'));
 	            	//alert("index == " + index);
 	            	$('#foodInfoTileContents').empty();
@@ -281,8 +299,9 @@ var Custom = function () {
 	            	$('#confirmButton').click(function(){
 	            		var isChecked = false;
 	            		var items = [];
-	            		var location_id = foodResults[0][0].id;
-            			var customer_cec = "tathreat"
+	            		// this needs to be set when the onchange from user clicking a location
+	            		//var location_id = foodResults[0][0].id;
+            			var customer_cec = "tathreat";
             			var item;
             			var total_amount = 0.0;
 	            		$('input:checkbox:checked').each(function(){
@@ -291,19 +310,35 @@ var Custom = function () {
 	            			//dat = "req=1/tathreat/"+ $(this).val()+"/"+foodResults[0][0].locations[index].buildingName+"/6/Pending";
 	            			var item_id = $(this).val();
 	            			var item_price;
+	            			alert("location_id = " + location_id);
+	            			//categoryLoop: // this is to break out of the loop once an item matches
 	            			foodResults[0][0].categories.forEach(function (c) { 
-	            				item = c.items.filter(function (i) {
+	            				
+	            				
+	            				
+	            				//item = c.items.filter (function (i) {
+	            				     c.items.forEach(function (i) {
 	            					//alert("!item = " + JSON.stringify(i));
-	            					return i.id == item_id});//.map(function(i){return i});
+	            					//alert("i.id = " + i.id + " item_id = " + item_id);
+	            					//return i.id == item_id});//.map(function(i){return i});
+	            					if (i.id == item_id) {
+	            						item = i;
+	            						//break categoryLoop;
+	            						//alert("match");
+	            					}
+	            				})
 	            			});
 	            			//alert("item == " + JSON.stringify(item));
 	            			//alert("item[0] == " + JSON.stringify(item[0]));
 	            			//alert("item price == " + item[0].listPrice);
-	            			items.push({id:item_id, list_price:item[0].listPrice});
-	            			total_amount += item[0].listPrice;
-	            			alert("total amount = " + total_amount)
+	            			//alert("item == " + JSON.stringify(item));
+	            			//items.push({id:item_id, list_price:item[0].listPrice});
+	            			items.push({id:item_id, list_price:item.listPrice});
+	            			//total_amount += item[0].listPrice;
+	            			total_amount += item.listPrice;
+	            			//alert("total amount = " + total_amount)
 	            			
-	            		})
+	            		});
 	            		
 	            		
 	            		
@@ -315,8 +350,11 @@ var Custom = function () {
 	            			alert('Your balance of $' + current_customer.balance + ' is less than $' + total_amount + '.');
 	            			return;
 	            		}
-
-            			var dat = {items : items, customer_cec:customer_cec, location_id:location_id, total_amount:total_amount};
+	            		var new_customer_balance = current_customer.balance - total_amount;
+	            		current_customer.balance = new_customer_balance;
+	            		alert("new customer balance == " + new_customer_balance);
+	            		$('#customer_balance').text("Balance: " + new_customer_balance);
+            			var dat = {items : items, customer_cec:customer_cec, new_customer_balance:new_customer_balance, location_id:location_id, total_amount:total_amount};
             			dat = {json:JSON.stringify(dat)};
             			//alert(dat);
             			$.ajax({

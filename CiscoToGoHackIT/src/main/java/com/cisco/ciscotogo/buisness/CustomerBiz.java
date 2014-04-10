@@ -21,7 +21,8 @@ public class CustomerBiz {
 		// nevermind this gives odd behavior
 		//customer.setPassword(null);
 		// This should fetch the customer balance, which I'll hard code for now.
-		customer.setBalance(20.00);
+		//customer.setBalance(20.00);
+		// for the demo im actually making the column in the database so as to subtract from balance on the page.
 		System.out.println("returning customer");
 		return customer;
 	}

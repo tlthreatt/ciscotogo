@@ -19,6 +19,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.codehaus.jettison.json.JSONTokener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,7 @@ import com.cisco.ciscotogo.buisness.CustomerBiz;
 import com.cisco.ciscotogo.buisness.EmployeeBiz;
 import com.cisco.ciscotogo.buisness.LocationBiz;
 import com.cisco.ciscotogo.buisness.OrderBiz;
+import com.cisco.ciscotogo.dao.CustomerDao;
 import com.cisco.ciscotogo.misc.SendMailTLS;
 import com.cisco.ciscotogo.model.Customer;
 import com.cisco.ciscotogo.model.Employee;
@@ -183,8 +186,12 @@ public class HomeController{
 	public @ResponseBody String createOrder(@RequestParam("json") String json) throws Exception{
 		System.out.println("JSON IS == " + json);
 		OrderBiz.CreateOrder(json);
-		//req=req.replaceAll(" ", "%20");
-		//httpPostResponse(CLAYTONS_REST_THINGY_URL+req, new ArrayList<NameValuePair>());
+		JSONObject jsonObject = (JSONObject)new JSONTokener(json).nextValue();
+		System.out.println("New customer balance == " + jsonObject.getDouble("new_customer_balance"));
+		getCurrentCustomer().setBalance(jsonObject.getDouble("new_customer_balance"));
+		CustomerDao.update(currentCustomer);
+		//This causes a duplicate key entry -- I would have thought it would update it but its trying to insert a new row
+		
 		//SendMailTLS mailer = new SendMailTLS();
 		//mailer.sendEmail("Taylor", "tathreat@cisco.com", 2);
 		return "success";
